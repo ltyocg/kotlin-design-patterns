@@ -15,6 +15,7 @@ subprojects {
         mavenCentral()
     }
     dependencies {
+        implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.5.1")
         implementation("ch.qos.logback", "logback-classic", "1.2.3")
         testImplementation(kotlin("test"))
     }
