@@ -12,5 +12,6 @@ fun main() {
             }
         }
         .toList()
+    Thread.sleep(1000)
     creatures.forEach { it.kill() }
 }
