@@ -3,8 +3,7 @@ package com.ltyocg.activeobject
 private const val NUM_CREATURES = 3
 
 fun main() {
-    val creatures = generateSequence(0) { it + 1 }
-        .take(NUM_CREATURES)
+    val creatures = (0 until NUM_CREATURES)
         .map {
             Orc(Orc::class.simpleName + it).apply {
                 eat()

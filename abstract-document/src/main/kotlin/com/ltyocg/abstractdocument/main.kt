@@ -8,24 +8,25 @@ private val log = LoggerFactory.getLogger("main")
 
 fun main() {
     log.info("Constructing parts and car")
-    val wheelProperties = mapOf(
-        Property.TYPE.name to "wheel",
-        Property.MODEL.name to "15C",
-        Property.PRICE.name to 100L
+    val car = Car(
+        mapOf(
+            Property.MODEL.name to "300SL",
+            Property.PRICE.name to 10000L,
+            Property.PARTS.name to listOf(
+                mapOf(
+                    Property.TYPE.name to "wheel",
+                    Property.MODEL.name to "15C",
+                    Property.PRICE.name to 100L
+                ),
+                mapOf(
+                    Property.TYPE.name to "door",
+                    Property.MODEL.name to "Lambo",
+                    Property.PRICE.name to 300L
+                )
+            )
+        )
     )
-    val doorProperties = mapOf(
-        Property.TYPE.name to "door",
-        Property.MODEL.name to "Lambo",
-        Property.PRICE.name to 300L
-    )
-    val carProperties = mapOf(
-        Property.MODEL.name to "300SL",
-        Property.PRICE.name to 10000L,
-        Property.PARTS.name to listOf(wheelProperties, doorProperties)
-    )
-    val car = Car(carProperties)
     log.info("Here is our car:")
-
     log.info("-> model: {}", car.getModel())
     log.info("-> price: {}", car.getPrice())
     log.info("-> parts:")

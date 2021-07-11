@@ -3,26 +3,25 @@ package com.ltyocg.abstractfactory
 import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("main")
-val kingdom = Kingdom()
 
 fun main() {
     log.info("elf kingdom")
-    createKingdom(Kingdom.KingdomType.ELF)
-    log.info(kingdom.army.description)
-    log.info(kingdom.castle.description)
-    log.info(kingdom.king.description)
+    createKingdom(KingdomType.ELF).print()
     log.info("orc kingdom")
-    createKingdom(Kingdom.KingdomType.ORC)
-    log.info(kingdom.army.description)
-    log.info(kingdom.castle.description)
-    log.info(kingdom.king.description)
+    createKingdom(KingdomType.ORC).print()
 }
 
-fun createKingdom(kingdomType: Kingdom.KingdomType) {
-    val kingdomFactory = Kingdom.makeFactory(kingdomType)
-    kingdom.apply {
-        king = kingdomFactory.createKing()
-        castle = kingdomFactory.createCastle()
-        army = kingdomFactory.createArmy()
-    }
+fun createKingdom(kingdomType: KingdomType): Kingdom {
+    val kingdomFactory = makeFactory(kingdomType)
+    return Kingdom(
+        kingdomFactory.createKing(),
+        kingdomFactory.createCastle(),
+        kingdomFactory.createArmy()
+    )
+}
+
+private fun Kingdom.print() {
+    log.info(army.description)
+    log.info(castle.description)
+    log.info(king.description)
 }

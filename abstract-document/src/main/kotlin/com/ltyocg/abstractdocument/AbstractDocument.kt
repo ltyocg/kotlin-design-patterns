@@ -7,17 +7,13 @@ abstract class AbstractDocument(properties: Map<String, Any?>) : Document {
     }
 
     override fun get(key: String): Any? = properties[key]
-    override fun <T> children(key: String, constructor: (Map<String, Any?>) -> T): Sequence<T> {
-        return sequenceOf(get(key))
-            .filterNotNull()
-            .map {
-                @Suppress("UNCHECKED_CAST")
-                it as List<Map<String, Any?>>
-            }
-            .firstOrNull()
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T> children(key: String, constructor: (Map<String, Any?>) -> T): Sequence<T> =
+        (get(key) as List<Map<String, Any?>>?)
             ?.asSequence()
-            ?.map(constructor) ?: emptySequence()
-    }
+            ?.map(constructor)
+            ?: emptySequence()
 
     override fun toString(): String = javaClass.name + "[" + properties.entries.joinToString { "[${it.key} : ${it.value}]" } + "]"
 }

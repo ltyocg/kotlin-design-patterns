@@ -17,3 +17,12 @@ class OrcKingdomFactory : KingdomFactory {
     override fun createKing(): King = OrcKing()
     override fun createArmy(): Army = OrcArmy()
 }
+
+enum class KingdomType {
+    ELF, ORC
+}
+
+fun makeFactory(type: KingdomType): KingdomFactory = when (type) {
+    KingdomType.ELF -> ElfKingdomFactory()
+    KingdomType.ORC -> OrcKingdomFactory()
+}
