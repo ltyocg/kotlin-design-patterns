@@ -18,6 +18,8 @@ subprojects {
         implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.5.1")
         implementation("ch.qos.logback", "logback-classic", "1.2.3")
         testImplementation(kotlin("test"))
+        testImplementation("org.mockito.kotlin", "mockito-kotlin", "3.2.0")
+        testImplementation("org.mockito", "mockito-inline", "3.9.0")
     }
 
     tasks.test {
