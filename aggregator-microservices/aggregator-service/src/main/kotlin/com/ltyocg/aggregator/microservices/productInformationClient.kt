@@ -14,7 +14,7 @@ interface ProductInformationClient {
 
 @Component
 class ProductInformationClientImpl : ProductInformationClient {
-    private val log = LoggerFactory.getLogger(ProductInformationClientImpl::class.java)
+    private val log = LoggerFactory.getLogger(this::class.java)
     override val productTitle: String?
         get() {
             try {

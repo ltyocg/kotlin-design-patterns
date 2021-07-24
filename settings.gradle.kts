@@ -7,5 +7,6 @@ include(
     "adapter",
     "aggregator-microservices:aggregator-service",
     "aggregator-microservices:information-microservice",
-    "aggregator-microservices:inventory-microservice"
+    "aggregator-microservices:inventory-microservice",
+    "ambassador"
 )

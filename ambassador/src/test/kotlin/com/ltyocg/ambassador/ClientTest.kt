@@ -1,0 +1,11 @@
+package com.ltyocg.ambassador
+
+import kotlin.test.Test
+import kotlin.test.assertTrue
+
+class ClientTest {
+    @Test
+    fun test() {
+        assertTrue(Client().useService(10).let { it == 100L || it == RemoteServiceStatus.FAILURE.remoteServiceStatusValue })
+    }
+}
