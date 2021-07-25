@@ -8,5 +8,8 @@ include(
     "aggregator-microservices:aggregator-service",
     "aggregator-microservices:information-microservice",
     "aggregator-microservices:inventory-microservice",
-    "ambassador"
+    "ambassador",
+    "api-gateway:api-gateway-service",
+    "api-gateway:image-microservice",
+    "api-gateway:price-microservice"
 )
