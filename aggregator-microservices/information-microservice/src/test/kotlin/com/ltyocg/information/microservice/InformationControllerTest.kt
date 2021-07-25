@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class InformationControllerTest {
     @Test
-    fun `should get product title`() {
+    fun `should getProductTitle`() {
         assertEquals("The Product Title.", InformationController().getProductTitle())
     }
 }

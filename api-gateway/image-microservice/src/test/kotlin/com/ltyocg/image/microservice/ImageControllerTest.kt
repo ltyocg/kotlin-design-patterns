@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class ImageControllerTest {
     @Test
-    fun `test get image path`() {
+    fun `test getImagePath`() {
         assertEquals("/product-image.png", ImageController().getImagePath())
     }
 }

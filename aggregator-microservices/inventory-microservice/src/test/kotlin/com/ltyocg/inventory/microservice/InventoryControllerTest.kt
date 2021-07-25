@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class InventoryControllerTest {
     @Test
-    fun `test get product inventories`() {
+    fun `test getProductInventories`() {
         assertEquals(5, InventoryController().getProductInventories())
     }
 }

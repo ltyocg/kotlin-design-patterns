@@ -24,7 +24,7 @@ class ApiGatewayTest {
     }
 
     @Test
-    fun `test get product desktop`() {
+    fun `test getProductDesktop`() {
         val imagePath = "/product-image.png"
         val price = "20"
         whenever(imageClient.imagePath).thenReturn(imagePath)
@@ -35,7 +35,7 @@ class ApiGatewayTest {
     }
 
     @Test
-    fun `test get product mobile`() {
+    fun `test getProductMobile`() {
         val price = "20"
         whenever(priceClient.price).thenReturn(price)
         val productMobile = apiGateway.getProductMobile()

@@ -24,7 +24,7 @@ class AggregatorTest {
     }
 
     @Test
-    fun `test get product`() {
+    fun `test getProduct`() {
         val title = "The Product Title."
         val productInventories = 5
         whenever(informationClient.productTitle).thenReturn(title)

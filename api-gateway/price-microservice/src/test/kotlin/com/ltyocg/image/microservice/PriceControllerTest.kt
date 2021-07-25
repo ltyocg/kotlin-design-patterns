@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 
 class PriceControllerTest {
     @Test
-    fun `test get price`() {
+    fun `test getPrice`() {
         assertEquals("20", PriceController().getPrice())
     }
 }

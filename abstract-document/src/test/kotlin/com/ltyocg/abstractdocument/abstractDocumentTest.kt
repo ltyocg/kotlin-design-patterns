@@ -30,7 +30,7 @@ class AbstractDocumentTest {
     }
 
     @Test
-    fun `should include props in to string`() {
+    fun `should include props in toString`() {
         val document = DocumentImplementation(mapOf(KEY to VALUE))
         assertContains(document.toString(), KEY)
         assertContains(document.toString(), VALUE)
