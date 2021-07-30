@@ -2,6 +2,7 @@ package com.ltyocg.abstractdocument
 
 abstract class AbstractDocument(properties: Map<String, Any?>) : Document {
     private val properties = properties.toMutableMap()
+
     override fun put(key: String, value: Any?) {
         properties[key] = value
     }
@@ -10,7 +11,7 @@ abstract class AbstractDocument(properties: Map<String, Any?>) : Document {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T> children(key: String, constructor: (Map<String, Any?>) -> T): Sequence<T> =
-        (get(key) as List<Map<String, Any?>>?)
+        (get(key) as? List<Map<String, Any?>>)
             ?.asSequence()
             ?.map(constructor)
             ?: emptySequence()
