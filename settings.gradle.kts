@@ -13,5 +13,6 @@ include(
     "api-gateway:image-microservice",
     "api-gateway:price-microservice",
     "arrange-act-assert",
-    "async-method-invocation"
+    "async-method-invocation",
+    "balking"
 )

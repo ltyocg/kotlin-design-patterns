@@ -7,8 +7,8 @@ import java.util.concurrent.Executors
 abstract class ActiveCreature
 internal constructor(val name: String) {
     private val log = LoggerFactory.getLogger(this::class.java)
-    private val newSingleThreadExecutor = Executors.newSingleThreadExecutor()
-    private val coroutineScope = CoroutineScope(newSingleThreadExecutor.asCoroutineDispatcher())
+    private val coroutineDispatcher = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
+    private val coroutineScope = CoroutineScope(coroutineDispatcher)
     var status = 0
         private set
     private val onCompletionHandler: CompletionHandler = {
@@ -31,6 +31,6 @@ internal constructor(val name: String) {
     fun kill(status: Int = 0) {
         this.status = status
         coroutineScope.cancel()
-        newSingleThreadExecutor.shutdownNow()
+        coroutineDispatcher.close()
     }
 }
