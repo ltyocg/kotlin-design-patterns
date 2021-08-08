@@ -12,5 +12,6 @@ include(
     "api-gateway:api-gateway-service",
     "api-gateway:image-microservice",
     "api-gateway:price-microservice",
-    "arrange-act-assert"
+    "arrange-act-assert",
+    "async-method-invocation"
 )
