@@ -14,5 +14,6 @@ include(
     "api-gateway:price-microservice",
     "arrange-act-assert",
     "async-method-invocation",
-    "balking"
+    "balking",
+    "bridge"
 )
