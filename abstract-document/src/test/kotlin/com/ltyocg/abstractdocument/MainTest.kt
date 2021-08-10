@@ -5,7 +5,7 @@ import kotlin.test.Test
 
 class MainTest {
     @Test
-    fun `should execute app without exception`() {
+    fun `should execute main without exception`() {
         assertDoesNotThrow { main() }
     }
 }

@@ -15,5 +15,6 @@ include(
     "arrange-act-assert",
     "async-method-invocation",
     "balking",
-    "bridge"
+    "bridge",
+    "builder"
 )

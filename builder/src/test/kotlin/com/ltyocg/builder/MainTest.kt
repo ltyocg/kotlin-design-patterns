@@ -1,4 +1,4 @@
-package com.ltyocg.async.method.invocation
+package com.ltyocg.builder
 
 import org.junit.jupiter.api.assertDoesNotThrow
 import kotlin.test.Test
