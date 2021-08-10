@@ -17,5 +17,6 @@ include(
     "balking",
     "bridge",
     "builder",
-    "business-delegate"
+    "business-delegate",
+    "bytecode"
 )
