@@ -19,5 +19,6 @@ include(
     "builder",
     "business-delegate",
     "bytecode",
-    "caching"
+    "caching",
+    "callback"
 )
