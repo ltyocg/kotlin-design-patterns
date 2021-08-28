@@ -18,5 +18,6 @@ include(
     "bridge",
     "builder",
     "business-delegate",
-    "bytecode"
+    "bytecode",
+    "caching"
 )
