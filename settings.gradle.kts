@@ -20,5 +20,6 @@ include(
     "business-delegate",
     "bytecode",
     "caching",
-    "callback"
+    "callback",
+    "chain-of-responsibility"
 )
