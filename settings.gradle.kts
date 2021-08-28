@@ -21,5 +21,6 @@ include(
     "bytecode",
     "caching",
     "callback",
-    "chain-of-responsibility"
+    "chain-of-responsibility",
+    "circuit-breaker"
 )
