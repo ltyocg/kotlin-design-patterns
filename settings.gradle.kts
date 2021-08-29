@@ -23,5 +23,6 @@ include(
     "callback",
     "chain-of-responsibility",
     "circuit-breaker",
-    "collection-pipeline"
+    "collection-pipeline",
+    "combinator"
 )
