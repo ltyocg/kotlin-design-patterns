@@ -24,5 +24,6 @@ include(
     "chain-of-responsibility",
     "circuit-breaker",
     "collection-pipeline",
-    "combinator"
+    "combinator",
+    "command"
 )

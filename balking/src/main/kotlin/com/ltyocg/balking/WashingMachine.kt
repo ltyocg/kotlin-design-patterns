@@ -16,11 +16,9 @@ class WashingMachine {
     }
 
     constructor() {
-        delayProvider = object : DelayProvider {
-            override fun executeAfterDelay(interval: Long, timeUnit: TimeUnit, task: () -> Unit) {
-                Thread.sleep(timeUnit.toMillis(interval))
-                task()
-            }
+        delayProvider = DelayProvider { interval, timeUnit, task ->
+            Thread.sleep(timeUnit.toMillis(interval))
+            task()
         }
     }
 
