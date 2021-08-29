@@ -29,6 +29,6 @@ private fun <T> CoroutineScope.lazyval(value: T, delayMillis: Long, callback: St
     value
 }.apply {
     if (callback != null) invokeOnCompletion {
-        log.info(callback + if (it == null) " <$value>" else " failed: ${it.localizedMessage}")
+        log.info("$callback " + if (it == null) "<$value>" else "failed: ${it.localizedMessage}")
     }
 }

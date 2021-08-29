@@ -22,5 +22,6 @@ include(
     "caching",
     "callback",
     "chain-of-responsibility",
-    "circuit-breaker"
+    "circuit-breaker",
+    "collection-pipeline"
 )
