@@ -1,6 +1,8 @@
 package com.ltyocg.ambassador
 
-fun main() {
+import kotlinx.coroutines.runBlocking
+
+fun main() = runBlocking<Unit> {
     Client().useService(12)
     Client().useService(73)
 }

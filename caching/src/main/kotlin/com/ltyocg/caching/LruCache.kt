@@ -11,7 +11,7 @@ class LruCache(var capacity: Int) {
         }
     }
     val full: Boolean
-        get() = cache.size == capacity
+        get() = cache.size >= capacity
     val lruData: UserAccount
         get() = cache.values.first()
     val cacheDataInListForm: List<UserAccount>

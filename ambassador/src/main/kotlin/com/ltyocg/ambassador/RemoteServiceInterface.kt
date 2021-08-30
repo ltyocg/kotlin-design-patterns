@@ -1,5 +1,5 @@
 package com.ltyocg.ambassador
 
 interface RemoteServiceInterface {
-    fun doRemoteFunction(value: Int): Long
+    suspend fun doRemoteFunction(value: Int): Long
 }

@@ -38,3 +38,7 @@ object AppManager {
 
     fun printCacheContent(): String = CacheStore.print()
 }
+
+enum class CachingPolicy {
+    THROUGH, AROUND, BEHIND, ASIDE
+}

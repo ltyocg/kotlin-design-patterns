@@ -6,7 +6,7 @@ class Client {
     private val log = LoggerFactory.getLogger(this::class.java)
     private val serviceAmbassador = ServiceAmbassador()
 
-    fun useService(value: Int): Long =
+    suspend fun useService(value: Int): Long =
         serviceAmbassador.doRemoteFunction(value)
             .also { log.info("Service result: {}", it) }
 }
