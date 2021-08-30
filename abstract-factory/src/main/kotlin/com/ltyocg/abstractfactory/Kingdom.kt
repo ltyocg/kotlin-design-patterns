@@ -1,7 +1,7 @@
 package com.ltyocg.abstractfactory
 
-class Kingdom(
-    var king: King,
-    var castle: Castle,
-    var army: Army
+data class Kingdom(
+    val king: King,
+    val castle: Castle,
+    val army: Army
 )
