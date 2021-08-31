@@ -1,12 +1,13 @@
 package com.ltyocg.balking
 
+import kotlinx.coroutines.runBlocking
 import java.util.concurrent.TimeUnit
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class WashingMachineTest {
     @Test
-    fun wash() {
+    fun wash() = runBlocking {
         val fakeDelayProvider = FakeDelayProvider()
         val washingMachine = WashingMachine(fakeDelayProvider)
         washingMachine.wash()
@@ -18,7 +19,7 @@ class WashingMachineTest {
     }
 
     @Test
-    fun endOfWashing() {
+    fun endOfWashing() = runBlocking {
         val washingMachine = WashingMachine()
         washingMachine.wash()
         assertEquals(WashingMachineState.ENABLED, washingMachine.washingMachineState)
@@ -26,7 +27,7 @@ class WashingMachineTest {
 
     private class FakeDelayProvider : DelayProvider {
         var task = {}
-        override fun executeAfterDelay(interval: Long, timeUnit: TimeUnit, task: () -> Unit) {
+        override suspend fun executeAfterDelay(interval: Long, timeUnit: TimeUnit, task: () -> Unit) {
             this.task = task
         }
     }

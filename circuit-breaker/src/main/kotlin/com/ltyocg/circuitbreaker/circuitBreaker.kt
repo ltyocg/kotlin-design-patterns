@@ -68,7 +68,5 @@ class DefaultCircuitBreaker(
 }
 
 enum class State {
-    CLOSED,
-    OPEN,
-    HALF_OPEN
+    CLOSED, OPEN, HALF_OPEN
 }
