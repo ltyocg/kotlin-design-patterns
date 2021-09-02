@@ -27,7 +27,7 @@ fun main() {
         Hero(
             Profession.THIEF,
             "Desmond",
-            hairType = HairType.BALD,
+            HairType.BALD,
             weapon = Weapon.BOW
         ).toString()
     )
