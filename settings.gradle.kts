@@ -25,5 +25,6 @@ include(
     "circuit-breaker",
     "collection-pipeline",
     "combinator",
-    "command"
+    "command",
+    "commander"
 )
