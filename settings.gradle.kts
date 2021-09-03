@@ -26,5 +26,6 @@ include(
     "collection-pipeline",
     "combinator",
     "command",
-    "commander"
+    "commander",
+    "composite"
 )
