@@ -1,7 +1,6 @@
 package com.ltyocg.acyclicvisitor
 
 import org.slf4j.event.Level
-import kotlin.test.AfterTest
 import kotlin.test.Test
 
 class ConfigureForUnixVisitorTest {
@@ -11,10 +10,5 @@ class ConfigureForUnixVisitorTest {
         assertLogContains(Level.INFO, "$zoom used with Unix configurator.") {
             ConfigureForUnixVisitor().visit(zoom)
         }
-    }
-
-    @AfterTest
-    fun clearLoggers() {
-        assertLogClear()
     }
 }

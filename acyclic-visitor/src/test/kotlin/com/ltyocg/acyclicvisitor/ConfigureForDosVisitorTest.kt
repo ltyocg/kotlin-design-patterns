@@ -1,7 +1,6 @@
 package com.ltyocg.acyclicvisitor
 
 import org.slf4j.event.Level
-import kotlin.test.AfterTest
 import kotlin.test.Test
 
 
@@ -20,11 +19,6 @@ class ConfigureForDosVisitorTest {
         assertLogContains(Level.INFO, "$hayes used with Dos configurator.") {
             ConfigureForDosVisitor().visit(hayes)
         }
-    }
-
-    @AfterTest
-    fun clearLoggers() {
-        assertLogClear()
     }
 }
 
