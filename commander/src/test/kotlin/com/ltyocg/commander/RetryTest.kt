@@ -1,11 +1,12 @@
 package com.ltyocg.commander
 
+import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class RetryTest {
     @Test
-    fun `perform test`() {
+    fun `perform test`() = runBlocking {
         val order = Order(User("Jim", "ABCD"), "book", 10f)
         val arr1 = mutableListOf(ItemUnavailableException(), DatabaseUnavailableException())
         retry().perform(arr1, order)

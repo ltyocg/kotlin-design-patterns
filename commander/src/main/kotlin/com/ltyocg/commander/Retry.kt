@@ -1,5 +1,6 @@
 package com.ltyocg.commander
 
+import kotlinx.coroutines.delay
 import java.security.SecureRandom
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Predicate
@@ -17,7 +18,7 @@ class Retry<T>(
     private val test = ignoreTests.reduce { acc, predicate -> acc.or(predicate) }
     private val errors = mutableListOf<Exception>()
 
-    fun perform(list: MutableList<Exception>, obj: T) {
+    suspend fun perform(list: MutableList<Exception>, obj: T) {
         do {
             try {
                 op.operation(list)
@@ -28,7 +29,7 @@ class Retry<T>(
                     handleError.handleIssue(obj, e)
                     return
                 }
-                Thread.sleep(min((2.0.pow(attempts.toInt()) * 1000 + random.nextInt(1000)).toLong(), maxDelay))
+                delay(min((2.0.pow(attempts.toInt()) * 1000 + random.nextInt(1000)).toLong(), maxDelay))
             }
         } while (true)
     }
@@ -38,10 +39,10 @@ class Retry<T>(
     }
 
     fun interface Operation {
-        fun operation(list: MutableList<Exception>)
+        suspend fun operation(list: MutableList<Exception>)
     }
 
     fun interface HandleErrorIssue<T> {
-        fun handleIssue(obj: T, e: Exception)
+        suspend fun handleIssue(obj: T, e: Exception)
     }
 }
