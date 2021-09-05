@@ -27,8 +27,8 @@ fun main() {
         )
     )
     log.info("Here is our car:")
-    log.info("-> model: {}", car.getModel())
-    log.info("-> price: {}", car.getPrice())
+    log.info("-> model: {}", car.model)
+    log.info("-> price: {}", car.price)
     log.info("-> parts:")
-    car.getParts().forEach { log.info("\t{}/{}/{}", it.getType(), it.getModel(), it.getPrice()) }
+    car.parts.forEach { log.info("\t{}/{}/{}", it.type, it.model, it.price) }
 }

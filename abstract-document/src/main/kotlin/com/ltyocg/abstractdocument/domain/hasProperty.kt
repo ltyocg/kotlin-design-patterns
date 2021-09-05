@@ -4,17 +4,21 @@ import com.ltyocg.abstractdocument.Document
 import com.ltyocg.abstractdocument.domain.enums.Property
 
 interface HasType : Document {
-    fun getType(): String? = get(Property.TYPE.name) as String
+    val type: String?
+        get() = get(Property.TYPE.name) as String
 }
 
 interface HasModel : Document {
-    fun getModel(): String? = get(Property.MODEL.name) as String
+    val model: String?
+        get() = get(Property.MODEL.name) as String
 }
 
 interface HasPrice : Document {
-    fun getPrice(): Number? = get(Property.PRICE.name) as Number
+    val price: Number?
+        get() = get(Property.PRICE.name) as Number
 }
 
 interface HasParts : Document {
-    fun getParts(): Sequence<Part> = children(Property.PARTS.name, ::Part)
+    val parts: Sequence<Part>
+        get() = children(Property.PARTS.name, ::Part)
 }

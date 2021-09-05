@@ -22,9 +22,9 @@ class DomainTest {
                 Property.PRICE.name to TEST_PART_PRICE
             )
         )
-        assertEquals(TEST_PART_TYPE, part.getType())
-        assertEquals(TEST_PART_MODEL, part.getModel())
-        assertEquals(TEST_PART_PRICE, part.getPrice())
+        assertEquals(TEST_PART_TYPE, part.type)
+        assertEquals(TEST_PART_MODEL, part.model)
+        assertEquals(TEST_PART_PRICE, part.price)
     }
 
     @Test
@@ -36,8 +36,8 @@ class DomainTest {
                 Property.PARTS.name to listOf<Map<String, Any?>>(emptyMap(), emptyMap())
             )
         )
-        assertEquals(TEST_CAR_MODEL, car.getModel())
-        assertEquals(TEST_CAR_PRICE, car.getPrice())
-        assertEquals(2, car.getParts().count())
+        assertEquals(TEST_CAR_MODEL, car.model)
+        assertEquals(TEST_CAR_PRICE, car.price)
+        assertEquals(2, car.parts.count())
     }
 }

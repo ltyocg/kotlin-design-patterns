@@ -4,8 +4,7 @@ class Order internal constructor(val user: User, val item: String, val price: Fl
     val id = run {
         var id: String
         do id = generateId()
-        while (usedIds[id] == true)
-        usedIds[id] = true
+        while (!usedIds.add(id))
         id
     }
     val createdTime = System.currentTimeMillis()
@@ -14,7 +13,7 @@ class Order internal constructor(val user: User, val item: String, val price: Fl
     var addedToEmployeeHandle = false
 
     companion object {
-        private val usedIds = mutableMapOf<String, Boolean>()
+        private val usedIds = mutableSetOf<String>()
     }
 
     enum class PaymentStatus {

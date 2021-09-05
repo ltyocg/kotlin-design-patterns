@@ -1,11 +1,7 @@
 package com.ltyocg.composite
 
-class Word : LetterComposite {
-    constructor(letters: List<Letter>) {
-        letters.forEach(this::add)
-    }
-
-    constructor(vararg letters: Char) {
+class Word(vararg letters: Char) : LetterComposite() {
+    init {
         letters.forEach { add(Letter(it)) }
     }
 

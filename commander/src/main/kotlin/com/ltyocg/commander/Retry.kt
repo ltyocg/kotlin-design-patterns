@@ -16,7 +16,6 @@ class Retry<T>(
 ) {
     private val attempts = AtomicInteger()
     private val test = ignoreTests.reduce { acc, predicate -> acc.or(predicate) }
-    private val errors = mutableListOf<Exception>()
 
     suspend fun perform(list: MutableList<Exception>, obj: T) {
         do {
@@ -24,7 +23,6 @@ class Retry<T>(
                 op.operation(list)
                 return
             } catch (e: Exception) {
-                errors.add(e)
                 if (attempts.incrementAndGet() >= maxAttempts || !test.test(e)) {
                     handleError.handleIssue(obj, e)
                     return
