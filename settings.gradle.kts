@@ -27,5 +27,6 @@ include(
     "combinator",
     "command",
     "commander",
-    "composite"
+    "composite",
+    "composite-entity"
 )
