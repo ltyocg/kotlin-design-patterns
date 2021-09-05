@@ -5,5 +5,5 @@ class BusinessLookup(
     private val youTubeService: YouTubeService
 ) {
     fun getBusinessService(movie: String): VideoStreamingService =
-        if (movie.lowercase().contains("die hard")) netflixService else youTubeService
+        if ("die hard" in movie.lowercase()) netflixService else youTubeService
 }

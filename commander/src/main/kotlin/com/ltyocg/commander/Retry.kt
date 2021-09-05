@@ -3,7 +3,6 @@ package com.ltyocg.commander
 import kotlinx.coroutines.delay
 import java.security.SecureRandom
 import java.util.concurrent.atomic.AtomicInteger
-import java.util.function.Predicate
 import kotlin.math.min
 import kotlin.math.pow
 
@@ -12,10 +11,10 @@ class Retry<T>(
     private val handleError: HandleErrorIssue<T>,
     private val maxAttempts: Int,
     private val maxDelay: Long,
-    vararg ignoreTests: Predicate<Exception>
+    vararg ignoreTests: (Exception) -> Boolean
 ) {
     private val attempts = AtomicInteger()
-    private val test = ignoreTests.reduce { acc, predicate -> acc.or(predicate) }
+    private val test = ignoreTests.reduce { acc, predicate -> { acc(it) || predicate(it) } }
 
     suspend fun perform(list: MutableList<Exception>, obj: T) {
         do {
@@ -23,7 +22,7 @@ class Retry<T>(
                 op.operation(list)
                 return
             } catch (e: Exception) {
-                if (attempts.incrementAndGet() >= maxAttempts || !test.test(e)) {
+                if (attempts.incrementAndGet() >= maxAttempts || !test(e)) {
                     handleError.handleIssue(obj, e)
                     return
                 }

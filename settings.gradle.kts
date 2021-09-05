@@ -28,5 +28,6 @@ include(
     "command",
     "commander",
     "composite",
-    "composite-entity"
+    "composite-entity",
+    "converter"
 )
