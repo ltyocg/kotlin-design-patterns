@@ -29,5 +29,6 @@ include(
     "commander",
     "composite",
     "composite-entity",
-    "converter"
+    "converter",
+    "cqrs"
 )
