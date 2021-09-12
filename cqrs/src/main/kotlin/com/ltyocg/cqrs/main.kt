@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory
 private val log = LoggerFactory.getLogger("main")
 
 fun main() {
+    HibernateUtil.init()
     with(CommandServiceImpl()) {
         authorCreated(AppConstants.E_EVANS, "Eric Evans", "evans@email.com")
         authorCreated(AppConstants.J_BLOCH, "Joshua Bloch", "jBloch@email.com")
