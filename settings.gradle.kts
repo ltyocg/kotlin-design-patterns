@@ -34,5 +34,6 @@ include(
     "dao",
     "data-bus",
     "data-locality",
-    "data-mapper"
+    "data-mapper",
+    "data-transfer-object"
 )
