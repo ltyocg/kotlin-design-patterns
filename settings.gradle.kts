@@ -30,5 +30,6 @@ include(
     "composite",
     "composite-entity",
     "converter",
-    "cqrs"
+    "cqrs",
+    "dao"
 )
