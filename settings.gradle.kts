@@ -33,5 +33,6 @@ include(
     "cqrs",
     "dao",
     "data-bus",
-    "data-locality"
+    "data-locality",
+    "data-mapper"
 )
