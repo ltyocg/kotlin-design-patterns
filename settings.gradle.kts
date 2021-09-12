@@ -31,5 +31,6 @@ include(
     "composite-entity",
     "converter",
     "cqrs",
-    "dao"
+    "dao",
+    "data-bus"
 )
