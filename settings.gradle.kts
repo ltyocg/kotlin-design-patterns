@@ -32,5 +32,6 @@ include(
     "converter",
     "cqrs",
     "dao",
-    "data-bus"
+    "data-bus",
+    "data-locality"
 )
