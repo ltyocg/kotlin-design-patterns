@@ -39,5 +39,6 @@ include(
     "data-transfer-object",
     "decorator",
     "delegation",
-    "dependency-injection"
+    "dependency-injection",
+    "dirty-flag"
 )
