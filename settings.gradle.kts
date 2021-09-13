@@ -38,5 +38,6 @@ include(
     "data-mapper",
     "data-transfer-object",
     "decorator",
-    "delegation"
+    "delegation",
+    "dependency-injection"
 )
