@@ -10,15 +10,21 @@ class DbCustomerDao(private val dataSource: DataSource) : CustomerDao {
             private val connection = dataSource.connection
             private val statement = connection.prepareStatement("SELECT * FROM CUSTOMERS")
             private val resultSet = statement.executeQuery()
-            override fun hasNext(): Boolean = resultSet.next().also {
-                if (!it) {
+            private var hasNextTemporary = false
+            override fun hasNext(): Boolean = if (hasNextTemporary) true
+            else resultSet.next().also {
+                if (it) hasNextTemporary = true
+                else {
                     resultSet.close()
                     statement.close()
                     connection.close()
                 }
             }
 
-            override fun next(): Customer = createCustomer(resultSet)
+            override fun next(): Customer = if (hasNextTemporary || hasNext()) {
+                hasNextTemporary = false
+                createCustomer(resultSet)
+            } else throw NoSuchElementException()
         }.asSequence()
 
     override fun getById(id: Int): Customer? = statement("SELECT * FROM CUSTOMERS WHERE ID = ?") {
