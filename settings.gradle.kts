@@ -27,6 +27,7 @@ include(
     "combinator",
     "command",
     "commander",
+    "commons",
     "composite",
     "composite-entity",
     "converter",
@@ -35,5 +36,6 @@ include(
     "data-bus",
     "data-locality",
     "data-mapper",
-    "data-transfer-object"
+    "data-transfer-object",
+    "decorator"
 )

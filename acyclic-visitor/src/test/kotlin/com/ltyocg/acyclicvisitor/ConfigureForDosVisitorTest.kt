@@ -1,5 +1,6 @@
 package com.ltyocg.acyclicvisitor
 
+import com.ltyocg.commons.assertLogContains
 import org.slf4j.event.Level
 import kotlin.test.Test
 
