@@ -37,5 +37,6 @@ include(
     "data-locality",
     "data-mapper",
     "data-transfer-object",
-    "decorator"
+    "decorator",
+    "delegation"
 )
