@@ -40,5 +40,6 @@ include(
     "decorator",
     "delegation",
     "dependency-injection",
-    "dirty-flag"
+    "dirty-flag",
+    "domain-model"
 )
