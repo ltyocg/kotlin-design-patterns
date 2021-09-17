@@ -41,5 +41,6 @@ include(
     "delegation",
     "dependency-injection",
     "dirty-flag",
-    "domain-model"
+    "domain-model",
+    "double-buffer"
 )
