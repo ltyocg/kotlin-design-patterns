@@ -42,5 +42,6 @@ include(
     "dependency-injection",
     "dirty-flag",
     "domain-model",
-    "double-buffer"
+    "double-buffer",
+    "double-checked-locking"
 )
