@@ -43,5 +43,6 @@ include(
     "dirty-flag",
     "domain-model",
     "double-buffer",
-    "double-checked-locking"
+    "double-checked-locking",
+    "double-dispatch"
 )
