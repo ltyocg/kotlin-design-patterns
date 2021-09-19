@@ -44,5 +44,6 @@ include(
     "domain-model",
     "double-buffer",
     "double-checked-locking",
-    "double-dispatch"
+    "double-dispatch",
+    "eip-aggregator"
 )

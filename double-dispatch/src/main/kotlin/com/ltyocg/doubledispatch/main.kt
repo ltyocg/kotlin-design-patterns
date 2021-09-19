@@ -15,7 +15,7 @@ fun main() {
     log.info("")
     objects.forEach { o1 ->
         objects.forEach { o2 ->
-            if (o1 != o2 && o1.intersectsWith(o2)) o1.collision(o2)
+            if (o1 !== o2 && o1.intersectsWith(o2)) o1.collision(o2)
         }
     }
     log.info("")
