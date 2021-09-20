@@ -47,5 +47,6 @@ include(
     "double-dispatch",
     "eip-aggregator",
     "eip-message-channel",
-    "eip-publish-subscribe"
+    "eip-publish-subscribe",
+    "eip-splitter"
 )
