@@ -49,5 +49,6 @@ include(
     "eip-message-channel",
     "eip-publish-subscribe",
     "eip-splitter",
-    "eip-wire-tap"
+    "eip-wire-tap",
+    "event-aggregator"
 )
