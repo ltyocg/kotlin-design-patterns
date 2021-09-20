@@ -46,5 +46,6 @@ include(
     "double-checked-locking",
     "double-dispatch",
     "eip-aggregator",
-    "eip-message-channel"
+    "eip-message-channel",
+    "eip-publish-subscribe"
 )
