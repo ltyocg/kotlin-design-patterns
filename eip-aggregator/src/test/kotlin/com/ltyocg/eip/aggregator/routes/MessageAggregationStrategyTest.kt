@@ -1,4 +1,4 @@
-package com.iluwatar.eip.aggregator.routes
+package com.ltyocg.eip.aggregator.routes
 
 import org.apache.camel.CamelContext
 import org.apache.camel.support.DefaultExchange

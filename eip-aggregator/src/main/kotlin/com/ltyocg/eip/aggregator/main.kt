@@ -1,4 +1,4 @@
-package com.iluwatar.eip.aggregator
+package com.ltyocg.eip.aggregator
 
 import org.apache.camel.CamelContext
 import org.apache.camel.builder.RouteBuilder

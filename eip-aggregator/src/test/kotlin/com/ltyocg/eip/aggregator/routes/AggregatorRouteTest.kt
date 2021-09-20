@@ -1,4 +1,4 @@
-package com.iluwatar.eip.aggregator.routes
+package com.ltyocg.eip.aggregator.routes
 
 import org.apache.camel.EndpointInject
 import org.apache.camel.ProducerTemplate
@@ -26,11 +26,7 @@ class AggregatorRouteTest {
 
     @Test
     fun `test splitter`() {
-        entry.sendBody("TEST1")
-        entry.sendBody("TEST2")
-        entry.sendBody("TEST3")
-        entry.sendBody("TEST4")
-        entry.sendBody("TEST5")
+        arrayOf("TEST1", "TEST2", "TEST3", "TEST4", "TEST5").forEach { entry.sendBody(it) }
         endpoint.expectedMessageCount(2)
         endpoint.assertIsSatisfied()
         assertEquals(3, (endpoint.receivedExchanges[0].getIn().body as String).split(";").size)

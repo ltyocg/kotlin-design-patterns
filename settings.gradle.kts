@@ -45,5 +45,6 @@ include(
     "double-buffer",
     "double-checked-locking",
     "double-dispatch",
-    "eip-aggregator"
+    "eip-aggregator",
+    "eip-message-channel"
 )

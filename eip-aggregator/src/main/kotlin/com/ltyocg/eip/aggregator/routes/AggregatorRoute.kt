@@ -1,4 +1,4 @@
-package com.iluwatar.eip.aggregator.routes
+package com.ltyocg.eip.aggregator.routes
 
 import org.apache.camel.builder.RouteBuilder
 import org.springframework.stereotype.Component
