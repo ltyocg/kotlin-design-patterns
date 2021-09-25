@@ -1,5 +1,5 @@
 package com.ltyocg.event.aggregator
 
-fun interface EventObserver {
+interface EventObserver {
     fun onEvent(e: Event?)
 }

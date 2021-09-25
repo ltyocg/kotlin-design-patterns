@@ -50,5 +50,6 @@ include(
     "eip-publish-subscribe",
     "eip-splitter",
     "eip-wire-tap",
-    "event-aggregator"
+    "event-aggregator",
+    "event-asynchronous"
 )

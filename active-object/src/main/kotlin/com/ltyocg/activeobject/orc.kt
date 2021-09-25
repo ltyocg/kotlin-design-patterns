@@ -36,3 +36,5 @@ internal constructor(val name: String) {
         }
     }
 }
+
+class Orc(name: String) : ActiveCreature(name)
