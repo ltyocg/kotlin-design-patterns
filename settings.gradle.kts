@@ -52,5 +52,6 @@ include(
     "eip-wire-tap",
     "event-aggregator",
     "event-asynchronous",
-    "event-driven-architecture"
+    "event-driven-architecture",
+    "event-queue"
 )
