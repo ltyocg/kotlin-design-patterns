@@ -51,5 +51,6 @@ include(
     "eip-splitter",
     "eip-wire-tap",
     "event-aggregator",
-    "event-asynchronous"
+    "event-asynchronous",
+    "event-driven-architecture"
 )

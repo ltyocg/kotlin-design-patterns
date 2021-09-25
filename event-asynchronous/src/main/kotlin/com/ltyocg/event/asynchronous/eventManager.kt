@@ -3,7 +3,7 @@ package com.ltyocg.event.asynchronous
 import java.security.SecureRandom
 import java.util.concurrent.ConcurrentHashMap
 
-interface ThreadCompleteListener {
+interface JobCompleteListener {
     fun completedEventHandler(eventId: Int)
 }
 
@@ -13,7 +13,7 @@ const val MAX_ID = MAX_RUNNING_EVENTS
 const val MAX_EVENT_TIME = 1800
 private const val DOES_NOT_EXIST = " does not exist."
 
-class EventManager : ThreadCompleteListener {
+class EventManager : JobCompleteListener {
     private var currentlyRunningSyncEvent = -1
     private val rand = SecureRandom()
     val eventPool = ConcurrentHashMap<Int, Event>(MAX_RUNNING_EVENTS)

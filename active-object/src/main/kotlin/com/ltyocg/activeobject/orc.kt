@@ -32,7 +32,7 @@ internal constructor(val name: String) {
 
     private fun invocation(block: () -> Unit) {
         coroutineScope.launch { block() }.invokeOnCompletion {
-            if (it != null && status != 0) log.error("Thread was interrupted. --> {}", it.localizedMessage)
+            if (it != null && status != 0) log.error("Job was interrupted. --> {}", it.localizedMessage)
         }
     }
 }

@@ -17,9 +17,9 @@ class Event(
     private val log = LoggerFactory.getLogger(this::class.java)
     private var job: Job? = null
     private var isComplete = false
-    private var eventListener: ThreadCompleteListener? = null
+    private var eventListener: JobCompleteListener? = null
     override fun start() {
-        job = CoroutineScope(Dispatchers.Default).launch {
+        job = CoroutineScope(Dispatchers.IO).launch {
             val endTime = System.currentTimeMillis() + eventTime * 1000
             while (isActive && System.currentTimeMillis() < endTime) delay(1000)
             isComplete = true
@@ -35,7 +35,7 @@ class Event(
         log.info("[{}] is{} done.", eventId, if (isComplete) "" else " not")
     }
 
-    fun addListener(listener: ThreadCompleteListener) {
+    fun addListener(listener: JobCompleteListener) {
         eventListener = listener
     }
 
