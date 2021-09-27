@@ -53,5 +53,6 @@ include(
     "event-aggregator",
     "event-asynchronous",
     "event-driven-architecture",
-    "event-queue"
+    "event-queue",
+    "event-sourcing"
 )
