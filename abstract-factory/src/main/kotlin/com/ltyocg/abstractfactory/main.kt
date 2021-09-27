@@ -11,14 +11,8 @@ fun main() {
     createKingdom(KingdomType.ORC).print()
 }
 
-fun createKingdom(kingdomType: KingdomType): Kingdom {
-    val kingdomFactory = makeFactory(kingdomType)
-    return Kingdom(
-        kingdomFactory.createKing(),
-        kingdomFactory.createCastle(),
-        kingdomFactory.createArmy()
-    )
-}
+fun createKingdom(kingdomType: KingdomType): Kingdom =
+    makeFactory(kingdomType).let { Kingdom(it.createKing(), it.createCastle(), it.createArmy()) }
 
 private fun Kingdom.print() {
     log.info(army.description)

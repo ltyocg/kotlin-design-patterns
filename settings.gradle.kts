@@ -54,5 +54,6 @@ include(
     "event-asynchronous",
     "event-driven-architecture",
     "event-queue",
-    "event-sourcing"
+    "event-sourcing",
+    "execute-around"
 )
