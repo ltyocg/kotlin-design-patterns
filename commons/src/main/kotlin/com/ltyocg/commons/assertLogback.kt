@@ -10,13 +10,21 @@ import org.slf4j.event.Level
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.test.assertContains
+import kotlin.test.assertContentEquals
 
-fun assertLogContains(level: Level, content: String, block: () -> Unit) {
-    require(content.isNotEmpty())
+fun assertLogContains(level: Level, expected: String, block: () -> Unit) {
+    require(expected.isNotEmpty())
     assertContains(logAop(block).asSequence()
         .filter { it.level.toString() == level.toString() }
         .map { it.formattedMessage }
-        .toList(), content)
+        .toList(), expected)
+}
+
+fun assertLogContentEquals(level: Level, expected: Iterable<String>, block: () -> Unit) {
+    assertContentEquals(expected, logAop(block).asSequence()
+        .filter { it.level.toString() == level.toString() }
+        .map { it.formattedMessage }
+        .toList())
 }
 
 private const val KEY_PREFIX = "log_"

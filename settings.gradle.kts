@@ -56,5 +56,6 @@ include(
     "event-queue",
     "event-sourcing",
     "execute-around",
-    "extension-objects"
+    "extension-objects",
+    "facade"
 )
