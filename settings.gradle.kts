@@ -55,5 +55,6 @@ include(
     "event-driven-architecture",
     "event-queue",
     "event-sourcing",
-    "execute-around"
+    "execute-around",
+    "extension-objects"
 )
