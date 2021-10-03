@@ -33,6 +33,6 @@ class FactoryKitTest {
     }
 
     private fun verifyWeapon(weapon: Weapon, kClass: KClass<*>) {
-        assertEquals(kClass, weapon::class, "Weapon must be an object of: ${weapon::class.simpleName}")
+        assertEquals(kClass, weapon::class, "Weapon must be an object of: ${kClass.simpleName}")
     }
 }

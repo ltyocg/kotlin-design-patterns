@@ -59,5 +59,6 @@ include(
     "extension-objects",
     "facade",
     "factory",
-    "factory-kit"
+    "factory-kit",
+    "factory-method"
 )
