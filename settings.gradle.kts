@@ -60,5 +60,6 @@ include(
     "facade",
     "factory",
     "factory-kit",
-    "factory-method"
+    "factory-method",
+    "fanout-fanin"
 )
