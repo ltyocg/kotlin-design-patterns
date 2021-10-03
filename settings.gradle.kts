@@ -58,5 +58,6 @@ include(
     "execute-around",
     "extension-objects",
     "facade",
-    "factory"
+    "factory",
+    "factory-kit"
 )
