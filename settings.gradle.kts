@@ -61,5 +61,6 @@ include(
     "factory",
     "factory-kit",
     "factory-method",
-    "fanout-fanin"
+    "fanout-fanin",
+    "feature-toggle"
 )
