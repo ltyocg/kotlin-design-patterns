@@ -62,5 +62,6 @@ include(
     "factory-kit",
     "factory-method",
     "fanout-fanin",
-    "feature-toggle"
+    "feature-toggle",
+    "filterer"
 )
