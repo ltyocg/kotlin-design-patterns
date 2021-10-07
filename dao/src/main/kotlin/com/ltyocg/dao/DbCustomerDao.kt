@@ -11,20 +11,22 @@ class DbCustomerDao(private val dataSource: DataSource) : CustomerDao {
             private val statement = connection.prepareStatement("SELECT * FROM CUSTOMERS")
             private val resultSet = statement.executeQuery()
             private var hasNextTemporary = false
-            override fun hasNext(): Boolean = if (hasNextTemporary) true
-            else resultSet.next().also {
-                if (it) hasNextTemporary = true
-                else {
-                    resultSet.close()
-                    statement.close()
-                    connection.close()
+            override fun hasNext(): Boolean =
+                if (hasNextTemporary) true
+                else resultSet.next().also {
+                    if (it) hasNextTemporary = true
+                    else {
+                        resultSet.close()
+                        statement.close()
+                        connection.close()
+                    }
                 }
-            }
 
-            override fun next(): Customer = if (hasNextTemporary || hasNext()) {
-                hasNextTemporary = false
-                createCustomer(resultSet)
-            } else throw NoSuchElementException()
+            override fun next(): Customer =
+                if (hasNextTemporary || hasNext()) {
+                    hasNextTemporary = false
+                    createCustomer(resultSet)
+                } else throw NoSuchElementException()
         }.asSequence()
 
     override fun getById(id: Int): Customer? = statement("SELECT * FROM CUSTOMERS WHERE ID = ?") {
@@ -32,14 +34,15 @@ class DbCustomerDao(private val dataSource: DataSource) : CustomerDao {
         executeQuery().use { resultSet -> if (resultSet.next()) createCustomer(resultSet) else null }
     }
 
-    override fun add(customer: Customer): Boolean = if (getById(customer.id) != null) false
-    else statement("INSERT INTO CUSTOMERS VALUES (?,?,?)") {
-        setInt(1, customer.id)
-        setString(2, customer.firstName)
-        setString(3, customer.lastName)
-        execute()
-        true
-    }
+    override fun add(customer: Customer): Boolean =
+        if (getById(customer.id) != null) false
+        else statement("INSERT INTO CUSTOMERS VALUES (?,?,?)") {
+            setInt(1, customer.id)
+            setString(2, customer.firstName)
+            setString(3, customer.lastName)
+            execute()
+            true
+        }
 
     override fun update(customer: Customer): Boolean = statement("UPDATE CUSTOMERS SET FNAME = ?, LNAME = ? WHERE ID = ?") {
         setString(1, customer.firstName)

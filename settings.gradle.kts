@@ -63,5 +63,6 @@ include(
     "factory-method",
     "fanout-fanin",
     "feature-toggle",
-    "filterer"
+    "filterer",
+    "fluentinterface"
 )
