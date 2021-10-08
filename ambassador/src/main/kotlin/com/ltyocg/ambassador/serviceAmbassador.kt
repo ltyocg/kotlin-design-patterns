@@ -9,7 +9,6 @@ private const val DELAY_MS = 3000L
 
 class ServiceAmbassador : RemoteServiceInterface {
     private val log = LoggerFactory.getLogger(this::class.java)
-
     override suspend fun doRemoteFunction(value: Int): Long {
         var result = RemoteServiceStatus.FAILURE.remoteServiceStatusValue
         for (i in 1..RETRIES) {

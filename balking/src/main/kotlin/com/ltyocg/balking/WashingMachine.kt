@@ -15,7 +15,6 @@ class WashingMachine(
     private val log = LoggerFactory.getLogger(this::class.java)
     var washingMachineState: WashingMachineState = WashingMachineState.ENABLED
     private val lock = ReentrantLock()
-
     suspend fun wash() {
         lock.withLock {
             log.info("{}: Actual machine state: {}", Thread.currentThread().name, washingMachineState)

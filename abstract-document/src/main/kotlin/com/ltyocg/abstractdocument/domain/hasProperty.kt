@@ -5,17 +5,17 @@ import com.ltyocg.abstractdocument.domain.enums.Property
 
 interface HasType : Document {
     val type: String?
-        get() = get(Property.TYPE.name) as String
+        get() = get(Property.TYPE.name) as String?
 }
 
 interface HasModel : Document {
     val model: String?
-        get() = get(Property.MODEL.name) as String
+        get() = get(Property.MODEL.name) as String?
 }
 
 interface HasPrice : Document {
     val price: Number?
-        get() = get(Property.PRICE.name) as Number
+        get() = get(Property.PRICE.name) as Number?
 }
 
 interface HasParts : Document {

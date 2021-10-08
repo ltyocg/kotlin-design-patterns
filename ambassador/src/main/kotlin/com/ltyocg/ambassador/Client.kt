@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory
 class Client {
     private val log = LoggerFactory.getLogger(this::class.java)
     private val serviceAmbassador = ServiceAmbassador()
-
     suspend fun useService(value: Int): Long =
         serviceAmbassador.doRemoteFunction(value)
             .also { log.info("Service result: {}", it) }
