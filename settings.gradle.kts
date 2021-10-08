@@ -64,5 +64,6 @@ include(
     "fanout-fanin",
     "feature-toggle",
     "filterer",
-    "fluentinterface"
+    "fluentinterface",
+    "flux"
 )
