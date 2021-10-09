@@ -65,5 +65,6 @@ include(
     "feature-toggle",
     "filterer",
     "fluentinterface",
-    "flux"
+    "flux",
+    "flyweight"
 )

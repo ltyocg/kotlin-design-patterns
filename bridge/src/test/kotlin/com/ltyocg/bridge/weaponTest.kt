@@ -5,7 +5,6 @@ import org.mockito.kotlin.spy
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
 import kotlin.test.Test
-import kotlin.test.assertNotNull
 
 class HammerTest : WeaponTest() {
     @Test
@@ -23,10 +22,7 @@ class SwordTest : WeaponTest() {
 
 abstract class WeaponTest {
     fun testBasicWeaponActions(weapon: Weapon) {
-        assertNotNull(weapon)
         val enchantment = weapon.enchantment
-        assertNotNull(enchantment)
-        assertNotNull(weapon.enchantment)
         weapon.swing()
         verify(enchantment).apply()
         verifyNoMoreInteractions(enchantment)
