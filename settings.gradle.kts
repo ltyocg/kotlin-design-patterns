@@ -67,5 +67,6 @@ include(
     "fluentinterface",
     "flux",
     "flyweight",
-    "front-controller"
+    "front-controller",
+    "game-loop"
 )
