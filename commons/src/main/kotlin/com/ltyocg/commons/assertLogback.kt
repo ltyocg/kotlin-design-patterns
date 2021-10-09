@@ -9,8 +9,16 @@ import org.slf4j.MDC
 import org.slf4j.event.Level
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 import kotlin.test.assertContains
 import kotlin.test.assertContentEquals
+
+fun assertLogContains(expected: String, block: () -> Unit) {
+    require(expected.isNotEmpty())
+    assertContains(logAop(block).map { it.formattedMessage }, expected)
+}
 
 fun assertLogContains(level: Level, expected: String, block: () -> Unit) {
     require(expected.isNotEmpty())
@@ -29,7 +37,12 @@ fun assertLogContentEquals(level: Level, expected: Iterable<String>, block: () -
 
 private const val KEY_PREFIX = "log_"
 private val logAopMap = ConcurrentHashMap<String, MutableList<ILoggingEvent>>()
+
+@OptIn(ExperimentalContracts::class)
 fun logAop(block: () -> Unit): List<ILoggingEvent> {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
     val key = "$KEY_PREFIX${UUID.randomUUID()}"
     logAopMap[key] = mutableListOf()
     MDC.put(key, System.currentTimeMillis().toString())

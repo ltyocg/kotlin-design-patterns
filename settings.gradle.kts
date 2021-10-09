@@ -66,5 +66,6 @@ include(
     "filterer",
     "fluentinterface",
     "flux",
-    "flyweight"
+    "flyweight",
+    "front-controller"
 )
