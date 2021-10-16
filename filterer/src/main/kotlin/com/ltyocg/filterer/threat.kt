@@ -1,11 +1,11 @@
 package com.ltyocg.filterer
 
 interface Threat {
-    fun name(): String
-    fun id(): Int
-    fun type(): ThreatType
+    val name: String
+    val id: Int
+    val type: ThreatType
 }
 
 interface ProbableThreat : Threat {
-    fun probability(): Double
+    val probability: Double
 }

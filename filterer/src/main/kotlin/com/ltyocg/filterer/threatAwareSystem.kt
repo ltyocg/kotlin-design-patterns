@@ -1,12 +1,12 @@
 package com.ltyocg.filterer
 
 interface ThreatAwareSystem {
-    fun systemId(): String
-    fun threats(): List<Threat>
-    fun filtered(): Filterer<out ThreatAwareSystem, out Threat>
+    val systemId: String
+    val threats: List<Threat>
+    val filtered: Filterer<out ThreatAwareSystem, out Threat>
 }
 
 interface ProbabilisticThreatAwareSystem : ThreatAwareSystem {
-    override fun threats(): List<ProbableThreat>
-    override fun filtered(): Filterer<out ProbabilisticThreatAwareSystem, out ProbableThreat>
+    override val threats: List<ProbableThreat>
+    override val filtered: Filterer<out ProbabilisticThreatAwareSystem, out ProbableThreat>
 }
