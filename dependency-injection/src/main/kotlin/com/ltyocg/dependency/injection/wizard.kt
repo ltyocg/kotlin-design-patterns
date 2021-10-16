@@ -25,8 +25,7 @@ class AdvancedWizard(private val tobacco: Tobacco) : Wizard {
 }
 
 class GuiceWizard
-@Inject
-constructor(private val tobacco: Tobacco) : Wizard {
+@Inject constructor(private val tobacco: Tobacco) : Wizard {
     override fun smoke() {
         tobacco.smoke(this)
     }

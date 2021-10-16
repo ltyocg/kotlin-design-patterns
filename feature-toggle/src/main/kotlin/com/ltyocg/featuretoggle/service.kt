@@ -8,14 +8,10 @@ interface Service {
 }
 
 class PropertiesFeatureToggleVersion(properties: Properties) : Service {
-    override val enhanced: Boolean
-
-    init {
-        try {
-            enhanced = properties["enhancedWelcome"] as Boolean
-        } catch (e: Exception) {
-            throw IllegalArgumentException("Invalid Enhancement Settings Provided.")
-        }
+    override val enhanced = try {
+        properties["enhancedWelcome"] as Boolean
+    } catch (e: Exception) {
+        throw IllegalArgumentException("Invalid Enhancement Settings Provided.")
     }
 
     override fun getWelcomeMessage(user: User): String =
@@ -28,5 +24,5 @@ class TieredFeatureToggleVersion : Service {
         if (UserGroup.isPaid(user)) "You're amazing $user. Thanks for paying for this awesome software."
         else "I suppose you can use this software."
 
-    override val enhanced: Boolean = true
+    override val enhanced = true
 }
