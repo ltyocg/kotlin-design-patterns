@@ -1,66 +1,66 @@
 package com.ltyocg.caching
 
+import com.ltyocg.caching.database.DbManagerFactory
 import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("main")
-
-fun main() {
-    AppManager.initDb(false)
-    AppManager.initCacheCapacity(3)
-    useReadAndWriteThroughStrategy()
-    useReadThroughAndWriteAroundStrategy()
-    useReadThroughAndWriteBehindStrategy()
-    useCacheAsideStrategy()
+private const val USE_MONGO_DB = "--mongo"
+fun main(args: Array<String>) {
+    val appManager = AppManager(DbManagerFactory.initDb(USE_MONGO_DB in args)).apply { initDb() }
+    useReadAndWriteThroughStrategy(appManager)
+    useReadThroughAndWriteAroundStrategy(appManager)
+    useReadThroughAndWriteBehindStrategy(appManager)
+    useCacheAsideStrategy(appManager)
 }
 
-fun useReadAndWriteThroughStrategy() {
+fun useReadAndWriteThroughStrategy(appManager: AppManager) {
     log.info("# CachingPolicy.THROUGH")
-    AppManager.initCachingPolicy(CachingPolicy.THROUGH)
-    AppManager.save(UserAccount("001", "John", "He is a boy."))
-    log.info(AppManager.printCacheContent())
-    AppManager.find("001")
-    AppManager.find("001")
+    appManager.initCachingPolicy(CachingPolicy.THROUGH)
+    appManager.save(UserAccount("001", "John", "He is a boy."))
+    log.info(appManager.printCacheContent())
+    appManager.find("001")
+    appManager.find("001")
 }
 
-fun useReadThroughAndWriteAroundStrategy() {
+fun useReadThroughAndWriteAroundStrategy(appManager: AppManager) {
     log.info("# CachingPolicy.AROUND")
-    AppManager.initCachingPolicy(CachingPolicy.AROUND)
-    AppManager.save(UserAccount("002", "Jane", "She is a girl."))
-    log.info(AppManager.printCacheContent())
-    AppManager.find("002")
-    log.info(AppManager.printCacheContent())
-    AppManager.save(AppManager.find("002")!!.copy(userName = "Jane G."))
-    log.info(AppManager.printCacheContent())
-    AppManager.find("002")
-    log.info(AppManager.printCacheContent())
-    AppManager.find("002")
+    appManager.initCachingPolicy(CachingPolicy.AROUND)
+    appManager.save(UserAccount("002", "Jane", "She is a girl."))
+    log.info(appManager.printCacheContent())
+    appManager.find("002")
+    log.info(appManager.printCacheContent())
+    appManager.save(appManager.find("002")!!.copy(userName = "Jane G."))
+    log.info(appManager.printCacheContent())
+    appManager.find("002")
+    log.info(appManager.printCacheContent())
+    appManager.find("002")
 }
 
-fun useReadThroughAndWriteBehindStrategy() {
+fun useReadThroughAndWriteBehindStrategy(appManager: AppManager) {
     log.info("# CachingPolicy.BEHIND")
-    AppManager.initCachingPolicy(CachingPolicy.BEHIND)
-    AppManager.save(UserAccount("003", "Adam", "He likes food."))
-    AppManager.save(UserAccount("004", "Rita", "She hates cats."))
-    AppManager.save(UserAccount("005", "Isaac", "He is allergic to mustard."))
-    log.info(AppManager.printCacheContent())
-    AppManager.find("003")
-    log.info(AppManager.printCacheContent())
-    AppManager.save(UserAccount("006", "Yasha", "She is an only child."))
-    log.info(AppManager.printCacheContent())
-    AppManager.find("004")
-    log.info(AppManager.printCacheContent())
+    appManager.initCachingPolicy(CachingPolicy.BEHIND)
+    appManager.save(UserAccount("003", "Adam", "He likes food."))
+    appManager.save(UserAccount("004", "Rita", "She hates cats."))
+    appManager.save(UserAccount("005", "Isaac", "He is allergic to mustard."))
+    log.info(appManager.printCacheContent())
+    appManager.find("003")
+    log.info(appManager.printCacheContent())
+    appManager.save(UserAccount("006", "Yasha", "She is an only child."))
+    log.info(appManager.printCacheContent())
+    appManager.find("004")
+    log.info(appManager.printCacheContent())
 }
 
-fun useCacheAsideStrategy() {
+fun useCacheAsideStrategy(appManager: AppManager) {
     log.info("# CachingPolicy.ASIDE")
-    AppManager.initCachingPolicy(CachingPolicy.ASIDE)
-    log.info(AppManager.printCacheContent())
-    AppManager.save(UserAccount("003", "Adam", "He likes food."))
-    AppManager.save(UserAccount("004", "Rita", "She hates cats."))
-    AppManager.save(UserAccount("005", "Isaac", "He is allergic to mustard."))
-    log.info(AppManager.printCacheContent())
-    AppManager.find("003")
-    log.info(AppManager.printCacheContent())
-    AppManager.find("004")
-    log.info(AppManager.printCacheContent())
+    appManager.initCachingPolicy(CachingPolicy.ASIDE)
+    log.info(appManager.printCacheContent())
+    appManager.save(UserAccount("003", "Adam", "He likes food."))
+    appManager.save(UserAccount("004", "Rita", "She hates cats."))
+    appManager.save(UserAccount("005", "Isaac", "He is allergic to mustard."))
+    log.info(appManager.printCacheContent())
+    appManager.find("003")
+    log.info(appManager.printCacheContent())
+    appManager.find("004")
+    log.info(appManager.printCacheContent())
 }

@@ -1,32 +1,34 @@
 package com.ltyocg.caching
 
+import com.ltyocg.caching.database.DbManagerFactory
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 class CachingTest {
+    private lateinit var appManager: AppManager
+
     @BeforeTest
     fun setup() {
-        AppManager.initDb(false)
-        AppManager.initCacheCapacity(3)
+        appManager = AppManager(DbManagerFactory.initDb(false)).apply { initDb() }
     }
 
     @Test
     fun `test read and write through strategy`() {
-        useReadAndWriteThroughStrategy()
+        useReadAndWriteThroughStrategy(appManager)
     }
 
     @Test
     fun `test read through and write around strategy`() {
-        useReadThroughAndWriteAroundStrategy()
+        useReadThroughAndWriteAroundStrategy(appManager)
     }
 
     @Test
     fun `test read through and write behind strategy`() {
-        useReadThroughAndWriteBehindStrategy()
+        useReadThroughAndWriteBehindStrategy(appManager)
     }
 
     @Test
     fun `test cache aside strategy`() {
-        useCacheAsideStrategy()
+        useCacheAsideStrategy(appManager)
     }
 }

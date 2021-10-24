@@ -119,7 +119,7 @@ class DbCustomerDaoTest {
 
         @Test
         fun `retrieving all customers fails with exception as feedback to client`() {
-            assertFailsWith<Exception> { dao.all }
+            assertFailsWith<Exception> { dao.all.count() }
         }
     }
 

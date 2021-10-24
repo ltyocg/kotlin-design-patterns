@@ -9,17 +9,17 @@ private val log = LoggerFactory.getLogger("main")
 
 fun main() = runBlocking {
     log.info("Start frame-based game loop:")
-    FrameBasedGameLoop().runPeriod()
+    FrameBasedGameLoop().runAround()
     log.info("Stop frame-based game loop.")
     log.info("Start variable-step game loop:")
-    VariableStepGameLoop().runPeriod()
+    VariableStepGameLoop().runAround()
     log.info("Stop variable-step game loop.")
     log.info("Start fixed-step game loop:")
-    FixedStepGameLoop().runPeriod()
+    FixedStepGameLoop().runAround()
     log.info("Stop variable-step game loop.")
 }
 
-private suspend fun GameLoop.runPeriod() {
+private suspend fun GameLoop.runAround() {
     run()
     delay(GAME_LOOP_DURATION_TIME)
     stop()

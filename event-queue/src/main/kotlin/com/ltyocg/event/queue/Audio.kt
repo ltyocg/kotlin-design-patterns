@@ -8,8 +8,7 @@ import javax.sound.sampled.AudioSystem
 import javax.sound.sampled.LineUnavailableException
 import kotlin.math.max
 
-class Audio
-internal constructor() {
+class Audio {
     private val log = LoggerFactory.getLogger(this::class.java)
     private var headIndex = 0
     private var tailIndex = 0

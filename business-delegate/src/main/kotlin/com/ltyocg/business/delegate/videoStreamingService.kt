@@ -8,7 +8,6 @@ interface VideoStreamingService {
 
 class NetflixService : VideoStreamingService {
     private val log = LoggerFactory.getLogger(this::class.java)
-
     override fun doProcessing() {
         log.info("NetflixService is now processing")
     }
@@ -16,7 +15,6 @@ class NetflixService : VideoStreamingService {
 
 class YouTubeService : VideoStreamingService {
     private val log = LoggerFactory.getLogger(this::class.java)
-
     override fun doProcessing() {
         log.info("YouTubeService is now processing")
     }

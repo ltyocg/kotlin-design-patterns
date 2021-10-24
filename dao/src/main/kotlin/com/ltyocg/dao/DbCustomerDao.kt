@@ -6,28 +6,15 @@ import javax.sql.DataSource
 
 class DbCustomerDao(private val dataSource: DataSource) : CustomerDao {
     override val all: Sequence<Customer>
-        get() = object : Iterator<Customer> {
-            private val connection = dataSource.connection
-            private val statement = connection.prepareStatement("SELECT * FROM CUSTOMERS")
-            private val resultSet = statement.executeQuery()
-            private var hasNextTemporary = false
-            override fun hasNext(): Boolean =
-                if (hasNextTemporary) true
-                else resultSet.next().also {
-                    if (it) hasNextTemporary = true
-                    else {
-                        resultSet.close()
-                        statement.close()
-                        connection.close()
+        get() = sequence {
+            statement("SELECT * FROM CUSTOMERS") {
+                executeQuery().use { resultSet ->
+                    while (resultSet.next()) {
+                        yield(createCustomer(resultSet))
                     }
                 }
-
-            override fun next(): Customer =
-                if (hasNextTemporary || hasNext()) {
-                    hasNextTemporary = false
-                    createCustomer(resultSet)
-                } else throw NoSuchElementException()
-        }.asSequence()
+            }
+        }
 
     override fun getById(id: Int): Customer? = statement("SELECT * FROM CUSTOMERS WHERE ID = ?") {
         setInt(1, id)
@@ -57,5 +44,5 @@ class DbCustomerDao(private val dataSource: DataSource) : CustomerDao {
     }
 
     private fun createCustomer(resultSet: ResultSet): Customer = Customer(resultSet.getInt("ID"), resultSet.getString("FNAME"), resultSet.getString("LNAME"))
-    private fun <R> statement(sql: String, block: PreparedStatement.() -> R): R = dataSource.connection.use { it.prepareStatement(sql).use(block) }
+    private inline fun <R> statement(sql: String, block: PreparedStatement.() -> R): R = dataSource.connection.use { it.prepareStatement(sql).use(block) }
 }

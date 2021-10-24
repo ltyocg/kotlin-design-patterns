@@ -12,9 +12,7 @@ class ServiceAmbassador : RemoteServiceInterface {
     override suspend fun doRemoteFunction(value: Int): Long {
         var result = RemoteServiceStatus.FAILURE.remoteServiceStatusValue
         for (i in 1..RETRIES) {
-            log.info("Time taken (ms): {}", measureTimeMillis {
-                result = RemoteService.doRemoteFunction(value)
-            })
+            log.info("Time taken (ms): {}", measureTimeMillis { result = RemoteService.doRemoteFunction(value) })
             if (result == RemoteServiceStatus.FAILURE.remoteServiceStatusValue) {
                 log.info("Failed to reach remote: ({})", i)
                 delay(DELAY_MS)

@@ -1,13 +1,21 @@
 package com.ltyocg.caching
 
 import org.slf4j.LoggerFactory
+import kotlin.properties.Delegates
 
-class LruCache(var capacity: Int) {
+class LruCache(capacity: Int) {
     private val log = LoggerFactory.getLogger(this::class.java)
-
+    var capacity: Int by Delegates.observable(capacity) { _, _, newValue ->
+        if (cache.size > newValue) with(cache.iterator()) {
+            repeat(cache.size - newValue) {
+                next()
+                remove()
+            }
+        }
+    }
     private val cache = object : LinkedHashMap<String, UserAccount>(16, 0.75f, true) {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, UserAccount>): Boolean {
-            return (size > capacity).also { if (it) log.info("# Cache is FULL! Removing {} from cache...", eldest.key) }
+            return (size > this@LruCache.capacity).also { if (it) log.info("# Cache is FULL! Removing {} from cache...", eldest.key) }
         }
     }
     val full: Boolean

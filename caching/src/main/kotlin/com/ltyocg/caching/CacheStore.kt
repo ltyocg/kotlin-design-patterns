@@ -1,14 +1,11 @@
 package com.ltyocg.caching
 
+import com.ltyocg.caching.database.DbManager
 import org.slf4j.LoggerFactory
 
-object CacheStore {
+class CacheStore(private val dbManager: DbManager) {
     private val log = LoggerFactory.getLogger(this::class.java)
-    private val cache = LruCache(0)
-
-    fun initCapacity(capacity: Int) {
-        cache.capacity = capacity
-    }
+    private val cache = LruCache(3)
 
     fun readThrough(userId: String): UserAccount? {
         if (userId in cache) {
@@ -16,20 +13,20 @@ object CacheStore {
             return cache[userId]
         }
         log.info("# Cache Miss!")
-        return DbManager.readFromDb(userId)?.also { cache[userId] = it }
+        return dbManager.readFromDb(userId)?.also { cache[userId] = it }
     }
 
     fun writeThrough(userAccount: UserAccount) {
-        if (userAccount.userId in cache) DbManager.updateDb(userAccount)
-        else DbManager.writeToDb(userAccount)
+        if (userAccount.userId in cache) dbManager.updateDb(userAccount)
+        else dbManager.writeToDb(userAccount)
         cache[userAccount.userId] = userAccount
     }
 
     fun writeAround(userAccount: UserAccount) {
         if (userAccount.userId in cache) {
-            DbManager.updateDb(userAccount)
+            dbManager.updateDb(userAccount)
             cache.invalidate(userAccount.userId)
-        } else DbManager.writeToDb(userAccount)
+        } else dbManager.writeToDb(userAccount)
     }
 
     fun readThroughWithWriteBackPolicy(userId: String): UserAccount? {
@@ -38,10 +35,10 @@ object CacheStore {
             return cache[userId]
         }
         log.info("# Cache Miss!")
-        val userAccount = DbManager.readFromDb(userId)
+        val userAccount = dbManager.readFromDb(userId)
         if (cache.full) {
             log.info("# Cache is FULL! Writing LRU data to DB...")
-            DbManager.upsertDb(cache.lruData)
+            dbManager.upsertDb(cache.lruData)
         }
         return userAccount.also { if (it != null) cache[userId] = it }
     }
@@ -49,7 +46,7 @@ object CacheStore {
     fun writeBehind(userAccount: UserAccount) {
         if (cache.full && userAccount.userId !in cache) {
             log.info("# Cache is FULL! Writing LRU data to DB...")
-            DbManager.upsertDb(cache.lruData)
+            dbManager.upsertDb(cache.lruData)
         }
         cache[userAccount.userId] = userAccount
     }
@@ -60,7 +57,7 @@ object CacheStore {
 
     fun flushCache() {
         log.info("# flushCache...")
-        cache.cacheDataInListForm.forEach(DbManager::updateDb)
+        cache.cacheDataInListForm.forEach(dbManager::updateDb)
     }
 
     fun print(): String = cache.cacheDataInListForm.joinToString("", "\n--CACHE CONTENT--\n", "----\n") { "$it\n" }
