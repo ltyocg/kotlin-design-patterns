@@ -35,3 +35,7 @@ class PlusExpression(
     override fun interpret(): Int = leftExpression.interpret() + rightExpression.interpret()
     override fun toString(): String = "+"
 }
+
+operator fun Expression.plus(rightExpression: Expression): PlusExpression = PlusExpression(this, rightExpression)
+operator fun Expression.minus(rightExpression: Expression): MinusExpression = MinusExpression(this, rightExpression)
+operator fun Expression.times(rightExpression: Expression): MultiplyExpression = MultiplyExpression(this, rightExpression)

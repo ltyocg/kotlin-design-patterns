@@ -13,9 +13,9 @@ fun main() {
             val leftExpression = stack.pop()
             log.info("popped from stack left: {} right: {}", leftExpression.interpret(), rightExpression.interpret())
             val operator = when (it) {
-                "+" -> PlusExpression(leftExpression, rightExpression)
-                "-" -> MinusExpression(leftExpression, rightExpression)
-                else -> MultiplyExpression(leftExpression, rightExpression)
+                "+" -> leftExpression + rightExpression
+                "-" -> leftExpression - rightExpression
+                else -> leftExpression * rightExpression
             }
             log.info("operator: {}", operator)
             val resultExpression = NumberExpression(operator.interpret())
