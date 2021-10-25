@@ -18,7 +18,7 @@ private fun filteringSimpleThreats() {
         )
     )
     log.info("Filtering ThreatAwareSystem. Initial : {}", threatAwareSystem)
-    log.info("Filtered by threatType = ROOTKIT : {}", threatAwareSystem.filtered().by { it.type() == ThreatType.ROOTKIT })
+    log.info("Filtered by threatType = ROOTKIT : {}", threatAwareSystem.filtered.by { it.type == ThreatType.ROOTKIT })
 }
 
 private fun filteringSimpleProbableThreats() {
@@ -30,5 +30,5 @@ private fun filteringSimpleProbableThreats() {
         )
     )
     log.info("Filtering ProbabilisticThreatAwareSystem. Initial : {}", probabilisticThreatAwareSystem)
-    log.info("Filtered by probability = 0.99 : {}", probabilisticThreatAwareSystem.filtered().by { it.probability() == 0.99 })
+    log.info("Filtered by probability = 0.99 : {}", probabilisticThreatAwareSystem.filtered.by { it.probability == 0.99 })
 }

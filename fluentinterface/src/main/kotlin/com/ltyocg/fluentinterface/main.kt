@@ -3,10 +3,9 @@ package com.ltyocg.fluentinterface
 import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("main")
-private val negatives = { integer: Int -> integer < 0 }
-private val positives = { integer: Int -> integer > 0 }
-private val transformToString = { integer: Int -> "String[$integer]" }
-
+private val negatives = { it: Int -> it < 0 }
+private val positives = { it: Int -> it > 0 }
+private val transformToString = { it: Int -> "String[$it]" }
 fun main() {
     val integerList = listOf(1, -61, 14, -22, 18, -87, 6, 64, -82, 26, -98, 97, 45, 23, 2, -68)
     integerList.prettyPrint("The initial list contains: ")
