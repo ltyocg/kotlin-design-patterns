@@ -3,11 +3,10 @@ package com.ltyocg.command
 import java.util.*
 
 class Wizard {
-    private val undoStack = LinkedList<Runnable>()
-    private val redoStack = LinkedList<Runnable>()
-
-    fun castSpell(runnable: Runnable) {
-        runnable.run()
+    private val undoStack = LinkedList<() -> Unit>()
+    private val redoStack = LinkedList<() -> Unit>()
+    fun castSpell(runnable: () -> Unit) {
+        runnable()
         undoStack.offerLast(runnable)
     }
 
@@ -15,7 +14,7 @@ class Wizard {
         if (undoStack.isNotEmpty()) {
             val previousSpell = undoStack.pollLast()
             redoStack.offerLast(previousSpell)
-            previousSpell.run()
+            previousSpell()
         }
     }
 
@@ -23,7 +22,7 @@ class Wizard {
         if (redoStack.isNotEmpty()) {
             val previousSpell = redoStack.pollLast()
             undoStack.offerLast(previousSpell)
-            previousSpell.run()
+            previousSpell()
         }
     }
 
