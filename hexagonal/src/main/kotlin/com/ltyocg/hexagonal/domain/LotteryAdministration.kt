@@ -25,6 +25,7 @@ class LotteryAdministration
                         notifications.ticketWon(playerDetails, LotteryConstants.PRIZE_AMOUNT)
                     else notifications.prizeError(playerDetails, LotteryConstants.PRIZE_AMOUNT)
                 LotteryTicketCheckResult.CheckResult.NO_PRIZE -> notifications.ticketDidNotWin(playerDetails)
+                else -> {}
             }
         }
         return numbers

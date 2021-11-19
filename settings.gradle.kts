@@ -79,7 +79,6 @@ include(
     "lazy-loading",
     "leader-election",
     "leader-followers",
-    "localization",
     "lockable-object",
     "marker",
     "master-worker-pattern",

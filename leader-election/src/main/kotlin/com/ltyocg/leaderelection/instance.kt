@@ -46,6 +46,7 @@ abstract class AbstractInstance(
                     log.info("Instance {} - Heartbeat Invoke Message handling...", localId)
                     handleHeartbeatInvokeMessage()
                 }
+                else -> {}
             }
         }
     }

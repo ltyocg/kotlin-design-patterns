@@ -1,12 +1,11 @@
 package com.ltyocg.leaderelection
 
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlin.concurrent.thread
 
 class BullyMain {
     companion object {
         @JvmStatic
-        fun main(args: Array<String>) = runBlocking {
+        fun main(args: Array<String>) {
             val instanceMap = mutableMapOf<Int, Instance>()
             val messageManager = BullyMessageManager(instanceMap)
             val instance1 = BullyInstance(messageManager, 1, 1)
@@ -21,11 +20,11 @@ class BullyMain {
                 put(4, instance4)
                 put(5, instance5)
             }
-            launch { instance1() }
-            launch { instance2() }
-            launch { instance3() }
-            launch { instance4() }
-            launch { instance5() }
+            thread { instance1() }
+            thread { instance2() }
+            thread { instance3() }
+            thread { instance4() }
+            thread { instance5() }
             instance1.alive = false
         }
     }
@@ -34,7 +33,7 @@ class BullyMain {
 class RingMain {
     companion object {
         @JvmStatic
-        fun main(args: Array<String>) = runBlocking {
+        fun main(args: Array<String>) {
             val instanceMap = mutableMapOf<Int, Instance>()
             val messageManager = RingMessageManager(instanceMap)
             val instance1 = RingInstance(messageManager, 1, 1)
@@ -49,11 +48,11 @@ class RingMain {
                 put(4, instance4)
                 put(5, instance5)
             }
-            launch { instance1() }
-            launch { instance2() }
-            launch { instance3() }
-            launch { instance4() }
-            launch { instance5() }
+            thread { instance1() }
+            thread { instance2() }
+            thread { instance3() }
+            thread { instance4() }
+            thread { instance5() }
             instance1.alive = false
         }
     }
