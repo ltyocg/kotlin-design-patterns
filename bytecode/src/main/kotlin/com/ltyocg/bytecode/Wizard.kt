@@ -9,7 +9,7 @@ class Wizard(
     numberOfPlayedSounds: Int,
     numberOfSpawnedParticles: Int
 ) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     var numberOfPlayedSounds = numberOfPlayedSounds
         private set
     var numberOfSpawnedParticles = numberOfSpawnedParticles

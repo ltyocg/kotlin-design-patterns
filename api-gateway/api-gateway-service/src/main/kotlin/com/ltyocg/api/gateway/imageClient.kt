@@ -14,7 +14,7 @@ interface ImageClient {
 
 @Component
 class ImageClientImpl : ImageClient {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override val imagePath: String?
         get() {
             try {

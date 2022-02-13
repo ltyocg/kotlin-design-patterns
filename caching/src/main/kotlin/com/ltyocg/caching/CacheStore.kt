@@ -4,7 +4,7 @@ import com.ltyocg.caching.database.DbManager
 import org.slf4j.LoggerFactory
 
 class CacheStore(private val dbManager: DbManager) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val cache = LruCache(3)
 
     fun readThrough(userId: String): UserAccount? {

@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
 
 class Inventory(private val inventorySize: Int) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val _items = ArrayList<Item>(inventorySize)
     private val lock = ReentrantLock()
 

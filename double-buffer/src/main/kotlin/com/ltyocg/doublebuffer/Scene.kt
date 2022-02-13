@@ -3,7 +3,7 @@ package com.ltyocg.doublebuffer
 import org.slf4j.LoggerFactory
 
 class Scene {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val frameBuffers = Array<Buffer>(2) { FrameBuffer() }
     private var current = 0
     private var next = 1

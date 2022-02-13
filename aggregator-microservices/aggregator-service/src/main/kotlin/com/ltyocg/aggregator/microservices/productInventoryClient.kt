@@ -14,7 +14,7 @@ interface ProductInventoryClient {
 
 @Component
 class ProductInventoryClientImpl : ProductInventoryClient {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override val productInventories: Int?
         get() {
             var response = ""

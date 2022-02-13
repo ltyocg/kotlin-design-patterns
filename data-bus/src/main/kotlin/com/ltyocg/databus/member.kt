@@ -2,19 +2,18 @@ package com.ltyocg.databus
 
 import org.slf4j.LoggerFactory
 import java.time.LocalDateTime
-import java.util.function.Consumer
 
-fun interface Member : Consumer<DataType> {
-    override fun accept(data: DataType)
+fun interface Member : (DataType) -> Unit {
+    override fun invoke(data: DataType)
 }
 
 class MessageCollectorMember(private val name: String) : Member {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val _messages = mutableListOf<String>()
     val messages: List<String>
         get() = _messages.toList()
 
-    override fun accept(data: DataType) {
+    override fun invoke(data: DataType) {
         if (data is MessageData) {
             log.info("{} sees message {}", name, data.message)
             _messages.add(data.message)
@@ -23,13 +22,13 @@ class MessageCollectorMember(private val name: String) : Member {
 }
 
 class StatusMember(private val id: Int) : Member {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     var started: LocalDateTime? = null
         private set
     var stopped: LocalDateTime? = null
         private set
 
-    override fun accept(data: DataType) {
+    override fun invoke(data: DataType) {
         when (data) {
             is StartingData -> {
                 started = data.`when`

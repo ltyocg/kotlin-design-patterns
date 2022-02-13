@@ -3,7 +3,7 @@ package com.ltyocg.command
 import org.slf4j.LoggerFactory
 
 abstract class Target {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     var size: Size = Size.NORMAL
         private set
     var visibility: Visibility = Visibility.VISIBLE

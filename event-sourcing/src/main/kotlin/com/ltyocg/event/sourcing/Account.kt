@@ -8,7 +8,7 @@ data class Account(
     val owner: String,
     var money: BigDecimal = BigDecimal.ZERO
 ) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     companion object {
         private const val MSG = "Some external api for only realtime execution could be called here."

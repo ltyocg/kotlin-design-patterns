@@ -7,7 +7,7 @@ abstract class Modem {
 }
 
 class Hayes : Modem() {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     override fun accept(modemVisitor: ModemVisitor) {
         if (modemVisitor is HayesVisitor) modemVisitor.visit(this)
@@ -18,7 +18,7 @@ class Hayes : Modem() {
 }
 
 class Zoom : Modem() {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     override fun accept(modemVisitor: ModemVisitor) {
         if (modemVisitor is ZoomVisitor) modemVisitor.visit(this)

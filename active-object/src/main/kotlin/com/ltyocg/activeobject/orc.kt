@@ -9,7 +9,7 @@ import java.util.concurrent.Executors
 
 abstract class ActiveCreature
 internal constructor(val name: String) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val coroutineDispatcher = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
     private val coroutineScope = CoroutineScope(coroutineDispatcher)
     var status = 0

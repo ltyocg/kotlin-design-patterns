@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
 
 @RestController
 class ImageController {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     @GetMapping("/image-path")
     fun getImagePath(): String {

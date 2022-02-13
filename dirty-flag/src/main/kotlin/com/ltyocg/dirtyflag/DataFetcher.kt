@@ -7,7 +7,7 @@ import java.nio.charset.Charset
 
 
 class DataFetcher {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val filename = "world.txt"
     private var lastFetched = -1L
 
@@ -15,7 +15,7 @@ class DataFetcher {
         (lastFetched != fileLastModified).also { if (it) lastFetched = fileLastModified }
 
     fun fetch(): List<String> {
-        val file = File(URLDecoder.decode(this::class.java.classLoader.getResource(filename)!!.file, Charset.defaultCharset()))
+        val file = File(URLDecoder.decode(javaClass.classLoader.getResource(filename)!!.file, Charset.defaultCharset()))
         return if (isDirty(file.lastModified())) {
             log.info("{} is dirty! Re-fetching file content...", filename)
             file.readLines()

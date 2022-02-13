@@ -5,7 +5,7 @@ import com.ltyocg.commander.generateId
 import org.slf4j.LoggerFactory
 
 class MessagingService(db: MessagingDatabase, vararg exc: Exception) : Service<MessagingService.MessageRequest>(db, *exc) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     override fun receiveRequest(vararg parameters: Any): String? = updateDb(
         MessageRequest(

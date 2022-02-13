@@ -64,7 +64,7 @@ class MongoEventLog(dbName: String, eventsCollectionName: String) : LotteryEvent
 }
 
 class StdOutEventLog : LotteryEventLog {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override fun ticketSubmitted(details: PlayerDetails) {
         log.info("Lottery ticket for {} was submitted. Bank account {} was charged for 3 credits.", details.email, details.bankAccount)
     }

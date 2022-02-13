@@ -3,7 +3,7 @@ package com.ltyocg.lazy.loading
 import org.slf4j.LoggerFactory
 
 class Heavy {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     init {
         log.info("Creating Heavy ...")

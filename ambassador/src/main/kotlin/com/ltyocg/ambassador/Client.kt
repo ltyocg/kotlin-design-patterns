@@ -3,7 +3,7 @@ package com.ltyocg.ambassador
 import org.slf4j.LoggerFactory
 
 class Client {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val serviceAmbassador = ServiceAmbassador()
     suspend fun useService(value: Int): Long =
         serviceAmbassador.doRemoteFunction(value)

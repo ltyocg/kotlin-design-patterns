@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
 
 @RestController
 class PriceController {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     @GetMapping("/price")
     fun getPrice(): String {

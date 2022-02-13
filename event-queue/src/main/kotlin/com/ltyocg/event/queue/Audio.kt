@@ -9,7 +9,7 @@ import javax.sound.sampled.LineUnavailableException
 import kotlin.math.max
 
 class Audio {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private var headIndex = 0
     private var tailIndex = 0
     private var updateJob: Job? = null

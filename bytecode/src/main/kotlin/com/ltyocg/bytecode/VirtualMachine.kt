@@ -5,7 +5,7 @@ import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 
 class VirtualMachine(wizard1: Wizard, wizard2: Wizard) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     constructor() : this(
         Wizard(randomInt(3, 32), randomInt(3, 32), randomInt(3, 32), 0, 0),

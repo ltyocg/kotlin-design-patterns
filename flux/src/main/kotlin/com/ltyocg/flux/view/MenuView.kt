@@ -7,7 +7,7 @@ import com.ltyocg.flux.store.Store
 import org.slf4j.LoggerFactory
 
 class MenuView : View {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private var selected = MenuItem.HOME
     override fun storeChanged(store: Store) {
         selected = (store as MenuStore).selected

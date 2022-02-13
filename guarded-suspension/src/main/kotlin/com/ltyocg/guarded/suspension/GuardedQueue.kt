@@ -4,7 +4,7 @@ import kotlinx.coroutines.channels.Channel
 import org.slf4j.LoggerFactory
 
 class GuardedQueue {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val sourceList = Channel<Int>(Channel.Factory.BUFFERED)
 
     @Synchronized

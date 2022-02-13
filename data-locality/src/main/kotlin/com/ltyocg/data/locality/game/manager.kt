@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory
 private const val MAX_ENTITIES = 10000
 
 class AiComponentManager(private val numEntities: Int) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val aiComponents = arrayOfNulls<Component>(MAX_ENTITIES)
     fun start() {
         log.info("Start AI Game Component")
@@ -22,7 +22,7 @@ class AiComponentManager(private val numEntities: Int) {
 }
 
 class PhysicsComponentManager(private val numEntities: Int) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val physicsComponents = arrayOfNulls<PhysicsComponent>(MAX_ENTITIES)
     fun start() {
         log.info("Start Physics Game Component ")
@@ -39,7 +39,7 @@ class PhysicsComponentManager(private val numEntities: Int) {
 }
 
 class RenderComponentManager(private val numEntities: Int) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val renderComponents = arrayOfNulls<RenderComponent>(MAX_ENTITIES)
     fun start() {
         log.info("Start Render Game Component ")

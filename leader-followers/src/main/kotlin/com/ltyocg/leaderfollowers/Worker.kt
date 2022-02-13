@@ -8,7 +8,7 @@ data class Worker(
     val taskSet: TaskSet,
     val taskHandler: TaskHandler
 ) : () -> Unit {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override fun invoke() {
         while (!Thread.interrupted()) try {
             if (workCenter.leader != null && workCenter.leader != this) {

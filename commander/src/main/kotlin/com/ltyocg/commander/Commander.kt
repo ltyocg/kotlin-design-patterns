@@ -25,7 +25,7 @@ class Commander(
     private val messageTime: Long,
     private val employeeTime: Long,
 ) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private var queueItems = 0
     private var finalSiteMsgShown: Boolean = false
 

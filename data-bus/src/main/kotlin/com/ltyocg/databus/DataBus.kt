@@ -12,6 +12,6 @@ object DataBus {
 
     fun publish(event: DataType) {
         event.dataBus = this
-        listeners.forEach { it.accept(event) }
+        listeners.forEach { it(event) }
     }
 }

@@ -3,7 +3,7 @@ package com.ltyocg.flyweight
 import org.slf4j.LoggerFactory
 
 class AlchemistShop {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val _topShelf: List<Potion>
     private val _bottomShelf: List<Potion>
 

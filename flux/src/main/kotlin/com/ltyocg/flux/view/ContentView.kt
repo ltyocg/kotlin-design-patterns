@@ -6,7 +6,7 @@ import com.ltyocg.flux.store.Store
 import org.slf4j.LoggerFactory
 
 class ContentView : View {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private var content = Content.PRODUCTS
     override fun storeChanged(store: Store) {
         content = (store as ContentStore).content

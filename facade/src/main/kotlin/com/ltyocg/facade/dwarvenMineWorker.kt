@@ -3,7 +3,7 @@ package com.ltyocg.facade
 import org.slf4j.LoggerFactory
 
 abstract class DwarvenMineWorker {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     fun goToSleep() {
         log.info("{} goes to sleep.", name)
     }
@@ -40,7 +40,7 @@ abstract class DwarvenMineWorker {
 }
 
 class DwarvenCartOperator : DwarvenMineWorker() {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override val name = "Dwarf cart operator"
     override fun work() {
         log.info("{} moves gold chunks out of the mine.", name)
@@ -48,7 +48,7 @@ class DwarvenCartOperator : DwarvenMineWorker() {
 }
 
 class DwarvenGoldDigger : DwarvenMineWorker() {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override val name = "Dwarf gold digger"
     override fun work() {
         log.info("{} digs for gold.", name)
@@ -56,7 +56,7 @@ class DwarvenGoldDigger : DwarvenMineWorker() {
 }
 
 class DwarvenTunnelDigger : DwarvenMineWorker() {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override val name = "Dwarven tunnel digger"
     override fun work() {
         log.info("{} creates another promising tunnel.", name)

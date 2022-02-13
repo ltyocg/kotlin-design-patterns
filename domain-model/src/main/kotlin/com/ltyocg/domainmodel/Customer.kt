@@ -9,7 +9,7 @@ class Customer(
     val name: String,
     var money: Money
 ) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     var purchases = mutableListOf<Product>()
 
     fun save() {

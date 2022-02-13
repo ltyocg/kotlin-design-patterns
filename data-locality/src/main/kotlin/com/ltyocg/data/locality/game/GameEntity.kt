@@ -3,7 +3,7 @@ package com.ltyocg.data.locality.game
 import org.slf4j.LoggerFactory
 
 class GameEntity(numEntities: Int) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val aiComponentManager: AiComponentManager = AiComponentManager(numEntities)
     private val physicsComponentManager: PhysicsComponentManager = PhysicsComponentManager(numEntities)
     private val renderComponentManager: RenderComponentManager = RenderComponentManager(numEntities)

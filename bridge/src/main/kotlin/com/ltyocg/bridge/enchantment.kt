@@ -9,7 +9,7 @@ interface Enchantment {
 }
 
 class FlyingEnchantment : Enchantment {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     override fun onActivate() {
         log.info("The item begins to glow faintly.")
@@ -25,7 +25,7 @@ class FlyingEnchantment : Enchantment {
 }
 
 class SoulEatingEnchantment : Enchantment {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     override fun onActivate() {
         log.info("The item spreads bloodlust.")

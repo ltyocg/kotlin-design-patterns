@@ -3,7 +3,7 @@ package com.ltyocg.chain
 import org.slf4j.LoggerFactory
 
 abstract class RequestHandler(private val next: RequestHandler?) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     open fun handleRequest(req: Request) {
         next?.handleRequest(req)

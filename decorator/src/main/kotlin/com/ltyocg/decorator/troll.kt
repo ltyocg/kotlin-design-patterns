@@ -9,7 +9,7 @@ interface Troll {
 }
 
 class ClubbedTroll(private val decorated: Troll) : Troll {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override fun attack() {
         decorated.attack()
         log.info("The troll swings at you with a club!")
@@ -24,7 +24,7 @@ class ClubbedTroll(private val decorated: Troll) : Troll {
 }
 
 class SimpleTroll : Troll {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override fun attack() {
         log.info("The troll tries to grab you!")
     }

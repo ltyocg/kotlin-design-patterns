@@ -3,7 +3,7 @@ package com.ltyocg.doubledispatch
 import org.slf4j.LoggerFactory
 
 open class Meteoroid(left: Int, top: Int, right: Int, bottom: Int) : GameObject(left, top, right, bottom) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override fun collision(gameObject: GameObject) {
         gameObject.collisionResolve(this)
     }

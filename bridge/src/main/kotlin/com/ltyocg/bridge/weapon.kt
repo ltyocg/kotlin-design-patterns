@@ -10,7 +10,7 @@ interface Weapon {
 }
 
 class Hammer(override val enchantment: Enchantment) : Weapon {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     override fun wield() {
         log.info("The hammer is wielded.")
@@ -29,7 +29,7 @@ class Hammer(override val enchantment: Enchantment) : Weapon {
 }
 
 class Sword(override val enchantment: Enchantment) : Weapon {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     override fun wield() {
         log.info("The sword is wielded.")

@@ -12,7 +12,7 @@ class WashingMachine(
         task()
     }
 ) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     var washingMachineState: WashingMachineState = WashingMachineState.ENABLED
     private val lock = ReentrantLock()
     suspend fun wash() {

@@ -8,7 +8,7 @@ interface Component {
 }
 
 class AiComponent : Component {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override fun update() {
         log.info("update AI component")
     }
@@ -17,7 +17,7 @@ class AiComponent : Component {
 }
 
 class PhysicsComponent : Component {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override fun update() {
         log.info("Update physics component of game")
     }
@@ -26,7 +26,7 @@ class PhysicsComponent : Component {
 }
 
 class RenderComponent : Component {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override fun update() {}
     override fun render() {
         log.info("Render Component")

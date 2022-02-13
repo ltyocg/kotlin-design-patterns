@@ -10,7 +10,7 @@ private const val FAILURE_THRESHOLD = 1
 private const val RETRY_PERIOD = 2
 
 class MainTest {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private lateinit var monitoringService: MonitoringService
     private lateinit var delayedServiceCircuitBreaker: CircuitBreaker
     private lateinit var quickServiceCircuitBreaker: CircuitBreaker

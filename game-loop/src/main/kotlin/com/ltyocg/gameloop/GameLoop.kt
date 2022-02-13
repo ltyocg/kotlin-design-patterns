@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory
 import java.security.SecureRandom
 
 abstract class GameLoop {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     @Volatile
     internal var status = GameStatus.STOPPED

@@ -14,7 +14,7 @@ class Event(
     private val eventTime: Int,
     val synchronous: Boolean
 ) : IEvent {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private var job: Job? = null
     private var isComplete = false
     private var eventListener: JobCompleteListener? = null

@@ -12,7 +12,7 @@ abstract class Task {
 }
 
 class SimpleTask : Task() {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     override fun execute() {
         log.info("Perform some important activity and after call the callback method.")

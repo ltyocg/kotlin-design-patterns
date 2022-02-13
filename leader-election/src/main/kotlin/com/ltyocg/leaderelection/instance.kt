@@ -15,7 +15,7 @@ abstract class AbstractInstance(
     protected val localId: Int,
     protected var leaderId: Int
 ) : Instance, () -> Unit {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private val messageQueue = ConcurrentLinkedQueue<Message>()
     override var alive: Boolean = true
     override fun invoke() {
@@ -64,7 +64,7 @@ abstract class AbstractInstance(
 }
 
 class BullyInstance(messageManager: MessageManager?, localId: Int, leaderId: Int) : AbstractInstance(messageManager, localId, leaderId) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override fun handleElectionMessage(message: Message) {}
     override fun handleElectionInvokeMessage() {
         if (localId != leaderId) {
@@ -101,7 +101,7 @@ class BullyInstance(messageManager: MessageManager?, localId: Int, leaderId: Int
 }
 
 class RingInstance(messageManager: MessageManager?, localId: Int, leaderId: Int) : AbstractInstance(messageManager, localId, leaderId) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override fun handleElectionMessage(message: Message) {
         val content = message.content
         log.info("Instance {} - Election Message: {}", localId, content)

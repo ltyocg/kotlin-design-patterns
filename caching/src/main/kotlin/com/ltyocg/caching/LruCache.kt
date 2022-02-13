@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory
 import kotlin.properties.Delegates
 
 class LruCache(capacity: Int) {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     var capacity: Int by Delegates.observable(capacity) { _, _, newValue ->
         if (cache.size > newValue) with(cache.iterator()) {
             repeat(cache.size - newValue) {

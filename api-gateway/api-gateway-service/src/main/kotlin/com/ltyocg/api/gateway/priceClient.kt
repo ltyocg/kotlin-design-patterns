@@ -14,7 +14,7 @@ interface PriceClient {
 
 @Component
 class PriceClientImpl : PriceClient {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     override val price: String?
         get() {
             try {

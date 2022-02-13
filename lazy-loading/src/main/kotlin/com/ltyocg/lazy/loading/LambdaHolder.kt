@@ -3,7 +3,7 @@ package com.ltyocg.lazy.loading
 import org.slf4j.LoggerFactory
 
 class LambdaHolder {
-    private val log = LoggerFactory.getLogger(this::class.java)
+    private val log = LoggerFactory.getLogger(javaClass)
     private var supplier: () -> Heavy = {
         val heavyInstance = Heavy()
         supplier = { heavyInstance }
