@@ -89,14 +89,8 @@ internal class MongoDb : DbManager {
 
 internal class VirtualDb : DbManager {
     private val db = mutableMapOf<String, UserAccount>()
-    override fun connect() {
-        db.clear()
-    }
-
-    override fun disconnect() {
-        db.clear()
-    }
-
+    override fun connect() = db.clear()
+    override fun disconnect() = db.clear()
     override fun readFromDb(userId: String): UserAccount? = db[userId]
     override fun writeToDb(userAccount: UserAccount): UserAccount = userAccount.also { db[userAccount.userId] = it }
     override fun updateDb(userAccount: UserAccount): UserAccount = writeToDb(userAccount)
