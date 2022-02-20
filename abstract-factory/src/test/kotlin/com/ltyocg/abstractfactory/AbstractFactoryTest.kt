@@ -24,19 +24,19 @@ class AbstractFactoryTest {
 
     @Test
     fun `verify elf kingdom creation`() {
-        createKingdom(KingdomType.ELF).also {
-            assertTrue(it.king is ElfKing)
-            assertTrue(it.castle is ElfCastle)
-            assertTrue(it.army is ElfArmy)
+        with(createKingdom(KingdomType.ELF)) {
+            assertTrue(king is ElfKing)
+            assertTrue(castle is ElfCastle)
+            assertTrue(army is ElfArmy)
         }
     }
 
     @Test
     fun `verify orc kingdom creation`() {
-        createKingdom(KingdomType.ORC).also {
-            assertTrue(it.king is OrcKing)
-            assertTrue(it.castle is OrcCastle)
-            assertTrue(it.army is OrcArmy)
+        with(createKingdom(KingdomType.ORC)) {
+            assertTrue(king is OrcKing)
+            assertTrue(castle is OrcCastle)
+            assertTrue(army is OrcArmy)
         }
     }
 }

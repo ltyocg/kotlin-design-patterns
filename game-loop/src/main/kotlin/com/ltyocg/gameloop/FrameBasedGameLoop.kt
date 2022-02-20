@@ -9,7 +9,5 @@ class FrameBasedGameLoop : GameLoop() {
         }
     }
 
-    internal fun update() {
-        controller.moveBullet(0.5f)
-    }
+    internal fun update() = controller.moveBullet(0.5f)
 }

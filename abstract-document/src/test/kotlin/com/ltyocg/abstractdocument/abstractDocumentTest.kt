@@ -25,9 +25,8 @@ class AbstractDocumentTest {
     }
 
     @Test
-    fun `should retrieve empty stream for non existing children`() {
+    fun `should retrieve empty stream for non existing children`() =
         assertEquals(0, document.children(KEY, ::DocumentImplementation).count())
-    }
 
     @Test
     fun `should include props in toString`() {

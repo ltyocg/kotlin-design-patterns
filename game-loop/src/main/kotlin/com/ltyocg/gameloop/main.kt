@@ -4,23 +4,17 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
 
-private const val GAME_LOOP_DURATION_TIME = 2000L
 private val log = LoggerFactory.getLogger("main")
-
 fun main() = runBlocking {
-    log.info("Start frame-based game loop:")
-    FrameBasedGameLoop().runAround()
-    log.info("Stop frame-based game loop.")
-    log.info("Start variable-step game loop:")
-    VariableStepGameLoop().runAround()
-    log.info("Stop variable-step game loop.")
-    log.info("Start fixed-step game loop:")
-    FixedStepGameLoop().runAround()
-    log.info("Stop variable-step game loop.")
+    FrameBasedGameLoop().runAround("frame-based")
+    VariableStepGameLoop().runAround("variable-step")
+    FixedStepGameLoop().runAround("fixed-step")
 }
 
-private suspend fun GameLoop.runAround() {
+private suspend fun GameLoop.runAround(name: String) {
+    log.info("Start $name game loop:")
     run()
-    delay(GAME_LOOP_DURATION_TIME)
+    delay(2000L)
     stop()
+    log.info("Stop $name game loop.")
 }

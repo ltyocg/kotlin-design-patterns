@@ -12,7 +12,5 @@ class VariableStepGameLoop : GameLoop() {
         }
     }
 
-    fun update(elapsedTime: Long) {
-        controller.moveBullet(0.5f * elapsedTime / 1000)
-    }
+    fun update(elapsedTime: Long) = controller.moveBullet(0.5f * elapsedTime / 1000)
 }

@@ -3,10 +3,8 @@ package com.ltyocg.activeobject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
-private const val NUM_CREATURES = 3
-
 fun main() = runBlocking {
-    val creatures = (0 until NUM_CREATURES)
+    val creatures = (0 until 3)
         .map { Orc(Orc::class.simpleName + it) }
         .onEach {
             it.eat()

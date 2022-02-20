@@ -21,7 +21,5 @@ class FixedStepGameLoop : GameLoop() {
         }
     }
 
-    internal fun update() {
-        controller.moveBullet(0.5f * MS_PER_FRAME / 1000)
-    }
+    internal fun update() = controller.moveBullet(0.5f * MS_PER_FRAME / 1000)
 }

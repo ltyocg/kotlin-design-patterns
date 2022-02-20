@@ -23,13 +23,7 @@ abstract class GameLoop {
     val isGameRunning: Boolean
         get() = status == GameStatus.RUNNING
 
-    protected suspend fun processInput() {
-        delay(SecureRandom().nextInt(200) + 50L)
-    }
-
-    protected fun render() {
-        log.info("Current bullet position: {}", controller.bulletPosition)
-    }
-
+    protected suspend fun processInput() = delay(SecureRandom().nextInt(200) + 50L)
+    protected fun render() = log.info("Current bullet position: {}", controller.bulletPosition)
     protected abstract suspend fun processGameLoop()
 }
