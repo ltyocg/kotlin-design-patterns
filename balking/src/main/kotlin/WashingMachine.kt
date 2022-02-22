@@ -1,0 +1,33 @@
+import kotlinx.coroutines.delay
+import org.slf4j.LoggerFactory
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
+
+class WashingMachine(
+    private val delayProvider: DelayProvider = DelayProvider { interval, timeUnit, task ->
+        delay(timeUnit.toMillis(interval))
+        task()
+    }
+) {
+    private val log = LoggerFactory.getLogger(javaClass)
+    var washingMachineState: WashingMachineState = WashingMachineState.ENABLED
+    private val lock = ReentrantLock()
+    suspend fun wash() {
+        lock.withLock {
+            log.info("{}: Actual machine state: {}", Thread.currentThread().name, washingMachineState)
+            if (washingMachineState == WashingMachineState.WASHING) {
+                log.error("Cannot wash if the machine has been already washing!")
+                return
+            }
+            washingMachineState = WashingMachineState.WASHING
+        }
+        log.info("{}: Doing the washing", Thread.currentThread().name)
+        delayProvider.executeAfterDelay(50, TimeUnit.MILLISECONDS) {
+            lock.withLock {
+                washingMachineState = WashingMachineState.ENABLED
+                log.info("{}: Washing completed.", Thread.currentThread().id)
+            }
+        }
+    }
+}

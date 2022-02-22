@@ -5,7 +5,7 @@
          version="4.0">
     <servlet>
         <servlet-name>appServlet</servlet-name>
-        <servlet-class>com.ltyocg.compositeview.AppServlet</servlet-class>
+        <servlet-class>AppServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>appServlet</servlet-name>

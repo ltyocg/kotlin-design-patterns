@@ -19,7 +19,7 @@
         <level value="DEBUG"/>
         <appender-ref ref="FILE"/>
     </logger>
-    <logger name="main" additivity="false">
+    <logger name="aggregator.service.main" additivity="false">
         <level value="DEBUG"/>
         <appender-ref ref="FILE"/>
     </logger>
