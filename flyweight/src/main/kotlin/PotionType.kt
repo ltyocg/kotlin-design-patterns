@@ -1,0 +1,3 @@
+enum class PotionType {
+    HEALING, INVISIBILITY, STRENGTH, HOLY_WATER, POISON
+}

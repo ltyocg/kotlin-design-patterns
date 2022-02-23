@@ -1,0 +1,1 @@
+class LockingException(message: String?) : RuntimeException(message)

@@ -1,0 +1,1 @@
+class ApplicationException(cause: Throwable) : RuntimeException(cause)
