@@ -9,10 +9,8 @@ abstract class AbstractHolderTest {
     abstract val heavy: Heavy
 
     @Test
-    fun `test get heavy`() {
-        assertTimeout(Duration.ofMillis(3000)) {
-            assertSame(heavy, internalHeavyValue)
-        }
+    fun `test get heavy`() = assertTimeout(Duration.ofMillis(3000)) {
+        assertSame(heavy, internalHeavyValue)
     }
 }
 

@@ -12,9 +12,7 @@ class WorkCenterTest {
     }
 
     @Test
-    fun `test null leader`() {
-        assertNull(WorkCenter().apply { promoteLeader() }.leader)
-    }
+    fun `test null leader`() = assertNull(WorkCenter().apply { promoteLeader() }.leader)
 
     @Test
     fun `test promote leader`() {

@@ -13,9 +13,7 @@ import kotlin.test.assertTrue
 
 class RingMessageManagerTest {
     @Test
-    fun `test sendHeartbeatMessage`() {
-        assertTrue(RingMessageManager(mapOf(1 to RingInstance(null, 1, 1))).sendHeartbeatMessage(1))
-    }
+    fun `test sendHeartbeatMessage`() = assertTrue(RingMessageManager(mapOf(1 to RingInstance(null, 1, 1))).sendHeartbeatMessage(1))
 
     @Test
     fun `test sendElectionMessage`() {

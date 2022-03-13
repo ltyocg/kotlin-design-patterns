@@ -10,7 +10,5 @@ class PermissionTest {
     }
 
     @Test
-    fun thief() {
-        assertNull(Thief()::class.findAnnotation<Permission>())
-    }
+    fun thief() = assertNull(Thief()::class.findAnnotation<Permission>())
 }

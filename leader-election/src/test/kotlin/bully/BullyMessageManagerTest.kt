@@ -13,23 +13,20 @@ import kotlin.test.assertTrue
 
 class BullyMessageManagerTest {
     @Test
-    fun `test sendHeartbeatMessage`() {
+    fun `test sendHeartbeatMessage`() =
         assertTrue(BullyMessageManager(mapOf(1 to BullyInstance(null, 1, 1))).sendHeartbeatMessage(1))
-    }
 
     @Test
-    fun `test sendElectionMessage not accepted`() {
-        assertTrue(
-            BullyMessageManager(
-                mapOf(
-                    1 to BullyInstance(null, 1, 1).apply { alive = false },
-                    2 to BullyInstance(null, 1, 2),
-                    3 to BullyInstance(null, 1, 3),
-                    4 to BullyInstance(null, 1, 4)
-                )
-            ).sendElectionMessage(2, "2")
-        )
-    }
+    fun `test sendElectionMessage not accepted`() = assertTrue(
+        BullyMessageManager(
+            mapOf(
+                1 to BullyInstance(null, 1, 1).apply { alive = false },
+                2 to BullyInstance(null, 1, 2),
+                3 to BullyInstance(null, 1, 3),
+                4 to BullyInstance(null, 1, 4)
+            )
+        ).sendElectionMessage(2, "2")
+    )
 
     @Test
     fun `test sendLeaderMessage`() {
