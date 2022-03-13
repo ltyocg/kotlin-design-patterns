@@ -6,20 +6,20 @@ class FilterManagerTest {
     @Test
     fun `test filterRequest`() {
         assertEquals("RUNNING...", FilterManager().filterRequest(mock()))
-        verifyZeroInteractions(mock<Target>())
+        verifyNoInteractions(mock<Target>())
     }
 
     @Test
     fun `test addFilter`() {
         val target = mock<Target>()
         val filterManager = FilterManager()
-        verifyZeroInteractions(target)
+        verifyNoInteractions(target)
         val filter = mock<Filter>()
         whenever(filter.execute(any())).thenReturn("filter")
         filterManager.addFilter(filter)
         val order = mock<Order>()
         assertEquals("filter", filterManager.filterRequest(order))
         verify(filter, times(1)).execute(any())
-        verifyZeroInteractions(target, filter, order)
+        verifyNoInteractions(target, order)
     }
 }
