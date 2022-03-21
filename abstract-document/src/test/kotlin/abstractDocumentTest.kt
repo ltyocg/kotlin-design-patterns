@@ -12,13 +12,13 @@ class AbstractDocumentTest {
 
     @Test
     fun `should put and get value`() {
-        document.put(KEY, VALUE)
-        assertEquals(VALUE, document.get(KEY))
+        document[KEY] = VALUE
+        assertEquals(VALUE, document[KEY])
     }
 
     @Test
     fun `should retrieve children`() {
-        document.put(KEY, arrayListOf<Map<String, Any?>>(emptyMap(), emptyMap()))
+        document[KEY] = arrayListOf<Map<String, Any?>>(emptyMap(), emptyMap())
         assertEquals(2, document.children(KEY, AbstractDocumentTest::DocumentImplementation).count())
     }
 

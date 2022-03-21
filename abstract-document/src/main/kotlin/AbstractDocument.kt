@@ -1,15 +1,15 @@
 abstract class AbstractDocument(properties: Map<String, Any?>) : Document {
     private val properties = properties.toMutableMap()
 
-    override fun put(key: String, value: Any?) {
+    override operator fun set(key: String, value: Any?) {
         properties[key] = value
     }
 
-    override fun get(key: String): Any? = properties[key]
+    override operator fun get(key: String): Any? = properties[key]
 
     @Suppress("UNCHECKED_CAST")
     override fun <T> children(key: String, constructor: (Map<String, Any?>) -> T): Sequence<T> =
-        (get(key) as? List<Map<String, Any?>>)
+        (this[key] as? List<Map<String, Any?>>)
             ?.asSequence()
             ?.map(constructor)
             ?: emptySequence()
