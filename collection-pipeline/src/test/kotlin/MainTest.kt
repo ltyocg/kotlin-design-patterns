@@ -9,12 +9,12 @@ class MainTest {
 
     @Test
     fun `test getModelsAfter2000`() {
-        assertContentEquals(listOf("Avenger", "Wrangler", "Focus", "Cascada"), FunctionalProgramming.getModelsAfter2000(cars))
+        assertContentEquals(listOf("Avenger", "Wrangler", "Focus", "Cascada"), cars.getModelsAfter2000())
     }
 
     @Test
     fun `test getGroupingOfCarsByCategory`() {
-        val models = FunctionalProgramming.getGroupingOfCarsByCategory(cars)
+        val models = cars.getGroupingOfCarsByCategory()
         log.info("Category {}", models)
         assertEquals(
             mapOf(
@@ -40,7 +40,7 @@ class MainTest {
             listOf(
                 Car("Dodge", "Avenger", 2010, Category.SEDAN),
                 Car("Ford", "Focus", 2012, Category.SEDAN)
-            ), FunctionalProgramming.getSedanCarsOwnedSortedByDate(listOf(Person(cars)))
+            ), listOf(Person(cars)).getSedanCarsOwnedSortedByDate()
         )
     }
 }

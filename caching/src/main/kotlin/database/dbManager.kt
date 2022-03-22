@@ -26,16 +26,12 @@ internal class MongoDb : DbManager {
 
     private lateinit var client: MongoClient
     private lateinit var db: MongoDatabase
-
     override fun connect() {
         client = MongoClient(ServerAddress(), MongoCredential.createCredential("root", DATABASE_NAME, "rootpassword".toCharArray()), MongoClientOptions.builder().build())
         db = client.getDatabase(DATABASE_NAME)
     }
 
-    override fun disconnect() {
-        client.close()
-    }
-
+    override fun disconnect() = client.close()
     override fun readFromDb(userId: String): UserAccount? {
         val doc = db
             .getCollection(CachingConstants.USER_ACCOUNT)

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Books</title>
+</head>
+<body>
+<table>
+    <tbody>
+    <tr>
+        <th>name</th>
+        <th>author</th>
+        <th>description</th>
+        <th>operate</th>
+    </tr>
+    </tbody>
+</table>
+<script>
+fetch('/getBookList')
+    .then(response => response.json())
+    .then(result => {
+        const tbody = document.querySelector('tbody');
+        result.forEach(({name, author, description}) => {
+            const tr = tbody.appendChild(document.createElement('tr'));
+            tr.appendChild(document.createElement('td')).textContent = name;
+            tr.appendChild(document.createElement('td')).textContent = author;
+            tr.appendChild(document.createElement('td')).textContent = description;
+            const button = tr.appendChild(document.createElement('td')).appendChild(document.createElement('button'));
+            button.textContent = 'delete';
+            button.addEventListener('click', () => {
+                fetch(`/selectedBook?name=${name}&author=${author}&description=${description}`)
+                    .then(() => fetch('/deleteBook'))
+                    .then(() => tbody.removeChild(tr))
+            });
+        });
+    });
+</script>
+</body>
+</html>

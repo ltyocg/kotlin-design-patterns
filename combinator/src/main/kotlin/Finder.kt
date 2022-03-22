@@ -1,6 +1,6 @@
 fun interface Finder {
     fun find(text: String): List<String>
-    infix fun not(notFinder: Finder): Finder = Finder { find(it) - notFinder.find(it) }
+    infix fun not(notFinder: Finder): Finder = Finder { find(it) - notFinder.find(it).toSet() }
     infix fun or(orFinder: Finder): Finder = Finder { find(it) + orFinder.find(it) }
     infix fun and(andFinder: Finder): Finder = Finder { find(it).flatMap(andFinder::find) }
 

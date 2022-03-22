@@ -4,7 +4,7 @@ private val log = LoggerFactory.getLogger("main")
 
 fun main() {
     val cars = CarFactory.createCars()
-    log.info(FunctionalProgramming.getModelsAfter2000(cars).toString())
-    log.info(FunctionalProgramming.getGroupingOfCarsByCategory(cars).toString())
-    log.info(FunctionalProgramming.getSedanCarsOwnedSortedByDate(listOf(Person(cars))).toString())
+    log.info(cars.getModelsAfter2000().toString())
+    log.info(cars.getGroupingOfCarsByCategory().toString())
+    log.info(listOf(Person(cars)).getSedanCarsOwnedSortedByDate().toString())
 }

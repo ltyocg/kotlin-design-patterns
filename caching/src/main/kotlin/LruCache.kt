@@ -33,7 +33,5 @@ class LruCache(capacity: Int) {
         if (cache.remove(userId) != null) log.info("# {} has been updated! Removing older version from cache...", userId)
     }
 
-    fun clear() {
-        cache.clear()
-    }
+    fun clear() = cache.clear()
 }

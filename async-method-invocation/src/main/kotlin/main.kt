@@ -4,7 +4,7 @@ import kotlinx.coroutines.*
 import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("main")
-private const val ROCKET_LAUNCH_LOG_PATTERN = "Space rocket <%s> launched successfully"
+private const val ROCKET_LAUNCH_LOG_PATTERN = "Space rocket <{}> launched successfully"
 fun main() = runBlocking {
     val deferred1 = lazyval(10, 500)
     val deferred2 = lazyval("test", 300)
@@ -18,14 +18,14 @@ fun main() = runBlocking {
     val result3 = deferred3.await()
     deferred4.await()
     deferred5.await()
-    log.info(ROCKET_LAUNCH_LOG_PATTERN.format(result1))
-    log.info(ROCKET_LAUNCH_LOG_PATTERN.format(result2))
-    log.info(ROCKET_LAUNCH_LOG_PATTERN.format(result3))
+    log.info(ROCKET_LAUNCH_LOG_PATTERN, result1)
+    log.info(ROCKET_LAUNCH_LOG_PATTERN, result2)
+    log.info(ROCKET_LAUNCH_LOG_PATTERN, result3)
 }
 
 private fun <T> CoroutineScope.lazyval(value: T, delayMillis: Long, callback: String? = null): Deferred<T> = async {
     delay(delayMillis)
-    log.info("Space rocket <$value> launched successfully")
+    log.info("Space rocket <{}> launched successfully", value)
     value
 }.apply {
     if (callback != null) invokeOnCompletion {
