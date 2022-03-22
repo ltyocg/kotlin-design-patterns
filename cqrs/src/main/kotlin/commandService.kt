@@ -54,11 +54,14 @@ class CommandServiceImpl : ICommandService {
         return query.uniqueResult() as Book? ?: throw NullPointerException("Author $title doesn't exist!")
     }
 
-    private fun transaction(block: Session.() -> Unit) {
+    private inline fun transaction(block: Session.() -> Unit) {
         sessionFactory.openSession().use {
-            it.beginTransaction()
-            block(it)
-            it.transaction.commit()
+            val transaction = it.beginTransaction()
+            try {
+                block(it)
+            } finally {
+                transaction.commit()
+            }
         }
     }
 }
