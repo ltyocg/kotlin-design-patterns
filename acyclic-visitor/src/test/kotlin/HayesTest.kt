@@ -1,7 +1,7 @@
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyZeroInteractions
+import org.mockito.kotlin.verifyNoMoreInteractions
 import kotlin.test.Test
 
 class HayesTest {
@@ -15,9 +15,8 @@ class HayesTest {
 
     @Test
     fun `test accept for unix`() {
-        val hayes = Hayes()
         val mockVisitor = mock<ConfigureForUnixVisitor>()
-        hayes.accept(mockVisitor)
-        verifyZeroInteractions(mockVisitor)
+        Hayes().accept(mockVisitor)
+        verifyNoMoreInteractions(mockVisitor)
     }
 }
