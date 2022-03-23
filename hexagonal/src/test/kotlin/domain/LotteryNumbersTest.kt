@@ -7,7 +7,7 @@ import kotlin.test.assertNotEquals
 
 class LotteryNumbersTest {
     @Test
-    fun `test given numbers`() {
+    fun `given numbers`() {
         val numbers = LotteryNumbers.create(setOf(1, 2, 3, 4))
         assertEquals(numbers.numbers.size, 4)
         assertContains(numbers.numbers, 1)
@@ -17,7 +17,7 @@ class LotteryNumbersTest {
     }
 
     @Test
-    fun `test random numbers`() {
+    fun `random numbers`() {
         assertEquals(LotteryNumbers.createRandom().numbers.size, LotteryNumbers.NUM_NUMBERS)
     }
 

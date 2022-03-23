@@ -6,7 +6,7 @@ class InMemoryBankTest {
     private val bank = InMemoryBank()
 
     @Test
-    fun `test init`() {
+    fun init() {
         assertEquals(0, bank.getFunds("foo"))
         bank.setFunds("foo", 100)
         assertEquals(100, bank.getFunds("foo"))

@@ -36,7 +36,7 @@ class StatusMember(private val id: Int) : Member {
                 stopped = data.`when`
                 log.info("Receiver {} sees application stopping at {}", id, stopped)
                 log.info("Receiver {} sending goodbye message", id)
-                DataBus.publish(MessageData("Goodbye cruel world from #%d!".format(id)))
+                DataBus.publish(MessageData("Goodbye cruel world from #$id!"))
             }
         }
     }

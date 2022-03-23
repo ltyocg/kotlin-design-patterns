@@ -13,14 +13,14 @@ class MessageCollectorMemberTest {
     fun `collect message from message data`() {
         val message = "message"
         val collector = MessageCollectorMember("collector")
-        collector.accept(MessageData(message))
+        collector(MessageData(message))
         assertTrue(collector.messages.contains(message))
     }
 
     @Test
     fun `collect ignores message from other data types`() {
         val collector = MessageCollectorMember("collector")
-        collector.accept(StartingData(LocalDateTime.now()))
+        collector(StartingData(LocalDateTime.now()))
         assertEquals(0, collector.messages.size)
     }
 }

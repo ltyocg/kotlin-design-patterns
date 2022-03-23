@@ -3,10 +3,8 @@ package domain
 import LotteryEventLog
 import LotteryTicketRepository
 import WireTransfers
-import javax.inject.Inject
 
-class LotteryService
-@Inject constructor(
+class LotteryService(
     private val repository: LotteryTicketRepository,
     private val notifications: LotteryEventLog,
     private val wireTransfers: WireTransfers

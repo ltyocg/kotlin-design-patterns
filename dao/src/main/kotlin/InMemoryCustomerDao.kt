@@ -4,7 +4,6 @@ class InMemoryCustomerDao : CustomerDao {
         get() = idToCustomer.values.asSequence()
 
     override fun getById(id: Int): Customer? = idToCustomer[id]
-
     override fun add(customer: Customer): Boolean = if (idToCustomer[customer.id] != null) false
     else {
         idToCustomer[customer.id] = customer

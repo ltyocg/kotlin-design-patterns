@@ -1,8 +1,15 @@
-import com.google.inject.Guice
+import org.springframework.beans.factory.getBean
+import org.springframework.context.support.StaticApplicationContext
+import org.springframework.context.support.beans
 
 fun main() {
     SimpleWizard().smoke()
     AdvancedWizard(SecondBreakfastTobacco()).smoke()
     AdvancedSorceress().apply { setTobacco(SecondBreakfastTobacco()) }.smoke()
-    Guice.createInjector(TobaccoModule()).getInstance(GuiceWizard::class.java).smoke()
+    StaticApplicationContext().apply {
+        beans {
+            bean<RivendellTobacco>()
+            bean<GuiceWizard>()
+        }.initialize(this)
+    }.getBean<GuiceWizard>().smoke()
 }

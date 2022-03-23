@@ -1,27 +1,21 @@
 package domain
 
 import LotteryTestUtils
-import LotteryTestingModule
 import WireTransfers
-import com.google.inject.Guice
-import com.google.inject.Inject
+import lotteryTestingContext
+import org.springframework.beans.factory.getBean
 import kotlin.test.*
 
 class LotteryTest {
-    private val injector = Guice.createInjector(LotteryTestingModule())
-
-    @Inject
     private lateinit var administration: LotteryAdministration
-
-    @Inject
     private lateinit var service: LotteryService
-
-    @Inject
     private lateinit var wireTransfers: WireTransfers
 
     @BeforeTest
     fun setup() {
-        injector.injectMembers(this)
+        administration = lotteryTestingContext.getBean()
+        service = lotteryTestingContext.getBean()
+        wireTransfers = lotteryTestingContext.getBean()
         wireTransfers.setFunds("123-12312", 100)
     }
 

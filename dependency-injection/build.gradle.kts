@@ -1,4 +1,4 @@
 dependencies {
     implementation(project(":commons"))
-    implementation("com.google.inject", "guice", "5.0.1")
+    implementation("org.springframework", "spring-context", "5.3.16")
 }

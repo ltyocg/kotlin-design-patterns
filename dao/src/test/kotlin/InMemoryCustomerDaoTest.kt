@@ -36,9 +36,7 @@ class InMemoryCustomerDaoTest {
         }
 
         @Test
-        fun `retrieve should return no customer`() {
-            assertNull(dao.getById(nonExistingCustomerId))
-        }
+        fun `retrieve should return no customer`() = assertNull(dao.getById(nonExistingCustomerId))
     }
 
     @Nested
@@ -61,20 +59,15 @@ class InMemoryCustomerDaoTest {
         fun `updation should be success and accessing the same customer should return updated information`() {
             val newFirstname = "Bernard"
             val newLastname = "Montgomery"
-            val customer = Customer(existingCustomer.id, newFirstname, newLastname)
-            assertTrue(dao.update(customer))
+            assertTrue(dao.update(Customer(existingCustomer.id, newFirstname, newLastname)))
             val cust = dao.getById(existingCustomer.id)!!
             assertEquals(newFirstname, cust.firstName)
             assertEquals(newLastname, cust.lastName)
         }
 
         @Test
-        fun `retrieve should return the customer`() {
-            assertEquals(existingCustomer, dao.getById(existingCustomer.id))
-        }
+        fun `retrieve should return the customer`() = assertEquals(existingCustomer, dao.getById(existingCustomer.id))
     }
 
-    private fun assertCustomerCountIs(count: Int) {
-        assertEquals(count, dao.all.count())
-    }
+    private fun assertCustomerCountIs(count: Int) = assertEquals(count, dao.all.count())
 }

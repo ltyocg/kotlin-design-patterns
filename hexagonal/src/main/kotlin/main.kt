@@ -1,11 +1,9 @@
-import com.google.inject.Guice
 import domain.LotteryAdministration
-import domain.LotteryService
+import org.springframework.beans.factory.getBean
 
 fun main() {
-    val injector = Guice.createInjector(LotteryTestingModule())
-    val administration = injector.getInstance(LotteryAdministration::class.java)
+    val administration = lotteryTestingContext.getBean<LotteryAdministration>()
     administration.resetLottery()
-    SampleData.submitTickets(injector.getInstance(LotteryService::class.java), 20)
+    SampleData.submitTickets(lotteryTestingContext.getBean(), 20)
     administration.performLottery()
 }

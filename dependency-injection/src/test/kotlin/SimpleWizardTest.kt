@@ -5,7 +5,7 @@ import kotlin.test.Test
 class SimpleWizardTest {
     @Test
     fun `test smoke`() {
-        assertLogContains(Level.INFO, "GuiceWizard smoking OldTobyTobacco") {
+        assertLogContains(Level.INFO, "SimpleWizard smoking OldTobyTobacco") {
             SimpleWizard().smoke()
         }
     }
