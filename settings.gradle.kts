@@ -91,6 +91,7 @@ include(
     "model-view-viewmodel",
     "module",
     "monad",
+    "monitor",
     "monostate",
     "multiton",
     "mute-idiom",

@@ -15,11 +15,11 @@ interface ICommandService {
 class CommandServiceImpl : ICommandService {
     private val sessionFactory = HibernateUtil.sessionFactory
     override fun authorCreated(username: String?, name: String?, email: String?) = transaction {
-        save(Author(username, name, email))
+        save(Author(username = username, name = name, email = email))
     }
 
     override fun bookAddedToAuthor(title: String?, price: Double, username: String?) = transaction {
-        save(Book(title, price, getAuthorByUsername(username)))
+        save(Book(title = title, price = price, author = getAuthorByUsername(username)))
     }
 
     override fun authorNameUpdated(username: String?, name: String?) = transaction {
