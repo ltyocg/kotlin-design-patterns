@@ -22,7 +22,10 @@ fun assertLogContains(level: Level, expected: String, block: () -> Unit) {
     assertContains(logContents(level, block), expected)
 }
 
-fun assertLogContentEquals(level: Level, expected: Iterable<String>, block: () -> Unit) =
+fun assertLogContentEquals(expected: Iterable<String?>, block: () -> Unit) =
+    assertContentEquals(expected, logContents(block))
+
+fun assertLogContentEquals(level: Level, expected: Iterable<String?>, block: () -> Unit) =
     assertContentEquals(expected, logContents(level, block))
 
 fun logContents(block: () -> Unit): List<String> = logAop(block).map { it.formattedMessage }
