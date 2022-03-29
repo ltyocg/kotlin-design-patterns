@@ -2,32 +2,14 @@ import org.slf4j.LoggerFactory
 
 abstract class DwarvenMineWorker {
     private val log = LoggerFactory.getLogger(javaClass)
-    fun goToSleep() {
-        log.info("{} goes to sleep.", name)
-    }
-
-    fun wakeUp() {
-        log.info("{} wakes up.", name)
-    }
-
-    fun goHome() {
-        log.info("{} goes home.", name)
-    }
-
-    fun goToMine() {
-        log.info("{} goes to the mine.", name)
-    }
-
     abstract val name: String
-    fun action(vararg actions: Action) {
-        actions.forEach {
-            when (it) {
-                Action.GO_TO_SLEEP -> goToSleep()
-                Action.WAKE_UP -> wakeUp()
-                Action.GO_HOME -> goHome()
-                Action.GO_TO_MINE -> goToMine()
-                Action.WORK -> work()
-            }
+    fun action(vararg actions: Action) = actions.forEach {
+        when (it) {
+            Action.GO_TO_SLEEP -> log.info("{} goes to sleep.", name)
+            Action.WAKE_UP -> log.info("{} wakes up.", name)
+            Action.GO_HOME -> log.info("{} goes home.", name)
+            Action.GO_TO_MINE -> log.info("{} goes to the mine.", name)
+            Action.WORK -> work()
         }
     }
 
@@ -40,23 +22,17 @@ abstract class DwarvenMineWorker {
 class DwarvenCartOperator : DwarvenMineWorker() {
     private val log = LoggerFactory.getLogger(javaClass)
     override val name = "Dwarf cart operator"
-    override fun work() {
-        log.info("{} moves gold chunks out of the mine.", name)
-    }
+    override fun work() = log.info("{} moves gold chunks out of the mine.", name)
 }
 
 class DwarvenGoldDigger : DwarvenMineWorker() {
     private val log = LoggerFactory.getLogger(javaClass)
     override val name = "Dwarf gold digger"
-    override fun work() {
-        log.info("{} digs for gold.", name)
-    }
+    override fun work() = log.info("{} digs for gold.", name)
 }
 
 class DwarvenTunnelDigger : DwarvenMineWorker() {
     private val log = LoggerFactory.getLogger(javaClass)
     override val name = "Dwarven tunnel digger"
-    override fun work() {
-        log.info("{} creates another promising tunnel.", name)
-    }
+    override fun work() = log.info("{} creates another promising tunnel.", name)
 }

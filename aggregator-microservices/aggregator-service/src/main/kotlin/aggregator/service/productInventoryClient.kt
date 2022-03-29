@@ -2,30 +2,24 @@ package aggregator.service
 
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
+import org.springframework.web.client.RestTemplate
+import org.springframework.web.client.getForObject
 import java.io.IOException
-import java.net.URI
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse
 
 interface ProductInventoryClient {
     val productInventories: Int?
 }
 
 @Component
-class ProductInventoryClientImpl : ProductInventoryClient {
+class ProductInventoryClientImpl(
+    private val restTemplate: RestTemplate
+) : ProductInventoryClient {
     private val log = LoggerFactory.getLogger(javaClass)
     override val productInventories: Int?
         get() {
             var response = ""
             try {
-                response = HttpClient.newHttpClient().send(
-                    HttpRequest.newBuilder()
-                        .GET()
-                        .uri(URI.create("http://localhost:51516/inventories"))
-                        .build(),
-                    HttpResponse.BodyHandlers.ofString()
-                ).body()
+                response = restTemplate.getForObject("http://localhost:51516/inventories")
             } catch (e: IOException) {
                 log.error("IOException Occurred", e)
             } catch (e: InterruptedException) {
