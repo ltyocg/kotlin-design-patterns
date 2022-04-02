@@ -1,7 +1,6 @@
 import java.util.concurrent.ConcurrentHashMap
 
 class Nazgul private constructor(val name: NazgulName) {
-
     companion object {
         private val nazguls = ConcurrentHashMap<NazgulName, Nazgul>().apply {
             NazgulName.values().forEach { put(it, Nazgul(it)) }

@@ -3,16 +3,14 @@ import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 
 class VirtualMachine(wizard1: Wizard, wizard2: Wizard) {
-    private val log = LoggerFactory.getLogger(javaClass)
-
     constructor() : this(
         Wizard(randomInt(3, 32), randomInt(3, 32), randomInt(3, 32), 0, 0),
         Wizard(randomInt(3, 32), randomInt(3, 32), randomInt(3, 32), 0, 0)
     )
 
+    private val log = LoggerFactory.getLogger(javaClass)
     val stack = Stack<Int>()
     val wizards = arrayOf(wizard1, wizard2)
-
     fun execute(bytecode: IntArray) {
         var i = 0
         while (i < bytecode.size) {
