@@ -16,8 +16,6 @@ class Weather {
         val enumValues = WeatherType.values()
         currentWeather = enumValues[(currentWeather.ordinal + 1) % enumValues.size]
         log.info("The weather changed to {}.", currentWeather)
-        observers.forEach {
-            it.update(currentWeather)
-        }
+        observers.forEach { it.update(currentWeather) }
     }
 }

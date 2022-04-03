@@ -6,7 +6,6 @@ import java.util.concurrent.CopyOnWriteArrayList
 
 abstract class Observable<S : Observable<S, O, A>, O : Observer<S, O, A>, A> {
     private val observers = CopyOnWriteArrayList<O>()
-
     fun addObserver(observer: O) {
         observers.add(observer)
     }
@@ -16,6 +15,7 @@ abstract class Observable<S : Observable<S, O, A>, O : Observer<S, O, A>, A> {
     }
 
     fun notifyObservers(argument: A) = observers.forEach {
+        @Suppress("UNCHECKED_CAST")
         it.update(this as S, argument)
     }
 }
