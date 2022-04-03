@@ -4,7 +4,6 @@ import org.slf4j.LoggerFactory
 class CacheStore(private val dbManager: DbManager) {
     private val log = LoggerFactory.getLogger(javaClass)
     private val cache = LruCache(3)
-
     fun readThrough(userId: String): UserAccount? {
         if (userId in cache) {
             log.info("# Cache Hit!")
@@ -49,10 +48,7 @@ class CacheStore(private val dbManager: DbManager) {
         cache[userAccount.userId] = userAccount
     }
 
-    fun clearCache() {
-        cache.clear()
-    }
-
+    fun clearCache() = cache.clear()
     fun flushCache() {
         log.info("# flushCache...")
         cache.cacheDataInListForm.forEach(dbManager::updateDb)
@@ -64,7 +60,5 @@ class CacheStore(private val dbManager: DbManager) {
         cache[userId] = userAccount
     }
 
-    fun invalidate(userId: String) {
-        cache.invalidate(userId)
-    }
+    fun invalidate(userId: String) = cache.invalidate(userId)
 }

@@ -4,7 +4,7 @@ import kotlin.test.assertFailsWith
 
 class VirtualMachineTest {
     @Test
-    fun `test literal`() {
+    fun literal() {
         val vm = VirtualMachine()
         vm.execute(intArrayOf(Instruction.LITERAL.intValue, 10))
         assertEquals(1, vm.stack.size)
@@ -93,7 +93,7 @@ class VirtualMachineTest {
     }
 
     @Test
-    fun `test invalid instruction`() {
+    fun `invalid instruction`() {
         assertFailsWith<IllegalArgumentException> { VirtualMachine().execute(intArrayOf(999)) }
     }
 }

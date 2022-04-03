@@ -2,9 +2,8 @@ import database.DbManagerFactory
 import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("main")
-private const val USE_MONGO_DB = "--mongo"
 fun main(args: Array<String>) {
-    val appManager = AppManager(DbManagerFactory.initDb(USE_MONGO_DB in args)).apply { initDb() }
+    val appManager = AppManager(DbManagerFactory.initDb("--mongo" in args)).apply { initDb() }
     useReadAndWriteThroughStrategy(appManager)
     useReadThroughAndWriteAroundStrategy(appManager)
     useReadThroughAndWriteBehindStrategy(appManager)

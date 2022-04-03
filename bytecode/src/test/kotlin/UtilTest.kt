@@ -4,10 +4,10 @@ import kotlin.test.assertEquals
 
 class UtilTest {
     @Test
-    fun `test empty instruction`() = assertEquals(0, convertToByteCode("").size)
+    fun `empty instruction`() = assertEquals(0, convertToByteCode("").size)
 
     @Test
-    fun `test instructions`() {
+    fun instructions() {
         val bytecode = convertToByteCode("LITERAL 35 SET_HEALTH SET_WISDOM SET_AGILITY PLAY_SOUND SPAWN_PARTICLES GET_HEALTH ADD DIVIDE")
         assertEquals(10, bytecode.size)
         assertContentEquals(

@@ -2,8 +2,7 @@ import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("main")
 fun main() {
-    val serverStartTime = System.nanoTime()
-    val delayedServiceCircuitBreaker = DefaultCircuitBreaker(DelayedRemoteService(serverStartTime, 5), 2, 2000L * 1000 * 1000)
+    val delayedServiceCircuitBreaker = DefaultCircuitBreaker(DelayedRemoteService(System.nanoTime(), 5), 2, 2000L * 1000 * 1000)
     val quickServiceCircuitBreaker = DefaultCircuitBreaker(QuickRemoteService(), 2, 2000L * 1000 * 1000)
     val monitoringService = MonitoringService(delayedServiceCircuitBreaker, quickServiceCircuitBreaker)
     log.info(monitoringService.localResourceResponse())

@@ -1,4 +1,7 @@
-class MonitoringService(private val delayedService: CircuitBreaker?, private val quickService: CircuitBreaker?) {
+class MonitoringService(
+    private val delayedService: CircuitBreaker?,
+    private val quickService: CircuitBreaker?
+) {
     fun localResourceResponse(): String = "Local Service is working"
     fun delayedServiceResponse(): String? = try {
         delayedService!!.attemptRequest()

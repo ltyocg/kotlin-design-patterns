@@ -48,9 +48,11 @@ class DefaultCircuitBreaker(
     }
 
     internal fun evaluateState() {
-        _state = if (failureCount < failureThreshold) State.CLOSED
-        else if (System.nanoTime() - lastFailureTime > retryTimePeriod) State.HALF_OPEN
-        else State.OPEN
+        _state = when {
+            failureCount < failureThreshold -> State.CLOSED
+            System.nanoTime() - lastFailureTime > retryTimePeriod -> State.HALF_OPEN
+            else -> State.OPEN
+        }
     }
 
     override fun attemptRequest(): String? {
