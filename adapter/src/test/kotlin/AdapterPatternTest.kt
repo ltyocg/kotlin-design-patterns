@@ -4,8 +4,8 @@ import kotlin.test.Test
 
 class AdapterPatternTest {
     @Test
-    fun `test adapter`() {
-        val adapter: RowingBoat = spy(FishingBoatAdapter())
+    fun adapter() {
+        val adapter = spy(FishingBoatAdapter())
         Captain(adapter).row()
         verify(adapter).row()
     }

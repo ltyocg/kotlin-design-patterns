@@ -12,18 +12,11 @@ interface ZoomVisitor : ModemVisitor {
 interface AllModemVisitor : HayesVisitor, ZoomVisitor
 class ConfigureForDosVisitor : AllModemVisitor {
     private val log = LoggerFactory.getLogger(javaClass)
-    override fun visit(hayes: Hayes) {
-        log.info("{} used with Dos configurator.", hayes)
-    }
-
-    override fun visit(zoom: Zoom) {
-        log.info("{} used with Dos configurator.", zoom)
-    }
+    override fun visit(hayes: Hayes) = log.info("{} used with Dos configurator.", hayes)
+    override fun visit(zoom: Zoom) = log.info("{} used with Dos configurator.", zoom)
 }
 
 class ConfigureForUnixVisitor : ZoomVisitor {
     private val log = LoggerFactory.getLogger(javaClass)
-    override fun visit(zoom: Zoom) {
-        log.info("{} used with Unix configurator.", zoom)
-    }
+    override fun visit(zoom: Zoom) = log.info("{} used with Unix configurator.", zoom)
 }

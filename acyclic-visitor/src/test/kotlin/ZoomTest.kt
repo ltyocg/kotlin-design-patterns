@@ -5,7 +5,7 @@ import kotlin.test.Test
 
 class ZoomTest {
     @Test
-    fun `test accept for dos`() {
+    fun `accept for dos`() {
         val zoom = Zoom()
         val mockVisitor = mock<ConfigureForDosVisitor>()
         zoom.accept(mockVisitor)
@@ -13,7 +13,7 @@ class ZoomTest {
     }
 
     @Test
-    fun `test accept for unix`() {
+    fun `accept for unix`() {
         val zoom = Zoom()
         val mockVisitor = mock<ConfigureForUnixVisitor>()
         zoom.accept(mockVisitor)
