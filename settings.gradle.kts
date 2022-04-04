@@ -16,7 +16,6 @@ include(
     "async-method-invocation",
     "balking",
     "bridge",
-    "builder",
     "business-delegate",
     "bytecode",
     "caching",
