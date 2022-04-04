@@ -29,10 +29,7 @@ class Event(
         job?.cancel()
     }
 
-    override fun status() {
-        log.info("[{}] is{} done.", eventId, if (isComplete) "" else " not")
-    }
-
+    override fun status() = log.info("[{}] is{} done.", eventId, if (isComplete) "" else " not")
     fun addListener(listener: JobCompleteListener) {
         eventListener = listener
     }

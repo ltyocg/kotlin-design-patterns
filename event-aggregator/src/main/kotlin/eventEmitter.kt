@@ -12,10 +12,7 @@ abstract class EventEmitter() {
         observers.add(obs)
     }
 
-    protected fun notifyObservers(e: Event?) {
-        observers.forEach { it.onEvent(e) }
-    }
-
+    protected fun notifyObservers(e: Event?) = observers.forEach { it.onEvent(e) }
     abstract fun timePasses(day: DayOfWeek)
 }
 
@@ -23,10 +20,7 @@ class KingsHand : EventEmitter, EventObserver {
     constructor() : super()
     constructor(obs: EventObserver) : super(obs)
 
-    override fun onEvent(e: Event?) {
-        notifyObservers(e)
-    }
-
+    override fun onEvent(e: Event?) = notifyObservers(e)
     override fun timePasses(day: DayOfWeek) {}
 }
 

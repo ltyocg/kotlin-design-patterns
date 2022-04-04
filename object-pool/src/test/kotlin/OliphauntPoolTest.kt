@@ -1,10 +1,10 @@
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.assertTimeout
 import java.time.Duration
 import kotlin.test.*
 
-internal class OliphauntPoolTest {
+class OliphauntPoolTest {
     @Test
-    fun `subsequent checkin checkout`() = Assertions.assertTimeout(Duration.ofMillis(5000)) {
+    fun `subsequent checkin checkout`() = assertTimeout(Duration.ofMillis(5000)) {
         val pool = OliphauntPool()
         assertEquals("Pool available=0 inUse=0", pool.toString())
         val expectedOliphaunt = pool.checkOut()
@@ -23,7 +23,7 @@ internal class OliphauntPoolTest {
     }
 
     @Test
-    fun `concurrent checkin checkout`() = Assertions.assertTimeout(Duration.ofMillis(5000)) {
+    fun `concurrent checkin checkout`() = assertTimeout(Duration.ofMillis(5000)) {
         val pool = OliphauntPool()
         assertEquals(pool.toString(), "Pool available=0 inUse=0")
         val firstOliphaunt = pool.checkOut()

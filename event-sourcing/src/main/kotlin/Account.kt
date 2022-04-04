@@ -18,10 +18,7 @@ data class Account(
         if (realTime) log.info(MSG)
     }
 
-    fun handleEvent(moneyDepositEvent: MoneyDepositEvent) {
-        handleDeposit(moneyDepositEvent.money, moneyDepositEvent.realTime)
-    }
-
+    fun handleEvent(moneyDepositEvent: MoneyDepositEvent) = handleDeposit(moneyDepositEvent.money, moneyDepositEvent.realTime)
     fun handleEvent(accountCreateEvent: AccountCreateEvent) {
         AccountAggregate.putAccount(this)
         if (accountCreateEvent.realTime) log.info(MSG)
@@ -34,7 +31,5 @@ data class Account(
         if (moneyTransferEvent.realTime) log.info(MSG)
     }
 
-    fun handleTransferToEvent(moneyTransferEvent: MoneyTransferEvent) {
-        handleDeposit(moneyTransferEvent.money, moneyTransferEvent.realTime)
-    }
+    fun handleTransferToEvent(moneyTransferEvent: MoneyTransferEvent) = handleDeposit(moneyTransferEvent.money, moneyTransferEvent.realTime)
 }

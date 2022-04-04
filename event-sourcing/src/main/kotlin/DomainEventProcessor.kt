@@ -10,14 +10,8 @@ class DomainEventProcessor {
         processorJournal.write(domainEvent)
     }
 
-    fun reset() {
-        processorJournal.reset()
-    }
-
-    fun recover() {
-        generateSequence { processorJournal.readNext() }.forEach { it.process() }
-    }
-
+    fun reset() = processorJournal.reset()
+    fun recover() = generateSequence { processorJournal.readNext() }.forEach { it.process() }
     private class JsonFileJournal {
         private val file = File("Journal.json")
         private val events = mutableListOf<String>()
@@ -28,10 +22,7 @@ class DomainEventProcessor {
             else reset()
         }
 
-        fun write(domainEvent: DomainEvent) {
-            file.appendText(ObjectMapper().writeValueAsString(domainEvent) + System.getProperty("line.separator"))
-        }
-
+        fun write(domainEvent: DomainEvent) = file.appendText(ObjectMapper().writeValueAsString(domainEvent) + System.getProperty("line.separator"))
         fun reset() {
             file.delete()
         }

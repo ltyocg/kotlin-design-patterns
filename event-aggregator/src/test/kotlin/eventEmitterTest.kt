@@ -1,4 +1,3 @@
-import com.ltyocg.event.aggregator.*
 import org.mockito.kotlin.*
 import java.time.DayOfWeek
 import kotlin.test.Test
@@ -10,7 +9,7 @@ abstract class EventEmitterTest<E : EventEmitter>(
     private val factoryWithoutDefaultObserver: () -> E,
 ) {
     @Test
-    fun `test all days`() {
+    fun `all days`() {
         testAllDaysWithoutDefaultObserver(specialDay, event)
         testAllDaysWithDefaultObserver(specialDay, event)
     }
@@ -38,7 +37,7 @@ abstract class EventEmitterTest<E : EventEmitter>(
         DayOfWeek.values().forEach {
             emitter.timePasses(it)
             if (it == specialDay) observers.forEach { observer -> verify(observer, times(1)).onEvent(eq(event)) }
-            else verifyZeroInteractions(*observers)
+            else verifyNoMoreInteractions(*observers)
         }
         verifyNoMoreInteractions(*observers)
     }
@@ -46,10 +45,10 @@ abstract class EventEmitterTest<E : EventEmitter>(
 
 class KingsHandTest : EventEmitterTest<KingsHand>(null, null, ::KingsHand, ::KingsHand) {
     @Test
-    fun `test pass through`() {
+    fun `pass through`() {
         val observer = mock<EventObserver>()
         val kingsHand = KingsHand(observer)
-        verifyZeroInteractions(observer)
+        verifyNoMoreInteractions(observer)
         Event.values().forEach {
             kingsHand.onEvent(it)
             verify(observer, times(1)).onEvent(eq(it))

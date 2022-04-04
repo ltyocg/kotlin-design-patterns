@@ -38,14 +38,8 @@ class EventManager : JobCompleteListener {
         eventPool[eventId]!!.status()
     }
 
-    fun statusOfAllEvents() {
-        eventPool.values.forEach(Event::status)
-    }
-
-    fun shutdown() {
-        eventPool.values.forEach(Event::stop)
-    }
-
+    fun statusOfAllEvents() = eventPool.values.forEach(Event::status)
+    fun shutdown() = eventPool.values.forEach(Event::stop)
     override fun completedEventHandler(eventId: Int) {
         eventPool[eventId]!!.status()
         if (eventPool[eventId]!!.synchronous) currentlyRunningSyncEvent = -1
@@ -53,7 +47,6 @@ class EventManager : JobCompleteListener {
     }
 
     fun numOfCurrentlyRunningSyncEvent(): Int = currentlyRunningSyncEvent
-
     private fun createEvent(eventTime: Int, isSynchronous: Boolean): Int {
         if (eventPool.size == MAX_RUNNING_EVENTS) throw MaxNumOfEventsAllowedException("Too many events are running at the moment. Please try again later.")
         if (eventTime >= MAX_EVENT_TIME) throw LongRunningEventException("Maximum event time allowed is $MAX_EVENT_TIME seconds. Please try again.")

@@ -7,15 +7,13 @@ import kotlin.test.assertEquals
 
 class MessageAggregationStrategyTest {
     @Test
-    fun `test aggregate`() {
-        assertEquals("TEST1;TEST2", MessageAggregationStrategy().aggregate(
-            DefaultExchange(null as CamelContext?).apply { getIn().body = "TEST1" },
-            DefaultExchange(null as CamelContext?).apply { getIn().body = "TEST2" }
-        ).getIn().body as String)
-    }
+    fun aggregate() = assertEquals("TEST1;TEST2", MessageAggregationStrategy().aggregate(
+        DefaultExchange(null as CamelContext?).apply { getIn().body = "TEST1" },
+        DefaultExchange(null as CamelContext?).apply { getIn().body = "TEST2" }
+    ).getIn().body as String)
 
     @Test
-    fun `test aggregate old null`() {
+    fun `aggregate old null`() {
         val newExchange = DefaultExchange(null as CamelContext?).apply { getIn().body = "TEST2" }
         val output = MessageAggregationStrategy().aggregate(null, newExchange)
         assertEquals(newExchange, output)

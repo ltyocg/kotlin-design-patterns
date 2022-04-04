@@ -6,14 +6,10 @@ interface Handler<E : Event> {
 
 class UserCreatedEventHandler : Handler<UserCreatedEvent> {
     private val log = LoggerFactory.getLogger(javaClass)
-    override fun onEvent(event: UserCreatedEvent) {
-        log.info("User '{}' has been Created!", event.user.username)
-    }
+    override fun onEvent(event: UserCreatedEvent) = log.info("User '{}' has been Created!", event.user.username)
 }
 
 class UserUpdatedEventHandler : Handler<UserUpdatedEvent> {
     private val log = LoggerFactory.getLogger(javaClass)
-    override fun onEvent(event: UserUpdatedEvent) {
-        log.info("User '{}' has been Updated!", event.user.username)
-    }
+    override fun onEvent(event: UserUpdatedEvent) = log.info("User '{}' has been Updated!", event.user.username)
 }

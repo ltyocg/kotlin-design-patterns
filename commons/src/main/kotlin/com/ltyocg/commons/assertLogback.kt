@@ -6,7 +6,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.slf4j.MDCContext
 import kotlinx.coroutines.withContext
 import org.slf4j.MDC
-import org.slf4j.event.Level
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.test.assertContains
@@ -17,23 +16,10 @@ fun assertLogContains(expected: String, block: () -> Unit) {
     assertContains(logContents(block), expected)
 }
 
-fun assertLogContains(level: Level, expected: String, block: () -> Unit) {
-    require(expected.isNotEmpty())
-    assertContains(logContents(level, block), expected)
-}
-
 fun assertLogContentEquals(expected: Iterable<String?>, block: () -> Unit) =
     assertContentEquals(expected, logContents(block))
 
-fun assertLogContentEquals(level: Level, expected: Iterable<String?>, block: () -> Unit) =
-    assertContentEquals(expected, logContents(level, block))
-
 fun logContents(block: () -> Unit): List<String> = logAop(block).map { it.formattedMessage }
-fun logContents(level: Level, block: () -> Unit): List<String> = logAop(block).asSequence()
-    .filter { it.level.toString() == level.toString() }
-    .map { it.formattedMessage }
-    .toList()
-
 private const val KEY_PREFIX = "log_"
 private val logAopMap = ConcurrentHashMap<String, MutableList<ILoggingEvent>>()
 private fun logAop(block: () -> Unit): List<ILoggingEvent> {
