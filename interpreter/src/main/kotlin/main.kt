@@ -2,7 +2,6 @@ import org.slf4j.LoggerFactory
 import java.util.*
 
 private val log = LoggerFactory.getLogger("main")
-
 fun main() {
     val stack = Stack<Expression>()
     "4 3 2 - 1 + *".split(" ").forEach {

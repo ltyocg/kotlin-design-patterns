@@ -14,7 +14,7 @@ class TreasureChest {
         Item(ItemType.WEAPON, "Dagger of poison")
     )
 
-    fun iterator(itemType: ItemType): Iterator<Item> = _items.asSequence().filter { it.type == ItemType.ANY || it.type == itemType }.iterator()
+    fun iterator(itemType: ItemType): Iterator<Item> = _items.filter { it.type == ItemType.ANY || it.type == itemType }.iterator()
     val items: List<Item>
         get() = _items.toList()
 }

@@ -27,7 +27,7 @@ class Star(
             massTons = state.massTons
         }
 
-    override fun toString(): String = "%s age: %d years mass: %d tons".format(type, ageYears, massTons)
+    override fun toString(): String = "$type age: $ageYears years mass: $massTons tons"
     private data class StarMementoInternal(val type: StarType, val ageYears: Int, val massTons: Int) : StarMemento
 }
 

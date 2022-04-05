@@ -10,7 +10,7 @@ fun main() {
         User("Kate", "Smith", true, "if0243")
     )
     log.info("Domain entities:")
-    users.asSequence().map(User::toString).forEach(log::info)
+    users.map(User::toString).forEach(log::info)
     log.info("DTO entities converted from domain:")
     userConverter.createFromEntities(users).map(UserDto::toString).forEach(log::info)
 }
