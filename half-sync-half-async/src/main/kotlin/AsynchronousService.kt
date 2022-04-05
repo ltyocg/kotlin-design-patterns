@@ -10,7 +10,7 @@ class AsynchronousService(workQueue: BlockingQueue<Runnable>) {
     fun <T> execute(task: AsyncTask<T>) {
         task.catch { task.onPreCall() }
         CoroutineScope(coroutineDispatcher).launch {
-            task.catch { task.onPostCall(task.call()) }
+            task.catch { task.onPostCall(task()) }
         }
     }
 
@@ -20,7 +20,5 @@ class AsynchronousService(workQueue: BlockingQueue<Runnable>) {
         onError(e)
     }
 
-    fun close() {
-        coroutineDispatcher.close()
-    }
+    fun close() = coroutineDispatcher.close()
 }

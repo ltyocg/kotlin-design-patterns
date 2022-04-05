@@ -8,27 +8,27 @@ class AsynchronousServiceTest {
     private val task = mock<AsyncTask<Any>>()
 
     @Test
-    fun `test perfect execution`() {
+    fun `perfect execution`() {
         val result = Any()
-        whenever(task.call()).thenReturn(result)
+        whenever(task()).thenReturn(result)
         service.execute(task)
         verify(task, timeout(2000)).onPostCall(result)
         val inOrder = inOrder(task)
         inOrder.verify(task, times(1)).onPreCall()
-        inOrder.verify(task, times(1)).call()
+        inOrder.verify(task, times(1))()
         inOrder.verify(task, times(1)).onPostCall(eq(result))
         verifyNoMoreInteractions(task)
     }
 
     @Test
-    fun `test call exception`() {
+    fun `call exception`() {
         val exception = IOException()
-        whenever(task.call()).thenThrow(exception)
+        whenever(task()).thenThrow(exception)
         service.execute(task)
         verify(task, timeout(2000)).onError(eq(exception))
         val inOrder = inOrder(task)
         inOrder.verify(task, times(1)).onPreCall()
-        inOrder.verify(task, times(1)).call()
+        inOrder.verify(task, times(1))()
         inOrder.verify(task, times(1)).onError(exception)
         verifyNoMoreInteractions(task)
     }

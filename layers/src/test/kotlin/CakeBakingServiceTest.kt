@@ -3,7 +3,7 @@ import kotlin.test.*
 
 class CakeBakingServiceTest {
     @Test
-    fun `test layers`() {
+    fun layers() {
         val service = CakeBakingService()
         assertTrue(service.getAvailableLayers().isEmpty())
         service.saveNewLayer(CakeLayerInfo(name = "Layer1", calories = 1000))
@@ -18,7 +18,7 @@ class CakeBakingServiceTest {
     }
 
     @Test
-    fun `test toppings`() {
+    fun toppings() {
         val service = CakeBakingService()
         assertTrue(service.getAvailableToppings().isEmpty())
         service.saveNewTopping(CakeToppingInfo(name = "Topping1", calories = 1000))
@@ -33,7 +33,7 @@ class CakeBakingServiceTest {
     }
 
     @Test
-    fun `test bake cakes`() {
+    fun `bake cakes`() {
         val service = CakeBakingService()
         assertTrue(service.getAllCakes().isEmpty())
         val topping1 = CakeToppingInfo(name = "Topping1", calories = 1000)
@@ -61,19 +61,24 @@ class CakeBakingServiceTest {
     }
 
     @Test
-    fun `test bake cake missing topping`() {
+    fun `bake cake missing topping`() {
         val service = CakeBakingService()
         val layer1 = CakeLayerInfo(name = "Layer1", calories = 1000)
         val layer2 = CakeLayerInfo(name = "Layer2", calories = 2000)
         service.saveNewLayer(layer1)
         service.saveNewLayer(layer2)
         assertFailsWith<CakeBakingException> {
-            service.bakeNewCake(CakeInfo(cakeToppingInfo = CakeToppingInfo(name = "Topping1", calories = 1000), cakeLayerInfos = listOf(layer1, layer2)))
+            service.bakeNewCake(
+                CakeInfo(
+                    cakeToppingInfo = CakeToppingInfo(name = "Topping1", calories = 1000),
+                    cakeLayerInfos = listOf(layer1, layer2)
+                )
+            )
         }
     }
 
     @Test
-    fun `test bake cake missing layer`() {
+    fun `bake cake missing layer`() {
         val service = CakeBakingService()
         assertTrue(service.getAllCakes().isEmpty())
         val topping1 = CakeToppingInfo(name = "Topping1", calories = 1000)
@@ -81,12 +86,17 @@ class CakeBakingServiceTest {
         val layer1 = CakeLayerInfo(name = "Layer1", calories = 1000)
         service.saveNewLayer(layer1)
         assertFailsWith<CakeBakingException> {
-            service.bakeNewCake(CakeInfo(cakeToppingInfo = topping1, cakeLayerInfos = listOf(layer1, CakeLayerInfo(name = "Layer2", calories = 2000))))
+            service.bakeNewCake(
+                CakeInfo(
+                    cakeToppingInfo = topping1,
+                    cakeLayerInfos = listOf(layer1, CakeLayerInfo(name = "Layer2", calories = 2000))
+                )
+            )
         }
     }
 
     @Test
-    fun `test bake cakes used layer`() {
+    fun `bake cakes used layer`() {
         val service = CakeBakingService()
         assertTrue(service.getAllCakes().isEmpty())
         val topping1 = CakeToppingInfo(name = "Topping1", calories = 1000)

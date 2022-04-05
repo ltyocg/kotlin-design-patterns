@@ -1,4 +1,4 @@
 class OrcKing {
-    private val chain = OrcCommander(OrcOfficer(OrcSoldier()))
+    private val chain = OrcSoldier().let(::OrcOfficer).let(::OrcCommander)
     fun makeRequest(req: Request) = chain.handleRequest(req)
 }
