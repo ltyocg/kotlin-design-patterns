@@ -1,7 +1,7 @@
 import com.gargoylesoftware.htmlunit.WebClient
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import kotlin.test.assertTrue
 
 class LoginPageTest {
     private val loginPage = LoginPage(WebClient())
@@ -12,12 +12,12 @@ class LoginPageTest {
     }
 
     @Test
-    fun testLogin() {
-        val albumListPage = loginPage
+    fun login() = assertTrue(
+        loginPage
             .enterUsername("admin")
             .enterPassword("password")
             .login()
-        albumListPage.navigateToPage()
-        Assertions.assertTrue(albumListPage.isAt)
-    }
+            .navigateToPage()
+            .isAt
+    )
 }

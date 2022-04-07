@@ -1,8 +1,8 @@
-package dao
+package layers.dao
 
-import Cake
-import CakeLayer
-import CakeTopping
+import layers.Cake
+import layers.CakeLayer
+import layers.CakeTopping
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 

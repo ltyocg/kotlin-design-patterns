@@ -12,6 +12,5 @@ class AlbumListPageTest {
     }
 
     @Test
-    fun selectAlbum() =
-        assertTrue(albumListPage.selectAlbum("21").navigateToPage().isAt)
+    fun selectAlbum() = assertTrue(albumListPage.selectAlbum("21").navigateToPage().isAt)
 }

@@ -1,4 +1,3 @@
-import layers.main
 import kotlin.test.Test
 
 class MainTest {

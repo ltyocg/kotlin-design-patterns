@@ -1,16 +1,17 @@
+package layers
+
 import javax.persistence.*
 
 @Entity
-class Cake {
+class Cake(
     @Id
     @GeneratedValue
-    var id: Long? = null
-
+    var id: Long? = null,
     @OneToOne(cascade = [CascadeType.REMOVE])
-    var topping: CakeTopping? = null
-
+    var topping: CakeTopping? = null,
     @OneToMany(cascade = [CascadeType.REMOVE], fetch = FetchType.EAGER)
     var layers: MutableSet<CakeLayer> = mutableSetOf()
+) {
     fun addLayer(layer: CakeLayer) {
         layers.add(layer)
     }
@@ -20,32 +21,26 @@ class Cake {
 
 @Entity
 class CakeLayer(
-    var name: String?,
-    var calories: Int
-) {
-    constructor() : this(null, 0)
-
     @Id
     @GeneratedValue
-    var id: Long? = null
-
+    var id: Long? = null,
+    var name: String?,
+    var calories: Int,
     @ManyToOne(cascade = [CascadeType.ALL])
     var cake: Cake? = null
+) {
     override fun toString(): String = "id=$id name=$name calories=$calories"
 }
 
 @Entity
 class CakeTopping(
-    var name: String?,
-    var calories: Int
-) {
-    constructor() : this(null, 0)
-
     @Id
     @GeneratedValue
-    var id: Long = 0
-
+    var id: Long = 0,
+    var name: String?,
+    var calories: Int,
     @OneToOne(cascade = [CascadeType.ALL])
     var cake: Cake? = null
+) {
     override fun toString(): String = "id=$id name=$name calories=$calories"
 }

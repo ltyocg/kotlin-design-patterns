@@ -1,12 +1,12 @@
+package layers
+
 class CakeInfo(
     val id: Long? = null,
     val cakeToppingInfo: CakeToppingInfo,
     val cakeLayerInfos: List<CakeLayerInfo>
 ) {
-    val calculateTotalCalories: Int
-        get() = cakeToppingInfo.calories + cakeLayerInfos.sumOf { it.calories }
-
-    override fun toString(): String = "CakeInfo id=${id ?: -1} topping=$cakeToppingInfo layers=$cakeLayerInfos totalCalories=$calculateTotalCalories"
+    fun calculateTotalCalories(): Int = cakeToppingInfo.calories + cakeLayerInfos.sumOf { it.calories }
+    override fun toString(): String = "CakeInfo id=${id ?: -1} topping=$cakeToppingInfo layers=$cakeLayerInfos totalCalories=${calculateTotalCalories()}"
 }
 
 class CakeLayerInfo(

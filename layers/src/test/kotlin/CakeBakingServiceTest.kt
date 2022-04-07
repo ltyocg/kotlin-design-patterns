@@ -1,4 +1,4 @@
-import org.junit.jupiter.api.Assertions
+import layers.*
 import kotlin.test.*
 
 class CakeBakingServiceTest {
@@ -56,7 +56,7 @@ class CakeBakingServiceTest {
             assertNotNull(cakeInfo.cakeLayerInfos)
             assertNotNull(cakeInfo.toString())
             assertFalse(cakeInfo.cakeLayerInfos.isEmpty())
-            Assertions.assertTrue(cakeInfo.calculateTotalCalories > 0)
+            assertTrue(cakeInfo.calculateTotalCalories() > 0)
         }
     }
 

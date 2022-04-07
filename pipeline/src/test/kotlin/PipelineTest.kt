@@ -1,9 +1,9 @@
-import org.junit.jupiter.api.Assertions.assertArrayEquals
+import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
 
 class PipelineTest {
     @Test
-    fun `add handlers to pipeline`() = assertArrayEquals(
+    fun `add handlers to pipeline`() = Assertions.assertArrayEquals(
         charArrayOf('#', '!', '(', '&', '%', '#', '!'),
         Pipeline(RemoveAlphabetsHandler())
             .addHandler(RemoveDigitsHandler())
