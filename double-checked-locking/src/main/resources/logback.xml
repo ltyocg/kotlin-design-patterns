@@ -19,7 +19,7 @@
         <level value="DEBUG"/>
         <appender-ref ref="FILE"/>
     </logger>
-    <logger name="aggregator.service.layers.main" additivity="false">
+    <logger name="aggregator.service.layers.repository.main" additivity="false">
         <level value="DEBUG"/>
         <appender-ref ref="FILE"/>
     </logger>

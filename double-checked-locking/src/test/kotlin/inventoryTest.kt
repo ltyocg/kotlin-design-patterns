@@ -10,34 +10,31 @@ import kotlin.test.assertEquals
 
 private const val THREAD_COUNT = 8
 private const val INVENTORY_SIZE = 1000
-
 class InventoryTest {
     @Test
-    fun `test addItem`() {
-        assertTimeout(Duration.ofMillis(10000)) {
-            val coroutineDispatcher = Executors.newFixedThreadPool(3).asCoroutineDispatcher()
-            runBlocking(coroutineDispatcher) {
-                val inventory = Inventory(INVENTORY_SIZE)
-                try {
-                    val logList = withTimeoutOrNull(TimeUnit.SECONDS.toMillis(5)) {
-                        logAopCoroutines {
-                            repeat(THREAD_COUNT) {
-                                launch {
-                                    @Suppress("ControlFlowWithEmptyBody")
-                                    while (inventory.addItem(Item()));
-                                }
+    fun addItem() = assertTimeout(Duration.ofMillis(10000)) {
+        val coroutineDispatcher = Executors.newFixedThreadPool(3).asCoroutineDispatcher()
+        runBlocking(coroutineDispatcher) {
+            val inventory = Inventory(INVENTORY_SIZE)
+            try {
+                val logList = withTimeoutOrNull(TimeUnit.SECONDS.toMillis(5)) {
+                    logAopCoroutines {
+                        repeat(THREAD_COUNT) {
+                            launch {
+                                @Suppress("ControlFlowWithEmptyBody")
+                                while (inventory.addItem(Item()));
                             }
                         }
-                    }!!
-                    assertEquals(INVENTORY_SIZE, inventory.items.size)
-                    assertEquals(INVENTORY_SIZE, logList.size)
-                    repeat(inventory.items.size) {
-                        assertContains(logList[it].formattedMessage, "items.size=${it + 1}")
                     }
-                } catch (_: TimeoutCancellationException) {
+                }!!
+                assertEquals(INVENTORY_SIZE, inventory.items.size)
+                assertEquals(INVENTORY_SIZE, logList.size)
+                repeat(inventory.items.size) {
+                    assertContains(logList[it].formattedMessage, "items.size=${it + 1}")
                 }
-                coroutineDispatcher.close()
+            } catch (_: TimeoutCancellationException) {
             }
+            coroutineDispatcher.close()
         }
     }
 }
