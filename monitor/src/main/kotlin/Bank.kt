@@ -1,6 +1,7 @@
-import java.util.logging.Logger
+import org.slf4j.LoggerFactory
 
-class Bank(accountNum: Int, baseAmount: Int, var logger: Logger) {
+class Bank(accountNum: Int, baseAmount: Int) {
+    private val log = LoggerFactory.getLogger(javaClass)
     val accounts = IntArray(accountNum) { baseAmount }
 
     @Synchronized
@@ -8,7 +9,7 @@ class Bank(accountNum: Int, baseAmount: Int, var logger: Logger) {
         if (accounts[accountA] >= amount) {
             accounts[accountB] += amount
             accounts[accountA] -= amount
-            logger.info("Transferred from account :$accountA to account :$accountB , amount :$amount . balance :$balance")
+            log.info("Transferred from account :$accountA to account :$accountB , amount :$amount . balance :$balance")
         }
     }
 

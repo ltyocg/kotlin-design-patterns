@@ -1,5 +1,5 @@
 plugins {
-    kotlin("plugin.jpa") version "1.6.20"
+    kotlin("plugin.jpa") version "1.6.21"
 }
 dependencies {
     implementation("com.h2database", "h2", "2.1.210")

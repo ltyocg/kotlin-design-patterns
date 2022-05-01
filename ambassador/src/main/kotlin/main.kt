@@ -1,6 +1,4 @@
-import kotlinx.coroutines.runBlocking
-
-fun main() = runBlocking<Unit> {
+suspend fun main() {
     Client().useService(12)
     Client().useService(73)
 }

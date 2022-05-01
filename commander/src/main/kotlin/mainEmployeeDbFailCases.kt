@@ -1,6 +1,5 @@
 import employeehandle.EmployeeDatabase
 import employeehandle.EmployeeHandle
-import kotlinx.coroutines.runBlocking
 import messagingservice.MessagingDatabase
 import messagingservice.MessagingService
 import paymentservice.PaymentDatabase
@@ -17,7 +16,7 @@ private const val PAYMENT_TIME = 120000L
 private const val MESSAGE_TIME: Long = 150000L
 private const val EMPLOYEE_TIME: Long = 240000L
 
-fun main() = runBlocking {
+suspend fun main() {
     Commander(
         EmployeeHandle(EmployeeDatabase(), *Array(2) { DatabaseUnavailableException() }),
         PaymentService(PaymentDatabase()),

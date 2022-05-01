@@ -1,7 +1,6 @@
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 
-fun main() = runBlocking {
+suspend fun main() {
     val creatures = (0 until 3)
         .map { Orc(Orc::class.simpleName + it) }
         .onEach {

@@ -1,12 +1,12 @@
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.slf4j.LoggerFactory
 import java.util.concurrent.TimeUnit
 
 private val log = LoggerFactory.getLogger("main")
-
-fun main() = runBlocking<Unit> {
+suspend fun main() = withContext<Unit>(Dispatchers.Default) {
     val world = World()
     launch {
         while (true) {

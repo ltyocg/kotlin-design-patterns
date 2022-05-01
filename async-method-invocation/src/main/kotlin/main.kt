@@ -1,11 +1,9 @@
-package com.ltyocg.async.method.invocation
-
 import kotlinx.coroutines.*
 import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("main")
 private const val ROCKET_LAUNCH_LOG_PATTERN = "Space rocket <{}> launched successfully"
-fun main() = runBlocking {
+suspend fun main() = withContext(Dispatchers.Default) {
     val deferred1 = lazyval(10, 500)
     val deferred2 = lazyval("test", 300)
     val deferred3 = lazyval(50L, 700)

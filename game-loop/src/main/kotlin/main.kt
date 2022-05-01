@@ -1,9 +1,8 @@
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("main")
-fun main() = runBlocking {
+suspend fun main() {
     FrameBasedGameLoop().runAround("frame-based")
     VariableStepGameLoop().runAround("variable-step")
     FixedStepGameLoop().runAround("fixed-step")

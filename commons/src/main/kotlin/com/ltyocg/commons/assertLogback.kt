@@ -11,32 +11,41 @@ import java.util.concurrent.ConcurrentHashMap
 import kotlin.test.assertContains
 import kotlin.test.assertContentEquals
 
-fun assertLogContains(expected: String, block: () -> Unit) = assertLogContains(listOf(expected), block)
-fun assertLogContains(expected: Iterable<String?>, block: () -> Unit) {
+fun assertLogContains(expected: String, block: LogContext.() -> Unit) = assertLogContains(listOf(expected), block)
+fun assertLogContains(expected: Iterable<String?>, block: LogContext.() -> Unit) {
     val contents = logContents(block)
     expected.forEach { assertContains(contents, it) }
 }
 
-fun assertLogContentEquals(expected: Iterable<String?>, block: () -> Unit) =
+fun assertLogContentEquals(expected: Iterable<String?>, block: LogContext.() -> Unit) =
     assertContentEquals(expected, logContents(block))
 
-fun logContents(block: () -> Unit): List<String> {
-    val key = "$KEY_PREFIX${UUID.randomUUID()}"
-    logAopMap[key] = mutableListOf()
-    MDC.put(key, System.currentTimeMillis().toString())
-    block()
-    MDC.remove(key)
-    return logAopMap.remove(key)!!.map { it.formattedMessage }
+fun logContents(block: LogContext.() -> Unit): List<String> {
+    val logContext = LogContext()
+    logAopMap[logContext.key] = mutableListOf()
+    MDC.put(logContext.key, System.currentTimeMillis().toString())
+    block(logContext)
+    MDC.remove(logContext.key)
+    return logAopMap.remove(logContext.key)!!.map { it.formattedMessage }
 }
-
-private const val KEY_PREFIX = "log_"
-private val logAopMap = ConcurrentHashMap<String, MutableList<ILoggingEvent>>()
 
 suspend fun logAopCoroutines(block: suspend CoroutineScope.() -> Unit): List<ILoggingEvent> {
     val key = "$KEY_PREFIX${UUID.randomUUID()}"
     logAopMap[key] = mutableListOf()
     withContext(MDCContext(mapOf(key to System.currentTimeMillis().toString())), block)
     return logAopMap.remove(key)!!
+}
+
+private const val KEY_PREFIX = "log_"
+private val logAopMap = ConcurrentHashMap<String, MutableList<ILoggingEvent>>()
+
+class LogContext internal constructor() {
+    val key = "$KEY_PREFIX${UUID.randomUUID()}"
+    fun wrap(block: () -> Unit): () -> Unit = {
+        MDC.put(key, System.currentTimeMillis().toString())
+        block()
+        MDC.remove(key)
+    }
 }
 
 class AssertConsoleAppender : ConsoleAppender<ILoggingEvent>() {
