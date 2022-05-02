@@ -41,6 +41,13 @@ private val logAopMap = ConcurrentHashMap<String, MutableList<ILoggingEvent>>()
 
 class LogContext internal constructor() {
     val key = "$KEY_PREFIX${UUID.randomUUID()}"
+    val messageList: List<String>
+        get() = logAopMap[key]!!.map { it.formattedMessage }
+
+    fun clear() {
+        logAopMap[key] = mutableListOf()
+    }
+
     fun wrap(block: () -> Unit): () -> Unit = {
         MDC.put(key, System.currentTimeMillis().toString())
         block()
