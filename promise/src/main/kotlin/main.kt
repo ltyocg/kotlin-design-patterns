@@ -2,7 +2,7 @@ import org.slf4j.LoggerFactory
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 
-private const val DEFAULT_URL = "https://raw.githubusercontent.com/iluwatar/java-design-patterns/master/promise/README.md"
+private const val DEFAULT_URL = "https://raw.githubusercontent.com/ltyocg/kotlin-design-patterns/master/README.adoc"
 private val log = LoggerFactory.getLogger("main")
 private val executor = Executors.newFixedThreadPool(2)
 private val stopLatch = CountDownLatch(2)
