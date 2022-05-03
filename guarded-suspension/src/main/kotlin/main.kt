@@ -1,12 +1,12 @@
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.util.concurrent.Executors
 
-fun main() {
+suspend fun main() {
     Executors.newFixedThreadPool(3).asCoroutineDispatcher().use {
-        runBlocking(it) {
+        withContext(it) {
             val guardedQueue = GuardedQueue()
             launch { guardedQueue.get() }
             delay(2000)

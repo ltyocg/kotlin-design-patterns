@@ -1,10 +1,12 @@
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import java.security.SecureRandom
 
-class Producer(private val name: String, private val queue: ItemQueue) {
+class Producer(private val name: String, private val queue: Channel<Item>) {
     private var itemId = 0
-    fun produce() {
-        queue.put(Item(name, itemId++))
-        Thread.sleep(RANDOM.nextInt(2000).toLong())
+    suspend fun produce() {
+        queue.send(Item(name, itemId++))
+        delay(RANDOM.nextInt(2000).toLong())
     }
 
     companion object {

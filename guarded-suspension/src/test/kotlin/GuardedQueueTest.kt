@@ -10,7 +10,7 @@ class GuardedQueueTest {
     private var value by Delegates.notNull<Int>()
 
     @Test
-    fun `test get`() {
+    fun get() {
         Executors.newFixedThreadPool(2).asCoroutineDispatcher().use {
             runBlocking(it) {
                 val g = GuardedQueue()
@@ -22,7 +22,7 @@ class GuardedQueueTest {
     }
 
     @Test
-    fun `test put`() = runBlocking {
+    fun put() = runBlocking {
         val g = GuardedQueue()
         g.put(12)
         assertEquals(12, g.get())

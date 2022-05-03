@@ -1,3 +1,5 @@
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.assertTimeout
 import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
@@ -9,10 +11,12 @@ import kotlin.test.Test
 class ProducerTest {
     @Test
     fun produce() = assertTimeout(Duration.ofMillis(6000)) {
-        val queue = mock<ItemQueue>()
-        val producer = Producer("producer", queue)
-        producer.produce()
-        verify(queue).put(any())
-        verifyNoMoreInteractions(queue)
+        runBlocking {
+            val queue = mock<Channel<Item>>()
+            val producer = Producer("producer", queue)
+            producer.produce()
+            verify(queue).send(any())
+            verifyNoMoreInteractions(queue)
+        }
     }
 }

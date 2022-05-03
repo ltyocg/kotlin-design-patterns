@@ -68,15 +68,13 @@ class NioReactor(private val dispatcher: Dispatcher) {
         }
     }
 
-    private fun onChannelReadable(key: SelectionKey) {
+    private fun onChannelReadable(key: SelectionKey) = try {
+        dispatchReadEvent(key, (key.attachment() as AbstractNioChannel).read(key))
+    } catch (e: IOException) {
         try {
-            dispatchReadEvent(key, (key.attachment() as AbstractNioChannel).read(key))
-        } catch (e: IOException) {
-            try {
-                key.channel().close()
-            } catch (e1: IOException) {
-                log.error("error closing channel", e1)
-            }
+            key.channel().close()
+        } catch (e1: IOException) {
+            log.error("error closing channel", e1)
         }
     }
 

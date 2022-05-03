@@ -1,28 +1,25 @@
-import org.slf4j.LoggerFactory
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
+import kotlin.time.Duration.Companion.seconds
 
-private val log = LoggerFactory.getLogger("main")
-fun main() {
-    val queue = ItemQueue()
-    val executorService = Executors.newFixedThreadPool(5)
-    repeat(2) {
-        val producer = Producer("Producer_$it", queue)
-        executorService.submit {
-            while (true) producer.produce()
+suspend fun main() {
+    Executors.newFixedThreadPool(5).asCoroutineDispatcher().use { dispatch ->
+        withContext(dispatch) {
+            withTimeoutOrNull(10.0.seconds) {
+                val queue = Channel<Item>()
+                repeat(2) {
+                    val producer = Producer("Producer_$it", queue)
+                    launch { while (true) producer.produce() }
+                }
+                repeat(2) {
+                    val consumer = Consumer("Consumer_$it", queue)
+                    launch { while (true) consumer.consume() }
+                }
+            }
         }
-    }
-    repeat(2) {
-        val consumer = Consumer("Consumer_$it", queue)
-        executorService.submit {
-            while (true) consumer.consume()
-        }
-    }
-    executorService.shutdown()
-    try {
-        executorService.awaitTermination(10, TimeUnit.SECONDS)
-        executorService.shutdownNow()
-    } catch (e: InterruptedException) {
-        log.error("Error waiting for ExecutorService shutdown")
     }
 }

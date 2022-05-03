@@ -1,3 +1,5 @@
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.runBlocking
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.spy
 import org.mockito.kotlin.times
@@ -9,15 +11,17 @@ class ConsumerTest {
 
     @Test
     fun consume() {
-        val queue = spy(ItemQueue())
-        repeat(itemCount) {
-            queue.put(Item("producer", it))
+        runBlocking {
+            val queue = spy(Channel<Item>(Channel.UNLIMITED))
+            repeat(itemCount) {
+                queue.send(Item("producer", it))
+            }
+            reset(queue)
+            val consumer = Consumer("consumer", queue)
+            repeat(itemCount) {
+                consumer.consume()
+            }
+            verify(queue, times(itemCount)).receive()
         }
-        reset(queue)
-        val consumer = Consumer("consumer", queue)
-        repeat(itemCount) {
-            consumer.consume()
-        }
-        verify(queue, times(itemCount)).take()
     }
 }
