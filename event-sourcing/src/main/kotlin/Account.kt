@@ -8,7 +8,7 @@ data class Account(
 ) {
     private val log = LoggerFactory.getLogger(javaClass)
 
-    companion object {
+    private companion object {
         private const val MSG = "Some external api for only realtime execution could be called here."
     }
 

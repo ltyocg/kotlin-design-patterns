@@ -2,13 +2,15 @@ import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
-private const val KEY = "key"
-private const val VALUE = "value"
-
 class AbstractDocumentTest {
     private class DocumentImplementation(properties: Map<String, Any?>) : AbstractDocument(properties)
 
     private val document = DocumentImplementation(emptyMap())
+
+    private companion object {
+        private const val KEY = "key"
+        private const val VALUE = "value"
+    }
 
     @Test
     fun `should put and get value`() {

@@ -20,7 +20,7 @@ interface DbManager {
 }
 
 internal class MongoDb : DbManager {
-    companion object {
+    private companion object {
         private const val DATABASE_NAME = "admin"
     }
 

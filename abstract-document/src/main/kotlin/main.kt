@@ -1,9 +1,6 @@
-import domain.Car
-import domain.enums.Property
 import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("main")
-
 fun main() {
     log.info("Constructing parts and car")
     val car = Car(

@@ -5,7 +5,7 @@ interface Blacksmith {
 }
 
 class ElfBlacksmith : Blacksmith {
-    companion object {
+    private companion object {
         private val ELFARSENAL = EnumMap(WeaponType.values().associateWith(::ElfWeapon))
     }
 
@@ -14,7 +14,7 @@ class ElfBlacksmith : Blacksmith {
 }
 
 class OrcBlacksmith : Blacksmith {
-    companion object {
+    private companion object {
         private val ORCARSENAL = EnumMap(WeaponType.values().associateWith(::OrcWeapon))
     }
 

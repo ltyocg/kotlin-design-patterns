@@ -1,8 +1,3 @@
-package domain
-
-import Document
-import domain.enums.Property
-
 interface HasType : Document {
     val type: String?
         get() = this[Property.TYPE.name] as String?

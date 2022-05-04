@@ -76,7 +76,7 @@ class View {
         }
     }
 
-    companion object {
+    private companion object {
         private const val WIDTH_TXT = 200
         private const val HEIGHT_TXT = 50
     }

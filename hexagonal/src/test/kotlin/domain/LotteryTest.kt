@@ -2,7 +2,7 @@ package domain
 
 import LotteryTestUtils
 import WireTransfers
-import lotteryTestingContext
+import lotteryContext
 import org.springframework.beans.factory.getBean
 import kotlin.test.*
 
@@ -13,14 +13,14 @@ class LotteryTest {
 
     @BeforeTest
     fun setup() {
-        administration = lotteryTestingContext.getBean()
-        service = lotteryTestingContext.getBean()
-        wireTransfers = lotteryTestingContext.getBean()
+        administration = lotteryContext.getBean()
+        service = lotteryContext.getBean()
+        wireTransfers = lotteryContext.getBean()
         wireTransfers.setFunds("123-12312", 100)
     }
 
     @Test
-    fun `test lottery`() {
+    fun lottery() {
         administration.resetLottery()
         assertEquals(0, administration.allSubmittedTickets.size)
         assertNotNull(service.submitTicket(LotteryTestUtils.createLotteryTicket("cvt@bbb.com", "123-12312", "+32425255", setOf(1, 2, 3, 4))))

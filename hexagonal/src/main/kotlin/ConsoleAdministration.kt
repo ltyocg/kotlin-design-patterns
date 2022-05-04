@@ -1,9 +1,22 @@
+import domain.LotteryAdministration
+import domain.LotteryService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.getBean
+import org.springframework.context.support.StaticApplicationContext
+import org.springframework.context.support.beans
 import java.util.*
 
 object ConsoleAdministration {
     private val log = LoggerFactory.getLogger(javaClass)
+    private val lotteryContext = StaticApplicationContext().apply {
+        beans {
+            bean<MongoTicketRepository>()
+            bean<MongoEventLog>()
+            bean<MongoBank>()
+            bean<LotteryService>()
+            bean<LotteryAdministration>()
+        }.initialize(this)
+    }
 
     @JvmStatic
     fun main(args: Array<String>) {

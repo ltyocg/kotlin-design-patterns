@@ -1,16 +1,15 @@
-import domain.Car
-import domain.Part
-import domain.enums.Property
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-private const val TEST_PART_TYPE = "test-part-type"
-private const val TEST_PART_MODEL = "test-part-model"
-private const val TEST_PART_PRICE = 0L
-private const val TEST_CAR_MODEL = "test-car-model"
-private const val TEST_CAR_PRICE = 1L
-
 class DomainTest {
+    private companion object {
+        private const val TEST_PART_TYPE = "test-part-type"
+        private const val TEST_PART_MODEL = "test-part-model"
+        private const val TEST_PART_PRICE = 0L
+        private const val TEST_CAR_MODEL = "test-car-model"
+        private const val TEST_CAR_PRICE = 1L
+    }
+
     @Test
     fun `should construct part`() {
         val part = Part(

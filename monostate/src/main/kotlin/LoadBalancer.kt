@@ -14,7 +14,7 @@ class LoadBalancer {
         servers[LoadBalancer.lastServedId++].serve(request)
     }
 
-    companion object {
+    private companion object {
         private val servers = intArrayOf(8080, 8081, 8082, 8083, 8084).mapIndexed { index, port ->
             Server("localhost", port, index + 1)
         }.toMutableList()

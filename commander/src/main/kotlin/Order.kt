@@ -10,7 +10,7 @@ class Order internal constructor(val user: User, val item: String, val price: Fl
     var messageSent = MessageSent.NONE_SENT
     var addedToEmployeeHandle = false
 
-    companion object {
+    private companion object {
         private val usedIds = mutableSetOf<String>()
     }
 

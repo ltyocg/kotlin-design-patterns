@@ -49,7 +49,7 @@ class VirtualMachine(wizard1: Wizard, wizard2: Wizard) {
     private fun getWisdom(wizard: Int): Int = wizards[wizard].wisdom
     private fun getAgility(wizard: Int): Int = wizards[wizard].agility
 
-    companion object {
+    private companion object {
         private fun randomInt(min: Int, max: Int): Int = ThreadLocalRandom.current().nextInt(min, max + 1)
     }
 }

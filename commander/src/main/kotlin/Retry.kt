@@ -29,7 +29,7 @@ class Retry<T>(
         } while (true)
     }
 
-    companion object {
+    private companion object {
         private val random = SecureRandom()
     }
 

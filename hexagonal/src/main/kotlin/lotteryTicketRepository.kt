@@ -13,7 +13,7 @@ interface LotteryTicketRepository {
 }
 
 class InMemoryTicketRepository : LotteryTicketRepository {
-    companion object {
+    private companion object {
         private val tickets = mutableMapOf<LotteryTicketId, LotteryTicket>()
     }
 
@@ -30,7 +30,7 @@ class MongoTicketRepository(
     ticketsCollectionName: String,
     countersCollectionName: String
 ) : LotteryTicketRepository {
-    companion object {
+    private companion object {
         private const val DEFAULT_DB = "lotteryDB"
         private const val DEFAULT_TICKETS_COLLECTION = "lotteryTickets"
         private const val DEFAULT_COUNTERS_COLLECTION = "counters"

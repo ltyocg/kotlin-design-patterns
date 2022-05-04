@@ -26,7 +26,7 @@ class RetryExponentialBackoff<T>(
         }
     }
 
-    companion object {
+    private companion object {
         private val RANDOM = Random()
     }
 }

@@ -21,7 +21,7 @@ class LoggingHandler : ChannelHandler {
         else -> throw IllegalStateException("Unknown data received")
     }
 
-    companion object {
+    private companion object {
         private val log = LoggerFactory.getLogger(LoggingHandler::class.java)
         private val ack = "Data logged successfully".toByteArray()
         private fun sendReply(channel: AbstractNioChannel, incomingPacket: NioDatagramChannel.DatagramPacket, key: SelectionKey) =

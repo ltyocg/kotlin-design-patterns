@@ -9,7 +9,7 @@ class Producer(private val name: String, private val queue: Channel<Item>) {
         delay(RANDOM.nextInt(2000).toLong())
     }
 
-    companion object {
+    private companion object {
         private val RANDOM = SecureRandom()
     }
 }

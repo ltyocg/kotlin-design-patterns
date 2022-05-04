@@ -4,17 +4,7 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
 import kotlin.test.Test
 
-class HammerTest : WeaponTest() {
-    @Test
-    fun `test hammer`() = testBasicWeaponActions(spy(Hammer(mock<FlyingEnchantment>())))
-}
-
-class SwordTest : WeaponTest() {
-    @Test
-    fun `test sword`() = testBasicWeaponActions(spy(Sword(mock<FlyingEnchantment>())))
-}
-
-abstract class WeaponTest {
+sealed class WeaponTest {
     fun testBasicWeaponActions(weapon: Weapon) {
         val enchantment = weapon.enchantment
         weapon.swing()
@@ -26,5 +16,15 @@ abstract class WeaponTest {
         weapon.unwield()
         verify(enchantment).onDeactivate()
         verifyNoMoreInteractions(enchantment)
+    }
+
+    object HammerTest : WeaponTest() {
+        @Test
+        fun `test hammer`() = testBasicWeaponActions(spy(Hammer(mock<FlyingEnchantment>())))
+    }
+
+    object SwordTest : WeaponTest() {
+        @Test
+        fun `test sword`() = testBasicWeaponActions(spy(Sword(mock<FlyingEnchantment>())))
     }
 }

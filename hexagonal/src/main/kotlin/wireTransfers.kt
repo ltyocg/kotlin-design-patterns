@@ -10,7 +10,7 @@ interface WireTransfers {
 }
 
 class InMemoryBank : WireTransfers {
-    companion object {
+    private companion object {
         private val accounts = mutableMapOf(LotteryConstants.SERVICE_BANK_ACCOUNT to LotteryConstants.SERVICE_BANK_ACCOUNT_BALANCE)
     }
 
@@ -29,7 +29,7 @@ class InMemoryBank : WireTransfers {
 }
 
 class MongoBank(dbName: String, accountsCollectionName: String) : WireTransfers {
-    companion object {
+    private companion object {
         private const val DEFAULT_DB = "lotteryDB"
         private const val DEFAULT_ACCOUNTS_COLLECTION = "accounts"
     }

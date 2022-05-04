@@ -13,7 +13,7 @@ class Oliphaunt {
 
     override fun toString(): String = "Oliphaunt id=$id"
 
-    companion object {
+    private companion object {
         private val counter = AtomicInteger(0)
     }
 }

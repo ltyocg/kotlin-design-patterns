@@ -1,5 +1,5 @@
 class FixedStepGameLoop : GameLoop() {
-    companion object {
+    private companion object {
         private const val MS_PER_FRAME = 20
     }
 
