@@ -6,7 +6,7 @@ import javax.sound.sampled.AudioSystem
 import javax.sound.sampled.LineUnavailableException
 import kotlin.math.max
 
-class Audio {
+class Audio internal constructor() {
     private val log = LoggerFactory.getLogger(javaClass)
     private var headIndex = 0
     private var tailIndex = 0
@@ -34,7 +34,6 @@ class Audio {
         if (updateJob == null) updateJob = CoroutineScope(Dispatchers.IO).launch(start = CoroutineStart.LAZY) {
             while (isActive) if (headIndex != tailIndex) try {
                 with(AudioSystem.getClip()) {
-                    @Suppress("BlockingMethodInNonBlockingContext")
                     open(pendingAudio[headIndex++].stream)
                     start()
                 }

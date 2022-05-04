@@ -1,47 +1,52 @@
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import java.io.Serializable
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 
-sealed class DomainEvent(
-    val sequenceId: Long,
-    val createdTime: Long,
-    val eventClassName: String
-) : Serializable {
+@Serializable
+abstract class DomainEvent {
+    abstract val sequenceId: Long
+    abstract val createdTime: Long
     var realTime = true
     abstract fun process()
 }
 
-class AccountCreateEvent @JsonCreator constructor(
-    @JsonProperty("sequenceId") sequenceId: Long,
-    @JsonProperty("createdTime") createdTime: Long,
-    @JsonProperty("accountNo") val accountNo: Int,
-    @JsonProperty("owner") val owner: String
-) : DomainEvent(sequenceId, createdTime, AccountCreateEvent::class.simpleName!!) {
+@Serializable
+@SerialName("AccountCreateEvent")
+class AccountCreateEvent(
+    override val sequenceId: Long,
+    override val createdTime: Long,
+    val accountNo: Int,
+    val owner: String
+) : DomainEvent() {
     override fun process() {
         if (AccountAggregate.getAccount(accountNo) != null) throw RuntimeException("Account already exists")
         Account(accountNo, owner).handleEvent(this)
     }
 }
 
-class MoneyDepositEvent @JsonCreator constructor(
-    @JsonProperty("sequenceId") sequenceId: Long,
-    @JsonProperty("createdTime") createdTime: Long,
-    @JsonProperty("accountNo") val accountNo: Int,
-    @JsonProperty("money") val money: BigDecimal
-) : DomainEvent(sequenceId, createdTime, MoneyDepositEvent::class.simpleName!!) {
+@Serializable
+@SerialName("MoneyDepositEvent")
+class MoneyDepositEvent(
+    override val sequenceId: Long,
+    override val createdTime: Long,
+    val accountNo: Int,
+    @Contextual val money: BigDecimal
+) : DomainEvent() {
     override fun process() {
         AccountAggregate.getAccount(accountNo)?.handleEvent(this) ?: throw RuntimeException("Account not found")
     }
 }
 
-class MoneyTransferEvent @JsonCreator constructor(
-    @JsonProperty("sequenceId") sequenceId: Long,
-    @JsonProperty("createdTime") createdTime: Long,
-    @JsonProperty("money") val money: BigDecimal,
-    @JsonProperty("accountNoFrom") val accountNoFrom: Int,
-    @JsonProperty("accountNoTo") val accountNoTo: Int
-) : DomainEvent(sequenceId, createdTime, MoneyTransferEvent::class.simpleName!!) {
+@Serializable
+@SerialName("MoneyTransferEvent")
+class MoneyTransferEvent(
+    override val sequenceId: Long,
+    override val createdTime: Long,
+    @Contextual val money: BigDecimal,
+    val accountNoFrom: Int,
+    val accountNoTo: Int
+) : DomainEvent() {
     override fun process() {
         AccountAggregate.getAccount(accountNoFrom)?.handleTransferFromEvent(this) ?: throw RuntimeException("Account not found $accountNoFrom")
         AccountAggregate.getAccount(accountNoTo)?.handleTransferToEvent(this) ?: throw RuntimeException("Account not found $accountNoTo")

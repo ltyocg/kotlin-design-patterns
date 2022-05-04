@@ -1,11 +1,9 @@
 import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("main")
-private val jenkins = Servant("Jenkins")
-private val travis = Servant("Travis")
 fun main() {
-    scenario(jenkins, 1)
-    scenario(travis, 0)
+    scenario(Servant("Jenkins"), 1)
+    scenario(Servant("Travis"), 0)
 }
 
 fun scenario(servant: Servant, compliment: Int) {

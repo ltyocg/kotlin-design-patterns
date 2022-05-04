@@ -9,7 +9,7 @@ fun main() {
 }
 
 fun createKingdom(kingdomType: KingdomType): Kingdom =
-    makeFactory(kingdomType).let { Kingdom(it.createKing(), it.createCastle(), it.createArmy()) }
+    KingdomFactory.makeFactory(kingdomType).let { Kingdom(it.createKing(), it.createCastle(), it.createArmy()) }
 
 private fun Kingdom.log() {
     log.info(army.description)

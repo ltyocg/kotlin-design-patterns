@@ -1,4 +1,6 @@
+plugins {
+    kotlin("plugin.serialization") version "1.6.21"
+}
 dependencies {
-    implementation("com.fasterxml.jackson.core", "jackson-databind", "2.12.5")
-    implementation("com.fasterxml.jackson.module", "jackson-module-kotlin", "2.12.5")
+    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.3.2")
 }

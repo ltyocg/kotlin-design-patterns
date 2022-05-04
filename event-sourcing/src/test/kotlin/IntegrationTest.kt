@@ -13,7 +13,7 @@ class IntegrationTest {
     }
 
     @Test
-    fun `test state recovery`() {
+    fun `state recovery`() {
         with(eventProcessor) {
             reset()
             process(AccountCreateEvent(0, Date().time, ACCOUNT_OF_DAENERYS, "Daenerys Targaryen"))

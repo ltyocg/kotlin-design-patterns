@@ -14,7 +14,7 @@ class AudioTest {
     }
 
     @Test
-    fun `test playSound`() = runBlocking {
+    fun playSound() = runBlocking {
         audio.playSound(audio.getAudioStream("src/main/resources/Bass-Drum-1.wav"), -10f)
         assertTrue(audio.isServiceRunning)
         delay(5000)
@@ -23,7 +23,7 @@ class AudioTest {
     }
 
     @Test
-    fun `test queue`() = runBlocking {
+    fun queue() = runBlocking {
         repeat(3) {
             audio.playSound(audio.getAudioStream("src/test/resources/Bass-Drum-1.aif"), -10f)
         }

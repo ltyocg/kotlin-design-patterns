@@ -1,7 +1,6 @@
 import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("main")
-
 fun main() {
     with(Audio.INSTANCE) {
         playSound(getAudioStream("event-queue/src/main/resources/Bass-Drum-1.wav"), -10f)

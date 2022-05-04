@@ -1,26 +1,28 @@
-interface KingdomFactory {
+sealed interface KingdomFactory {
     fun createCastle(): Castle
     fun createKing(): King
     fun createArmy(): Army
-}
 
-class ElfKingdomFactory : KingdomFactory {
-    override fun createCastle(): Castle = ElfCastle()
-    override fun createKing(): King = ElfKing()
-    override fun createArmy(): Army = ElfArmy()
-}
+    companion object {
+        fun makeFactory(type: KingdomType): KingdomFactory = when (type) {
+            KingdomType.ELF -> ElfKingdomFactory
+            KingdomType.ORC -> OrcKingdomFactory
+        }
+    }
 
-class OrcKingdomFactory : KingdomFactory {
-    override fun createCastle(): Castle = OrcCastle()
-    override fun createKing(): King = OrcKing()
-    override fun createArmy(): Army = OrcArmy()
+    private object ElfKingdomFactory : KingdomFactory {
+        override fun createCastle(): Castle = Castle.ElfCastle()
+        override fun createKing(): King = King.ElfKing()
+        override fun createArmy(): Army = Army.ElfArmy()
+    }
+
+    private object OrcKingdomFactory : KingdomFactory {
+        override fun createCastle(): Castle = Castle.OrcCastle()
+        override fun createKing(): King = King.OrcKing()
+        override fun createArmy(): Army = Army.OrcArmy()
+    }
 }
 
 enum class KingdomType {
     ELF, ORC
-}
-
-fun makeFactory(type: KingdomType): KingdomFactory = when (type) {
-    KingdomType.ELF -> ElfKingdomFactory()
-    KingdomType.ORC -> OrcKingdomFactory()
 }
