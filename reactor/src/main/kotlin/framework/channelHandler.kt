@@ -18,7 +18,7 @@ class LoggingHandler : ChannelHandler {
             doLogging(readObject.data)
             sendReply(channel, readObject, key)
         }
-        else -> throw IllegalStateException("Unknown data received")
+        else -> error("Unknown data received")
     }
 
     private companion object {

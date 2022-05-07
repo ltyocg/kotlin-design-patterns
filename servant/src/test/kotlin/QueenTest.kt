@@ -5,7 +5,7 @@ import kotlin.test.assertTrue
 class QueenTest {
     @Test
     fun `not flirty uncomplemented`() {
-        val queen = Queen()
+        val queen = Royalty.Queen()
         queen.setFlirtiness(false)
         queen.changeMood()
         assertFalse(queen.mood)
@@ -13,7 +13,7 @@ class QueenTest {
 
     @Test
     fun `not flirty complemented`() {
-        val queen = Queen()
+        val queen = Royalty.Queen()
         queen.setFlirtiness(false)
         queen.receiveCompliments()
         queen.changeMood()
@@ -22,14 +22,14 @@ class QueenTest {
 
     @Test
     fun `flirty uncomplemented`() {
-        val queen = Queen()
+        val queen = Royalty.Queen()
         queen.changeMood()
         assertFalse(queen.mood)
     }
 
     @Test
     fun `flirty complemented`() {
-        val queen = Queen()
+        val queen = Royalty.Queen()
         queen.receiveCompliments()
         queen.changeMood()
         assertTrue(queen.mood)

@@ -5,14 +5,14 @@ import kotlin.test.assertTrue
 class KingTest {
     @Test
     fun `hungry sober uncomplimented king`() {
-        val king = King()
+        val king = Royalty.King()
         king.changeMood()
         assertFalse(king.mood)
     }
 
     @Test
     fun `fed sober uncomplimented king`() {
-        val king = King()
+        val king = Royalty.King()
         king.getFed()
         king.changeMood()
         assertFalse(king.mood)
@@ -20,7 +20,7 @@ class KingTest {
 
     @Test
     fun `hungry drunk uncomplimented king`() {
-        val king = King()
+        val king = Royalty.King()
         king.getDrink()
         king.changeMood()
         assertFalse(king.mood)
@@ -28,7 +28,7 @@ class KingTest {
 
     @Test
     fun `hungry sober complimented king`() {
-        val king = King()
+        val king = Royalty.King()
         king.receiveCompliments()
         king.changeMood()
         assertFalse(king.mood)
@@ -36,7 +36,7 @@ class KingTest {
 
     @Test
     fun `fed drunk uncomplimented king`() {
-        val king = King()
+        val king = Royalty.King()
         king.getFed()
         king.getDrink()
         king.changeMood()
@@ -45,7 +45,7 @@ class KingTest {
 
     @Test
     fun `fed sober complimented king`() {
-        val king = King()
+        val king = Royalty.King()
         king.getFed()
         king.receiveCompliments()
         king.changeMood()
@@ -54,7 +54,7 @@ class KingTest {
 
     @Test
     fun `fed drunk complimented king`() {
-        val king = King()
+        val king = Royalty.King()
         king.getFed()
         king.getDrink()
         king.receiveCompliments()
@@ -64,7 +64,7 @@ class KingTest {
 
     @Test
     fun `hungry drunk complimented king`() {
-        val king = King()
+        val king = Royalty.King()
         king.getDrink()
         king.receiveCompliments()
         king.changeMood()

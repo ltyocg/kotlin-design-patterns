@@ -7,15 +7,11 @@ fun main() {
 }
 
 fun scenario(servant: Servant, compliment: Int) {
-    val k = King()
-    val q = Queen()
-    val guests = listOf(k, q)
-    servant.feed(k)
-    servant.feed(q)
-    servant.giveWine(k)
-    servant.giveWine(q)
+    val guests = listOf(Royalty.King(), Royalty.Queen())
+    guests.forEach(servant::feed)
+    guests.forEach(servant::giveWine)
     servant.giveCompliments(guests[compliment])
-    guests.forEach { it.changeMood() }
+    guests.forEach(Royalty::changeMood)
     if (servant.checkIfYouWillBeHanged(guests)) log.info("{} will live another day", servant.name)
     else log.info("Poor {}. His days are numbered", servant.name)
 }
