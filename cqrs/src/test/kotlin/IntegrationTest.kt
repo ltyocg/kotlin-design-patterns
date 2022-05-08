@@ -24,7 +24,7 @@ class IntegrationTest {
     }
 
     @Test
-    fun `test getAuthorByUsername`() {
+    fun getAuthorByUsername() {
         val author = queryService.getAuthorByUsername("username1")!!
         assertEquals("username1", author.username)
         assertEquals("name1", author.name)
@@ -32,19 +32,18 @@ class IntegrationTest {
     }
 
     @Test
-    fun `test getUpdatedAuthorByUsername`() {
+    fun getUpdatedAuthorByUsername() =
         assertEquals(Author("new_name2", "new_email2", "new_username2"), queryService.getAuthorByUsername("new_username2"))
-    }
 
     @Test
-    fun `test getBook`() {
+    fun getBook() {
         val book = queryService.getBook("title1")!!
         assertEquals("title1", book.title)
         assertEquals(10.0, book.price, 0.01)
     }
 
     @Test
-    fun `test getAuthorBooks`() {
+    fun getAuthorBooks() {
         val books = queryService.getAuthorBooks("username1")
         assertEquals(2, books.size)
         assertContains(books, Book("title1", 10.0))
@@ -52,12 +51,8 @@ class IntegrationTest {
     }
 
     @Test
-    fun `test getAuthorBooksCount`() {
-        assertEquals(2.toBigInteger(), queryService.getAuthorBooksCount("username1"))
-    }
+    fun getAuthorBooksCount() = assertEquals(2.toBigInteger(), queryService.getAuthorBooksCount("username1"))
 
     @Test
-    fun `test getAuthorsCount`() {
-        assertEquals(2.toBigInteger(), queryService.authorsCount)
-    }
+    fun getAuthorsCount() = assertEquals(2.toBigInteger(), queryService.authorsCount)
 }

@@ -1,6 +1,6 @@
 package domain
 
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 class Author(

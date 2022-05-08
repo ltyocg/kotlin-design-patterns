@@ -1,6 +1,6 @@
 package layers
 
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 class Cake(

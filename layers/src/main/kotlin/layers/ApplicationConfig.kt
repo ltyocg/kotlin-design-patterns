@@ -1,5 +1,6 @@
 package layers
 
+import jakarta.persistence.EntityManagerFactory
 import org.h2.jdbcx.JdbcDataSource
 import org.hibernate.dialect.H2Dialect
 import org.hibernate.jpa.HibernatePersistenceProvider
@@ -10,7 +11,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.orm.jpa.JpaTransactionManager
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean
 import org.springframework.transaction.annotation.EnableTransactionManagement
-import javax.persistence.EntityManagerFactory
 
 @Configuration
 @EnableJpaRepositories("layers")
