@@ -1,26 +1,16 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    id("org.springframework.boot") version "2.6.7"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("plugin.spring") version "1.6.21"
+    kotlin("plugin.serialization") version "1.6.21"
 }
 subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
-    apply(plugin = "org.springframework.boot")
-    apply(plugin = "io.spring.dependency-management")
-    apply(plugin = "org.jetbrains.kotlin.plugin.spring")
+    apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
     repositories {
         mavenCentral()
     }
     dependencies {
-        implementation("org.springframework.boot", "spring-boot-starter")
-        implementation("org.springframework.boot", "spring-boot-starter-web")
-    }
-    tasks.withType<KotlinCompile> {
-        kotlinOptions {
-            freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "11"
-        }
+        implementation("io.ktor", "ktor-server-content-negotiation-jvm", "2.0.1")
+        implementation("io.ktor", "ktor-serialization-kotlinx-json-jvm", "2.0.1")
+        implementation("io.ktor", "ktor-server-core-jvm", "2.0.1")
+        implementation("io.ktor", "ktor-server-netty-jvm", "2.0.1")
     }
 }

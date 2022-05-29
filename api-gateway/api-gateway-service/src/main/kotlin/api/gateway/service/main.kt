@@ -1,17 +1,25 @@
 package api.gateway.service
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
-import org.springframework.boot.web.client.RestTemplateBuilder
-import org.springframework.context.annotation.Bean
-import org.springframework.web.client.RestTemplate
+import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
+import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 
-@SpringBootApplication
-class Main {
-    @Bean
-    fun restTemplate(builder: RestTemplateBuilder): RestTemplate = builder.build()
-}
-
-fun main(args: Array<String>) {
-    runApplication<Main>(*args)
+fun main() {
+    embeddedServer(Netty, 50004, "0.0.0.0") {
+        install(ContentNegotiation) {
+            json()
+        }
+        routing {
+            get("/desktop") {
+                call.respond(DesktopProduct(PriceClient.price, ImageClient.imagePath))
+            }
+            get("/mobile") {
+                call.respond(MobileProduct(PriceClient.price))
+            }
+        }
+    }
 }
