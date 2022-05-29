@@ -1,19 +1,17 @@
 package inventory.microservice
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
+import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 
-@SpringBootApplication
-class InventoryApplication
-
-fun main(args: Array<String>) {
-    runApplication<InventoryApplication>(*args)
-}
-
-@RestController
-class InventoryController {
-    @GetMapping("/inventories")
-    fun getProductInventories(): Int = 5
+fun main() {
+    embeddedServer(Netty, 51516, "0.0.0.0") {
+        routing {
+            get("/inventories") {
+                call.respondText("5")
+            }
+        }
+    }.start(true)
 }

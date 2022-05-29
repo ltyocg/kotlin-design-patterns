@@ -1,5 +1,6 @@
 package store
 
+import MenuStore
 import action.Content
 import action.ContentAction
 import action.MenuAction
@@ -11,13 +12,13 @@ import kotlin.test.assertEquals
 
 class MenuStoreTest {
     @Test
-    fun `test onAction`() {
+    fun onAction() {
         val menuStore = MenuStore()
         val view = mock<View>()
         menuStore.registerView(view)
-        verifyZeroInteractions(view)
+        verifyNoMoreInteractions(view)
         menuStore.onAction(ContentAction(Content.COMPANY))
-        verifyZeroInteractions(view)
+        verifyNoMoreInteractions(view)
         menuStore.onAction(MenuAction(MenuItem.PRODUCTS))
         verify(view, times(1)).storeChanged(eq(menuStore))
         verifyNoMoreInteractions(view)

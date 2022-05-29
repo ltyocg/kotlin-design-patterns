@@ -4,12 +4,12 @@ import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
 class IntegrationTest {
-    private lateinit var queryService: IQueryService
+    private lateinit var queryService: QueryService
 
     @BeforeTest
     fun `initialize and populate database`() {
         HibernateUtil.init()
-        with(CommandServiceImpl()) {
+        with(CommandService()) {
             authorCreated("username1", "name1", "email1")
             authorCreated("username2", "name2", "email2")
             authorEmailUpdated("username2", "new_email2")
@@ -20,12 +20,12 @@ class IntegrationTest {
             bookPriceUpdated("title2", 30.0)
             bookTitleUpdated("title2", "new_title2")
         }
-        queryService = QueryServiceImpl()
+        queryService = QueryService()
     }
 
     @Test
     fun getAuthorByUsername() {
-        val author = queryService.getAuthorByUsername("username1")!!
+        val author = queryService.getAuthorByUsername("username1")
         assertEquals("username1", author.username)
         assertEquals("name1", author.name)
         assertEquals("email1", author.email)

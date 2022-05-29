@@ -3,7 +3,7 @@ import org.slf4j.LoggerFactory
 private val log = LoggerFactory.getLogger("main")
 fun main() {
     HibernateUtil.init()
-    with(CommandServiceImpl()) {
+    with(CommandService()) {
         authorCreated(AppConstants.E_EVANS, "Eric Evans", "evans@email.com")
         authorCreated(AppConstants.J_BLOCH, "Joshua Bloch", "jBloch@email.com")
         authorCreated(AppConstants.M_FOWLER, "Martin Fowler", "mFowler@email.com")
@@ -15,7 +15,7 @@ fun main() {
         bookAddedToAuthor("Domain Specific Languages", 48.89, AppConstants.M_FOWLER)
         authorNameUpdated(AppConstants.E_EVANS, "Eric J. Evans")
     }
-    with(QueryServiceImpl()) {
+    with(QueryService()) {
         log.info("Author username : {}", getAuthorByUsername("username"))
         log.info("Author evans : {}", getAuthorByUsername(AppConstants.E_EVANS))
         log.info("jBloch number of books : {}", getAuthorBooksCount(AppConstants.J_BLOCH))

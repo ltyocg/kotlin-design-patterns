@@ -1,15 +1,15 @@
 package view
 
+import Dispatcher
+import MenuStore
+import Store
 import action.MenuItem
-import dispatcher.Dispatcher
 import org.mockito.kotlin.*
-import store.MenuStore
-import store.Store
 import kotlin.test.Test
 
 class MenuViewTest {
     @Test
-    fun `test storeChanged`() {
+    fun storeChanged() {
         val store = mock<MenuStore>()
         whenever(store.selected).thenReturn(MenuItem.HOME)
         MenuView().storeChanged(store)
@@ -18,7 +18,7 @@ class MenuViewTest {
     }
 
     @Test
-    fun `test itemClicked`() {
+    fun itemClicked() {
         val store = mock<Store>()
         Dispatcher.registerStore(store)
         MenuView().itemClicked(MenuItem.PRODUCTS)

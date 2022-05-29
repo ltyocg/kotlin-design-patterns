@@ -1,19 +1,17 @@
 package information.microservice
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
+import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 
-@SpringBootApplication
-class InformationApplication
-
-fun main(args: Array<String>) {
-    runApplication<InformationApplication>(*args)
-}
-
-@RestController
-class InformationController {
-    @GetMapping("/information")
-    fun getProductTitle(): String = "The Product Title."
+fun main() {
+    embeddedServer(Netty, 51515, "0.0.0.0") {
+        routing {
+            get("/information") {
+                call.respondText("The Product Title.")
+            }
+        }
+    }.start(true)
 }

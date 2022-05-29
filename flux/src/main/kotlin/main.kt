@@ -1,11 +1,4 @@
-package com.ltyocg.flux
-
 import action.MenuItem
-import dispatcher.Dispatcher
-import store.ContentStore
-import store.MenuStore
-import view.ContentView
-import view.MenuView
 
 fun main() {
     val menuStore = MenuStore()

@@ -1,26 +1,20 @@
 import org.slf4j.LoggerFactory
 
-interface View {
+sealed interface View {
     fun display()
 }
 
-class ArcherView : View {
+object ArcherView : View {
     private val log = LoggerFactory.getLogger(javaClass)
-    override fun display() {
-        log.info("Displaying archers")
-    }
+    override fun display() = log.info("Displaying archers")
 }
 
-class CatapultView : View {
+object CatapultView : View {
     private val log = LoggerFactory.getLogger(javaClass)
-    override fun display() {
-        log.info("Displaying catapults")
-    }
+    override fun display() = log.info("Displaying catapults")
 }
 
-class ErrorView : View {
+object ErrorView : View {
     private val log = LoggerFactory.getLogger(javaClass)
-    override fun display() {
-        log.error("Error 500")
-    }
+    override fun display() = log.error("Error 500")
 }
