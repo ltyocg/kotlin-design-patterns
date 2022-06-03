@@ -3,16 +3,15 @@ package common
 import HibernateUtil
 import org.hibernate.Session
 import org.hibernate.Transaction
-import java.lang.reflect.ParameterizedType
 
 abstract class Dao<E : BaseEntity> {
-    val persistentClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<E>
+    @Suppress("UNCHECKED_CAST")
+    val persistentClass = Class.forName(this::class.supertypes[0].arguments[0].toString()) as Class<E>
 
     fun find(id: Long?): E? = transaction {
         val criteriaBuilder = it.criteriaBuilder
         val criteria = criteriaBuilder.createQuery(persistentClass)
-        val root = criteria.from(persistentClass)
-        criteria.where(criteriaBuilder.equal(root.get<E>("id"), id))
+        criteria.where(criteriaBuilder.equal(criteria.from(persistentClass).get<E>("id"), id))
         it.createQuery(criteria).singleResultOrNull
     }
 
