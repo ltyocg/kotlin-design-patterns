@@ -128,7 +128,6 @@ include(
     "service-layer",
     "service-locator",
     "sharding",
-    "singleton",
     "spatial-partition",
     "special-case",
     "specification",

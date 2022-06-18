@@ -1,5 +1,5 @@
 plugins {
-    kotlin("plugin.jpa") version "1.6.21"
+    kotlin("plugin.jpa") version "1.7.0"
 }
 dependencies {
     implementation(project(":commons"))
