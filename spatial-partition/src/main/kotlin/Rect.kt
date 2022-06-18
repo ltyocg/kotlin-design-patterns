@@ -1,5 +1,9 @@
-class Rect
-internal constructor(var coordinateX: Double, var coordinateY: Double, var width: Double, var height: Double) {
+class Rect(
+    val coordinateX: Double,
+    val coordinateY: Double,
+    val width: Double,
+    val height: Double
+) {
     operator fun contains(p: Point<*>): Boolean =
         p.coordinateX >= coordinateX - width / 2 && p.coordinateX <= coordinateX + width / 2 && p.coordinateY >= coordinateY - height / 2 && p.coordinateY <= coordinateY + height / 2
 

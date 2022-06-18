@@ -1,5 +1,4 @@
-class SpatialPartitionBubbles
-internal constructor(
+class SpatialPartitionBubbles(
     private val bubbles: MutableMap<Int, Bubble>,
     private val bubblesQuadTree: QuadTree
 ) : SpatialPartitionGeneric<Bubble>() {

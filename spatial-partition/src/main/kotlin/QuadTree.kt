@@ -1,5 +1,4 @@
-class QuadTree
-internal constructor(private val boundary: Rect, private val capacity: Int) {
+class QuadTree(private val boundary: Rect, private val capacity: Int) {
     private var divided = false
     private val points = mutableMapOf<Int, Point<*>>()
     private lateinit var northwest: QuadTree

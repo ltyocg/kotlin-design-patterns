@@ -1,7 +1,7 @@
 import org.slf4j.LoggerFactory
 import java.security.SecureRandom
 
-class Bubble internal constructor(x: Int, y: Int, id: Int, val radius: Int) : Point<Bubble>(x, y, id) {
+class Bubble(x: Int, y: Int, id: Int, val radius: Int) : Point<Bubble>(x, y, id) {
     private val log = LoggerFactory.getLogger(javaClass)
     override fun move() {
         coordinateX += RANDOM.nextInt(3) - 1
