@@ -5,10 +5,7 @@ import org.junit.jupiter.params.provider.MethodSource
 class CommandTest {
     @ParameterizedTest
     @MethodSource("dataProvider")
-    fun `test display`(request: String, displayMessage: String) {
-        val frontController = FrontController()
-        assertLogContains(displayMessage) { frontController.handleRequest(request) }
-    }
+    fun display(request: String, displayMessage: String) = assertLogContains(displayMessage) { FrontController.handleRequest(request) }
 
     companion object {
         @JvmStatic

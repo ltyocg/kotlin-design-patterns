@@ -15,13 +15,13 @@ class MainTest {
 
     @BeforeTest
     fun `setup circuit breakers`() {
-        delayedServiceCircuitBreaker = DefaultCircuitBreaker(DelayedRemoteService(System.nanoTime(), STARTUP_DELAY), FAILURE_THRESHOLD, RETRY_PERIOD * 1000L * 1000 * 1000)
-        quickServiceCircuitBreaker = DefaultCircuitBreaker(QuickRemoteService(), FAILURE_THRESHOLD, RETRY_PERIOD * 1000L * 1000 * 1000)
+        delayedServiceCircuitBreaker = CircuitBreaker(DelayedRemoteService(System.nanoTime(), STARTUP_DELAY), FAILURE_THRESHOLD, RETRY_PERIOD * 1000L * 1000 * 1000)
+        quickServiceCircuitBreaker = CircuitBreaker(QuickRemoteService, FAILURE_THRESHOLD, RETRY_PERIOD * 1000L * 1000 * 1000)
         monitoringService = MonitoringService(delayedServiceCircuitBreaker, quickServiceCircuitBreaker)
     }
 
     @Test
-    fun `test failure OPEN state transition`() {
+    fun `failure OPEN state transition`() {
         assertEquals("Delayed service is down", monitoringService.delayedServiceResponse())
         assertEquals("OPEN", delayedServiceCircuitBreaker.state.name)
         assertEquals("Delayed service is down", monitoringService.delayedServiceResponse())
@@ -30,7 +30,7 @@ class MainTest {
     }
 
     @Test
-    fun `test failure HALF_OPEN state transition`() {
+    fun `failure HALF_OPEN state transition`() {
         assertEquals("Delayed service is down", monitoringService.delayedServiceResponse())
         assertEquals("OPEN", delayedServiceCircuitBreaker.state.name)
         log.info("Waiting 2s for delayed service to become responsive")
@@ -39,7 +39,7 @@ class MainTest {
     }
 
     @Test
-    fun `test recovery CLOSED state transition`() {
+    fun `recovery CLOSED state transition`() {
         assertEquals("Delayed service is down", monitoringService.delayedServiceResponse())
         assertEquals("OPEN", delayedServiceCircuitBreaker.state.name)
         log.info("Waiting 4s for delayed service to become responsive")

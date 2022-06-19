@@ -6,7 +6,7 @@ abstract class CoarseGrainedObject<T> {
     open fun setData(vararg data: T) = data.forEachIndexed { index, t -> dependentObjects[index].data = t }
 }
 
-class ConsoleCoarseGrainedObject : CoarseGrainedObject<String>() {
+object ConsoleCoarseGrainedObject : CoarseGrainedObject<String>() {
     override fun getData(): Array<String?> = arrayOf(dependentObjects[0].data, dependentObjects[1].data)
     fun init() {
         dependentObjects = arrayOf(MessageDependentObject(), SignalDependentObject())

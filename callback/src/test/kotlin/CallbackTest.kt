@@ -7,7 +7,7 @@ class CallbackTest {
     @Test
     fun test() {
         val callback: () -> Unit = { callingCount++ }
-        with(SimpleTask()) {
+        with(SimpleTask) {
             assertEquals(0, callingCount, "Initial calling count of 0")
             executeWith(callback)
             assertEquals(1, callingCount, "Callback called once")

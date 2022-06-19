@@ -3,27 +3,23 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class PersistenceTest {
-    private val console = ConsoleCoarseGrainedObject()
-
     @Test
-    fun `dependentObject changed for persistence test`() {
-        val dependentObject = MessageDependentObject()
-        console.init()
-        console.dependentObjects[0] = dependentObject
+    fun `dependentObject changed for persistence`() {
+        ConsoleCoarseGrainedObject.init()
+        ConsoleCoarseGrainedObject.dependentObjects[0] = MessageDependentObject
         val message = "Danger"
-        assertNull(console.dependentObjects[0].data)
-        dependentObject.data = message
-        assertEquals(message, console.dependentObjects[0].data)
+        assertNull(ConsoleCoarseGrainedObject.dependentObjects[0].data)
+        MessageDependentObject.data = message
+        assertEquals(message, ConsoleCoarseGrainedObject.dependentObjects[0].data)
     }
 
     @Test
-    fun `coarse grained object changed for persistence test`() {
-        val dependentObject = MessageDependentObject()
-        console.init()
-        console.dependentObjects[0] = dependentObject
+    fun `coarse grained object changed for persistence`() {
+        ConsoleCoarseGrainedObject.init()
+        ConsoleCoarseGrainedObject.dependentObjects[0] = MessageDependentObject
         val message = "Danger"
-        assertNull(console.dependentObjects[0].data)
-        console.setData(message)
-        assertEquals(message, dependentObject.data)
+        assertNull(ConsoleCoarseGrainedObject.dependentObjects[0].data)
+        ConsoleCoarseGrainedObject.setData(message)
+        assertEquals(message, MessageDependentObject.data)
     }
 }

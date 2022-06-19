@@ -1,3 +1,3 @@
 fun main() {
-    Captain(FishingBoatAdapter()).row()
+    Captain(FishingBoatAdapter).row()
 }

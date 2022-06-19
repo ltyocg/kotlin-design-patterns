@@ -1,6 +1,6 @@
 import org.slf4j.LoggerFactory
 
-interface Weapon {
+sealed interface Weapon {
     fun wield()
     fun swing()
     fun unwield()

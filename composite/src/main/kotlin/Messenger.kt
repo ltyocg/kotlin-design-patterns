@@ -1,4 +1,4 @@
-class Messenger {
+object Messenger {
     fun messageFromOrcs(): LetterComposite = Sentence(
         listOf(
             Word('W', 'h', 'e', 'r', 'e'),

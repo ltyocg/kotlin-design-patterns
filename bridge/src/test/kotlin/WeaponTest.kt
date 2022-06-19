@@ -20,11 +20,11 @@ sealed class WeaponTest {
 
     object HammerTest : WeaponTest() {
         @Test
-        fun `test hammer`() = testBasicWeaponActions(spy(Hammer(mock<FlyingEnchantment>())))
+        fun hammer() = testBasicWeaponActions(spy(Hammer(mock<FlyingEnchantment>())))
     }
 
     object SwordTest : WeaponTest() {
         @Test
-        fun `test sword`() = testBasicWeaponActions(spy(Sword(mock<FlyingEnchantment>())))
+        fun sword() = testBasicWeaponActions(spy(Sword(mock<FlyingEnchantment>())))
     }
 }

@@ -1,15 +1,15 @@
 import org.slf4j.LoggerFactory
 
-interface VideoStreamingService {
+sealed interface VideoStreamingService {
     fun doProcessing()
 }
 
-class NetflixService : VideoStreamingService {
+object NetflixService : VideoStreamingService {
     private val log = LoggerFactory.getLogger(javaClass)
     override fun doProcessing() = log.info("NetflixService is now processing")
 }
 
-class YouTubeService : VideoStreamingService {
+object YouTubeService : VideoStreamingService {
     private val log = LoggerFactory.getLogger(javaClass)
     override fun doProcessing() = log.info("YouTubeService is now processing")
 }

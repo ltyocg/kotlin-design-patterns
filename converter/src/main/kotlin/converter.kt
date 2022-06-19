@@ -8,7 +8,7 @@ open class Converter<T, U>(
     fun createFromEntities(entities: Collection<U>): List<T> = entities.map(fromEntity)
 }
 
-class UserConverter : Converter<UserDto, User>(
+object UserConverter : Converter<UserDto, User>(
     { User(it.firstName, it.lastName, it.active, it.email) },
     { UserDto(it.firstName, it.lastName, it.active, it.userId) }
 )

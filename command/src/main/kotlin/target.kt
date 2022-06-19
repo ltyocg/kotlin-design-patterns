@@ -17,6 +17,6 @@ abstract class Target {
     }
 }
 
-class Goblin : Target() {
+object Goblin : Target() {
     override fun toString(): String = "Goblin"
 }

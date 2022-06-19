@@ -10,7 +10,7 @@ import com.mongodb.client.MongoDatabase
 import com.mongodb.client.model.UpdateOptions
 import org.bson.Document
 
-interface DbManager {
+sealed interface DbManager {
     fun connect()
     fun disconnect()
     fun readFromDb(userId: String): UserAccount?

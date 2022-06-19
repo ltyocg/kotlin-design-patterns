@@ -3,7 +3,7 @@ plugins {
 }
 dependencies {
     implementation(project(":commons"))
-    implementation("org.springframework.data", "spring-data-jpa", "2.6.4")
-    implementation("org.hibernate.orm", "hibernate-core", "6.0.1.Final")
-    implementation("com.h2database", "h2", "2.1.212")
+    implementation("org.springframework.data", "spring-data-jpa", "2.7.0")
+    implementation("org.hibernate.orm", "hibernate-core", "6.1.0.Final")
+    implementation("com.h2database", "h2", "2.1.214")
 }

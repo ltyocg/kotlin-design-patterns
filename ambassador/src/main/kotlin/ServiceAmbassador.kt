@@ -2,7 +2,7 @@ import kotlinx.coroutines.delay
 import org.slf4j.LoggerFactory
 import kotlin.system.measureTimeMillis
 
-class ServiceAmbassador : RemoteServiceInterface {
+object ServiceAmbassador : RemoteServiceInterface {
     private val log = LoggerFactory.getLogger(javaClass)
     override suspend fun doRemoteFunction(value: Int): Long {
         var result = RemoteServiceStatus.FAILURE.remoteServiceStatusValue

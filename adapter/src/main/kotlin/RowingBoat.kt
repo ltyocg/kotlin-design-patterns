@@ -1,3 +1,0 @@
-interface RowingBoat {
-    fun row()
-}

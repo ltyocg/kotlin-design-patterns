@@ -1,34 +1,20 @@
-import employeehandle.EmployeeDatabase
 import employeehandle.EmployeeHandle
-import messagingservice.MessagingDatabase
 import messagingservice.MessagingService
-import paymentservice.PaymentDatabase
 import paymentservice.PaymentService
 import queue.QueueDatabase
-import shippingservice.ShippingDatabase
 import shippingservice.ShippingService
 
-private const val NUM_OF_RETRIES = 3
-private const val RETRY_DURATION = 30000L
-private const val QUEUE_TIME = 240000L
-private const val QUEUE_TASK_TIME = 60000L
-private const val PAYMENT_TIME = 120000L
-private const val MESSAGE_TIME: Long = 150000L
-private const val EMPLOYEE_TIME: Long = 240000L
-
-suspend fun main() {
-    Commander(
-        EmployeeHandle(EmployeeDatabase(), *Array(2) { DatabaseUnavailableException() }),
-        PaymentService(PaymentDatabase()),
-        ShippingService(ShippingDatabase(), ItemUnavailableException()),
-        MessagingService(MessagingDatabase()),
-        QueueDatabase(),
-        NUM_OF_RETRIES,
-        RETRY_DURATION,
-        QUEUE_TIME,
-        QUEUE_TASK_TIME,
-        PAYMENT_TIME,
-        MESSAGE_TIME,
-        EMPLOYEE_TIME
-    ).placeOrder(Order(User("Jim", "ABCD"), "book", 10f))
-}
+suspend fun main() = Commander(
+    EmployeeHandle(*Array(2) { DatabaseUnavailableException() }),
+    PaymentService(),
+    ShippingService(ItemUnavailableException()),
+    MessagingService(),
+    QueueDatabase(),
+    3,
+    30000L,
+    240000L,
+    60000L,
+    120000L,
+    150000L,
+    240000L
+).placeOrder(Order(User("Jim", "ABCD"), "book", 10f))

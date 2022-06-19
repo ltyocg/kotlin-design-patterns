@@ -1,6 +1,6 @@
 fun main() {
     with(
-        BusinessLookup(NetflixService(), YouTubeService())
+        BusinessLookup()
             .let(::BusinessDelegate)
             .let(::MobileClient)
     ) {

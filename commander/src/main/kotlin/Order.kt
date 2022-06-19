@@ -1,4 +1,5 @@
-class Order internal constructor(val user: User, val item: String, val price: Float) {
+class Order
+internal constructor(val user: User, val item: String, val price: Float) {
     val id = run {
         var id: String
         do id = generateId()

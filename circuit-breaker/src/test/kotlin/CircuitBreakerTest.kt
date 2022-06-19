@@ -1,10 +1,10 @@
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class DefaultCircuitBreakerTest {
+class CircuitBreakerTest {
     @Test
-    fun `test evaluateState`() {
-        with(DefaultCircuitBreaker(null, 1, 100)) {
+    fun evaluateState() {
+        with(CircuitBreaker(null, 1, 100)) {
             assertEquals(state.name, "CLOSED")
             failureCount = 4
             lastFailureTime = System.nanoTime()
@@ -20,17 +20,14 @@ class DefaultCircuitBreakerTest {
     }
 
     @Test
-    fun `test setState for by pass`() {
-        with(DefaultCircuitBreaker(null, 1, 2000L * 1000 * 1000)) {
-            state = State.OPEN
+    fun `setState for by pass`() {
+        with(CircuitBreaker(null, 1, 2000L * 1000 * 1000)) {
+            state = CircuitBreaker.State.OPEN
             assertEquals(state.name, "OPEN")
         }
     }
 
     @Test
-    fun `test api responses`() {
-        assertEquals(DefaultCircuitBreaker(object : RemoteService {
-            override fun call(): String = "Remote Success"
-        }, 1, 100).attemptRequest(), "Remote Success")
-    }
+    fun `api responses`() =
+        assertEquals(CircuitBreaker({ "Remote Success" }, 1, 100).attemptRequest(), "Remote Success")
 }

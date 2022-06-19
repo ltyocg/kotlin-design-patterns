@@ -1,7 +1,4 @@
-class BusinessLookup(
-    private val netflixService: NetflixService,
-    private val youTubeService: YouTubeService
-) {
+class BusinessLookup {
     fun getBusinessService(movie: String): VideoStreamingService =
-        if ("die hard" in movie.lowercase()) netflixService else youTubeService
+        if ("die hard" in movie.lowercase()) NetflixService else YouTubeService
 }

@@ -3,7 +3,7 @@ package shippingservice
 import Service
 import generateId
 
-class ShippingService(db: ShippingDatabase, vararg exc: Exception) : Service<ShippingService.ShippingRequest>(db, *exc) {
+class ShippingService(vararg exc: Exception) : Service<ShippingService.ShippingRequest>(ShippingDatabase, *exc) {
     override fun receiveRequest(vararg parameters: Any): String? = updateDb(ShippingRequest(generateId(), parameters[0] as String?, parameters[1] as String?))
     override fun updateDb(vararg parameters: ShippingRequest): String? {
         val req = parameters[0]

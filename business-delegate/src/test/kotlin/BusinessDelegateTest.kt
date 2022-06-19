@@ -14,7 +14,7 @@ class BusinessDelegateTest {
     fun setup() {
         netflixService = spy(NetflixService())
         youTubeService = spy(YouTubeService())
-        businessDelegate = spy(BusinessDelegate(spy(BusinessLookup(netflixService, youTubeService))))
+        businessDelegate = spy(BusinessDelegate(spy(BusinessLookup())))
     }
 
     @Test

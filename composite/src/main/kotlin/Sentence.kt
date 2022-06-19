@@ -3,7 +3,5 @@ class Sentence(words: List<Word>) : LetterComposite() {
         words.forEach(this::add)
     }
 
-    override fun printThisAfter() {
-        println(".")
-    }
+    override fun printThisAfter() = println(".")
 }

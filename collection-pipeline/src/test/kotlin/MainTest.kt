@@ -8,12 +8,10 @@ class MainTest {
     private val cars = CarFactory.createCars()
 
     @Test
-    fun `test getModelsAfter2000`() {
-        assertContentEquals(listOf("Avenger", "Wrangler", "Focus", "Cascada"), cars.getModelsAfter2000())
-    }
+    fun getModelsAfter2000() = assertContentEquals(listOf("Avenger", "Wrangler", "Focus", "Cascada"), cars.getModelsAfter2000())
 
     @Test
-    fun `test getGroupingOfCarsByCategory`() {
+    fun getGroupingOfCarsByCategory() {
         val models = cars.getGroupingOfCarsByCategory()
         log.info("Category {}", models)
         assertEquals(
@@ -30,17 +28,17 @@ class MainTest {
                     Car("Jeep", "Wrangler", 2011, Category.JEEP),
                     Car("Jeep", "Comanche", 1990, Category.JEEP)
                 )
-            ), models
+            ),
+            models
         )
     }
 
     @Test
-    fun `test getSedanCarsOwnedSortedByDate`() {
-        assertContentEquals(
-            listOf(
-                Car("Dodge", "Avenger", 2010, Category.SEDAN),
-                Car("Ford", "Focus", 2012, Category.SEDAN)
-            ), listOf(Person(cars)).getSedanCarsOwnedSortedByDate()
-        )
-    }
+    fun getSedanCarsOwnedSortedByDate() = assertContentEquals(
+        listOf(
+            Car("Dodge", "Avenger", 2010, Category.SEDAN),
+            Car("Ford", "Focus", 2012, Category.SEDAN)
+        ),
+        listOf(Person(cars)).getSedanCarsOwnedSortedByDate()
+    )
 }

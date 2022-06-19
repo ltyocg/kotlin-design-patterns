@@ -2,12 +2,12 @@ package game
 
 import org.slf4j.LoggerFactory
 
-interface Component {
+sealed interface Component {
     fun update()
     fun render()
 }
 
-class AiComponent : Component {
+object AiComponent : Component {
     private val log = LoggerFactory.getLogger(javaClass)
     override fun update() {
         log.info("update AI component")
@@ -16,7 +16,7 @@ class AiComponent : Component {
     override fun render() {}
 }
 
-class PhysicsComponent : Component {
+object PhysicsComponent : Component {
     private val log = LoggerFactory.getLogger(javaClass)
     override fun update() {
         log.info("Update physics component of game")
@@ -25,7 +25,7 @@ class PhysicsComponent : Component {
     override fun render() {}
 }
 
-class RenderComponent : Component {
+object RenderComponent : Component {
     private val log = LoggerFactory.getLogger(javaClass)
     override fun update() {}
     override fun render() {

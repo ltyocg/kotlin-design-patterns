@@ -5,7 +5,7 @@ import kotlin.test.assertTrue
 
 class CashAntiAAATest {
     @Test
-    fun `test cash`() {
+    fun cash() {
         assertEquals(7, Cash(3).also { it.plus(4) }.count())
         val cash = Cash(8)
         assertTrue(cash.minus(5))

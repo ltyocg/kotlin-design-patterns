@@ -12,9 +12,8 @@ class LruCache(capacity: Int) {
         }
     }
     private val cache = object : LinkedHashMap<String, UserAccount>(16, 0.75f, true) {
-        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, UserAccount>): Boolean {
-            return (size > this@LruCache.capacity).also { if (it) log.info("# Cache is FULL! Removing {} from cache...", eldest.key) }
-        }
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, UserAccount>): Boolean =
+            (size > this@LruCache.capacity).also { if (it) log.info("# Cache is FULL! Removing {} from cache...", eldest.key) }
     }
     val full: Boolean
         get() = cache.size >= capacity

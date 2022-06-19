@@ -1,6 +1,6 @@
 import java.util.*
 
-class Wizard {
+object Wizard {
     private val undoStack = LinkedList<() -> Unit>()
     private val redoStack = LinkedList<() -> Unit>()
     fun castSpell(runnable: () -> Unit) {

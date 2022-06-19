@@ -3,21 +3,19 @@ import kotlin.test.assertEquals
 
 class CommandTest {
     @Test
-    fun testCommand() {
-        val wizard = Wizard()
-        val goblin = Goblin()
-        wizard.castSpell(goblin::changeSize)
-        goblin.verify(Size.SMALL, Visibility.VISIBLE)
-        wizard.castSpell(goblin::changeVisibility)
-        goblin.verify(Size.SMALL, Visibility.INVISIBLE)
-        wizard.undoLastSpell()
-        goblin.verify(Size.SMALL, Visibility.VISIBLE)
-        wizard.undoLastSpell()
-        goblin.verify(Size.NORMAL, Visibility.VISIBLE)
-        wizard.redoLastSpell()
-        goblin.verify(Size.SMALL, Visibility.VISIBLE)
-        wizard.redoLastSpell()
-        goblin.verify(Size.SMALL, Visibility.INVISIBLE)
+    fun command() {
+        Wizard.castSpell(Goblin::changeSize)
+        Goblin.verify(Size.SMALL, Visibility.VISIBLE)
+        Wizard.castSpell(Goblin::changeVisibility)
+        Goblin.verify(Size.SMALL, Visibility.INVISIBLE)
+        Wizard.undoLastSpell()
+        Goblin.verify(Size.SMALL, Visibility.VISIBLE)
+        Wizard.undoLastSpell()
+        Goblin.verify(Size.NORMAL, Visibility.VISIBLE)
+        Wizard.redoLastSpell()
+        Goblin.verify(Size.SMALL, Visibility.VISIBLE)
+        Wizard.redoLastSpell()
+        Goblin.verify(Size.SMALL, Visibility.INVISIBLE)
     }
 
     private fun Goblin.verify(expectedSize: Size, expectedVisibility: Visibility) {

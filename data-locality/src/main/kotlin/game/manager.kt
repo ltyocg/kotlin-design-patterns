@@ -9,7 +9,7 @@ class AiComponentManager(private val numEntities: Int) {
     private val aiComponents = arrayOfNulls<Component>(MAX_ENTITIES)
     fun start() {
         log.info("Start AI Game Component")
-        repeat(numEntities) { aiComponents[it] = AiComponent() }
+        repeat(numEntities) { aiComponents[it] = AiComponent }
     }
 
     fun update() {
@@ -26,7 +26,7 @@ class PhysicsComponentManager(private val numEntities: Int) {
     private val physicsComponents = arrayOfNulls<PhysicsComponent>(MAX_ENTITIES)
     fun start() {
         log.info("Start Physics Game Component ")
-        repeat(numEntities) { physicsComponents[it] = PhysicsComponent() }
+        repeat(numEntities) { physicsComponents[it] = PhysicsComponent }
     }
 
     fun update() {
@@ -43,7 +43,7 @@ class RenderComponentManager(private val numEntities: Int) {
     private val renderComponents = arrayOfNulls<RenderComponent>(MAX_ENTITIES)
     fun start() {
         log.info("Start Render Game Component ")
-        repeat(numEntities) { renderComponents[it] = RenderComponent() }
+        repeat(numEntities) { renderComponents[it] = RenderComponent }
     }
 
     fun update() {

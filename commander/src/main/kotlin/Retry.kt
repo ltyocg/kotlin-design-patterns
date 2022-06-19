@@ -5,8 +5,8 @@ import kotlin.math.min
 import kotlin.math.pow
 
 class Retry<T>(
-    private val op: Operation,
-    private val handleError: HandleErrorIssue<T>,
+    private val op: suspend (MutableList<Exception>) -> Unit,
+    private val handleError: suspend (T, Exception) -> Unit,
     private val maxAttempts: Int,
     private val maxDelay: Long,
     vararg ignoreTests: (Exception) -> Boolean
@@ -17,11 +17,11 @@ class Retry<T>(
     suspend fun perform(list: MutableList<Exception>, obj: T) {
         do {
             try {
-                op.operation(list)
+                op(list)
                 return
             } catch (e: Exception) {
                 if (attempts.incrementAndGet() >= maxAttempts || !test(e)) {
-                    handleError.handleIssue(obj, e)
+                    handleError(obj, e)
                     return
                 }
                 delay(min((2.0.pow(attempts.toInt()) * 1000 + random.nextInt(1000)).toLong(), maxDelay))
@@ -31,13 +31,5 @@ class Retry<T>(
 
     private companion object {
         private val random = SecureRandom()
-    }
-
-    fun interface Operation {
-        suspend fun operation(list: MutableList<Exception>)
-    }
-
-    fun interface HandleErrorIssue<T> {
-        suspend fun handleIssue(obj: T, e: Exception)
     }
 }

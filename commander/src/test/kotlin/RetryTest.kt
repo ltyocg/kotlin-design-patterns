@@ -4,7 +4,7 @@ import kotlin.test.assertTrue
 
 class RetryTest {
     @Test
-    fun `perform test`() = runBlocking {
+    fun perform() = runBlocking {
         val order = Order(User("Jim", "ABCD"), "book", 10f)
         val arr1 = mutableListOf(ItemUnavailableException(), DatabaseUnavailableException())
         retry().perform(arr1, order)

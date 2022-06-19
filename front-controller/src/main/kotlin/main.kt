@@ -1,5 +1,5 @@
 fun main() {
-    with(FrontController()) {
+    with(FrontController) {
         handleRequest("Archer")
         handleRequest("Catapult")
         handleRequest("foobar")

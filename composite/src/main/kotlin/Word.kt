@@ -3,7 +3,5 @@ class Word(vararg letters: Char) : LetterComposite() {
         letters.forEach { add(Letter(it)) }
     }
 
-    override fun printThisBefore() {
-        print(" ")
-    }
+    override fun printThisBefore() = print(" ")
 }

@@ -2,5 +2,5 @@ abstract class DependentObject<T> {
     var data: T? = null
 }
 
-class MessageDependentObject : DependentObject<String>()
-class SignalDependentObject : DependentObject<String>()
+object MessageDependentObject : DependentObject<String>()
+object SignalDependentObject : DependentObject<String>()

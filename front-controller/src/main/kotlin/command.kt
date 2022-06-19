@@ -3,13 +3,13 @@ sealed interface Command {
 }
 
 object ArcherCommand : Command {
-    override fun process() = ArcherView().display()
+    override fun process() = ArcherView.display()
 }
 
 object CatapultCommand : Command {
-    override fun process() = CatapultView().display()
+    override fun process() = CatapultView.display()
 }
 
 object UnknownCommand : Command {
-    override fun process() = ErrorView().display()
+    override fun process() = ErrorView.display()
 }

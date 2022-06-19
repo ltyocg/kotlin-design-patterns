@@ -2,7 +2,7 @@ import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("main")
 fun main() {
-    with(CompositeEntity()) {
+    with(CompositeEntity) {
         init()
         setData("No Danger", "Green Light")
         getData().forEach(log::info)

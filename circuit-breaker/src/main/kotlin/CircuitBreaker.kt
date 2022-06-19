@@ -1,21 +1,14 @@
-interface CircuitBreaker {
-    var state: State
-    fun recordSuccess()
-    fun recordFailure(response: String?)
-    fun attemptRequest(): String?
-}
-
-class DefaultCircuitBreaker(
+class CircuitBreaker(
     private val service: RemoteService?,
     private val failureThreshold: Int,
     private val retryTimePeriod: Long
-) : CircuitBreaker {
+) {
     private val futureTime = 1000L * 1000 * 1000 * 1000
     var lastFailureTime: Long = System.nanoTime() + futureTime
     private var lastFailureResponse: String? = null
     var failureCount = 0
     private var _state = State.CLOSED
-    override var state: State
+    var state: State
         get() {
             evaluateState()
             return _state
@@ -35,13 +28,13 @@ class DefaultCircuitBreaker(
             }
         }
 
-    override fun recordSuccess() {
+    fun recordSuccess() {
         failureCount = 0
         lastFailureTime = System.nanoTime() + futureTime
         _state = State.CLOSED
     }
 
-    override fun recordFailure(response: String?) {
+    fun recordFailure(response: String?) {
         failureCount++
         lastFailureTime = System.nanoTime()
         lastFailureResponse = response
@@ -55,7 +48,7 @@ class DefaultCircuitBreaker(
         }
     }
 
-    override fun attemptRequest(): String? {
+    fun attemptRequest(): String? {
         evaluateState()
         return if (state == State.OPEN) lastFailureResponse
         else try {
@@ -65,8 +58,8 @@ class DefaultCircuitBreaker(
             throw e
         }
     }
-}
 
-enum class State {
-    CLOSED, OPEN, HALF_OPEN
+    enum class State {
+        CLOSED, OPEN, HALF_OPEN
+    }
 }

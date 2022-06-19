@@ -1,4 +1,4 @@
-interface RemoteService {
+fun interface RemoteService {
     fun call(): String
 }
 
@@ -12,7 +12,7 @@ class DelayedRemoteService(
     }
 }
 
-class QuickRemoteService : RemoteService {
+object QuickRemoteService : RemoteService {
     override fun call(): String = "Quick Service is working"
 }
 

@@ -3,7 +3,7 @@ package paymentservice
 import Service
 import generateId
 
-class PaymentService(db: PaymentDatabase, vararg exc: Exception) : Service<PaymentService.PaymentRequest>(db, *exc) {
+class PaymentService(vararg exc: Exception) : Service<PaymentService.PaymentRequest>(PaymentDatabase, *exc) {
     override fun receiveRequest(vararg parameters: Any): String? = updateDb(PaymentRequest(generateId(), parameters[0] as Float))
     override fun updateDb(vararg parameters: PaymentRequest): String? {
         val req = parameters[0]

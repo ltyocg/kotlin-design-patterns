@@ -1,7 +1,6 @@
 import org.slf4j.LoggerFactory
 
 private val log = LoggerFactory.getLogger("main")
-
 fun main() {
     val cars = CarFactory.createCars()
     log.info(cars.getModelsAfter2000().toString())

@@ -1,4 +1,4 @@
-class FrontController {
+object FrontController {
     fun handleRequest(request: String) {
         try {
             (try {
