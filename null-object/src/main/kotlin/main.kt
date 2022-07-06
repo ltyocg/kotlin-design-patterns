@@ -1,13 +1,13 @@
-fun main() = NodeImpl(
+fun main() = node(
     "1",
-    NodeImpl(
+    node(
         "11",
-        NodeImpl("111", NullNode.instance, NullNode.instance),
-        NullNode.instance
+        node("111", NullNode, NullNode),
+        NullNode
     ),
-    NodeImpl(
+    node(
         "12",
-        NullNode.instance,
-        NodeImpl("122", NullNode.instance, NullNode.instance)
+        NullNode,
+        node("122", NullNode, NullNode)
     )
 ).walk()

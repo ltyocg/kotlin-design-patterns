@@ -1,6 +1,6 @@
 import org.slf4j.LoggerFactory
 
-abstract class DwarvenMineWorker {
+sealed class DwarvenMineWorker {
     private val log = LoggerFactory.getLogger(javaClass)
     abstract val name: String
     fun action(vararg actions: Action) = actions.forEach {

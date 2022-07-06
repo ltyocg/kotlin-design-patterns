@@ -3,6 +3,6 @@ import kotlin.test.assertEquals
 
 class WizardTest {
     @Test
-    fun testToString() = listOf("Gandalf", "Dumbledore", "Oz", "Merlin")
+    fun `test toString`() = listOf("Gandalf", "Dumbledore", "Oz", "Merlin")
         .forEach { assertEquals(it, Wizard(it).toString()) }
 }

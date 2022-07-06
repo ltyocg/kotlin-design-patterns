@@ -1,15 +1,15 @@
 package com.ltyocg.commons
 
+import ch.qos.logback.classic.Logger
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.ConsoleAppender
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.slf4j.MDCContext
-import kotlinx.coroutines.withContext
+import ch.qos.logback.core.read.ListAppender
+import org.slf4j.LoggerFactory
 import org.slf4j.MDC
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
+import kotlin.reflect.KClass
 import kotlin.test.assertContains
-import kotlin.test.assertContentEquals
 
 fun assertLogContains(expected: String, block: LogContext.() -> Unit) = assertLogContains(listOf(expected), block)
 fun assertLogContains(expected: Iterable<String?>, block: LogContext.() -> Unit) {
@@ -17,23 +17,13 @@ fun assertLogContains(expected: Iterable<String?>, block: LogContext.() -> Unit)
     expected.forEach { assertContains(contents, it) }
 }
 
-fun assertLogContentEquals(expected: Iterable<String?>, block: LogContext.() -> Unit) =
-    assertContentEquals(expected, logContents(block))
-
-fun logContents(block: LogContext.() -> Unit): List<String> {
+private fun logContents(block: LogContext.() -> Unit): List<String> {
     val logContext = LogContext()
     logAopMap[logContext.key] = mutableListOf()
     MDC.put(logContext.key, System.currentTimeMillis().toString())
     block(logContext)
     MDC.remove(logContext.key)
     return logAopMap.remove(logContext.key)!!.map { it.formattedMessage }
-}
-
-suspend fun logAopCoroutines(block: suspend CoroutineScope.() -> Unit): List<ILoggingEvent> {
-    val key = "$KEY_PREFIX${UUID.randomUUID()}"
-    logAopMap[key] = mutableListOf()
-    withContext(MDCContext(mapOf(key to System.currentTimeMillis().toString())), block)
-    return logAopMap.remove(key)!!
 }
 
 private const val KEY_PREFIX = "log_"
@@ -64,3 +54,32 @@ class AssertConsoleAppender : ConsoleAppender<ILoggingEvent>() {
         super.subAppend(event)
     }
 }
+
+fun assertListAppender(vararg kClass: KClass<*>): ListAppender<ILoggingEvent> =
+    ListAppender<ILoggingEvent>().apply {
+        start()
+        kClass.forEach { (LoggerFactory.getLogger(it.java) as Logger).addAppender(this) }
+    }
+
+fun assertListAppender(builderAction: ListAppenderBuilder.() -> Unit): ListAppender<ILoggingEvent> =
+    assertListAppender(*ListAppenderBuilder().apply(builderAction).list.toTypedArray())
+
+class ListAppenderBuilder
+internal constructor() {
+    @PublishedApi
+    internal val log = LoggerFactory.getLogger(javaClass)
+
+    @PublishedApi
+    internal val list = mutableListOf<KClass<*>>()
+    inline fun <reified T> bind(sealedSubclasses: Boolean = false) {
+        val kClass = T::class
+        list.add(kClass)
+        if (sealedSubclasses) {
+            if (!kClass.isSealed) log.warn("{} is not a sealed class", kClass)
+            kClass.sealedSubclasses.forEach(list::add)
+        }
+    }
+}
+
+fun ListAppender<ILoggingEvent>.formattedList(): List<String> = list.map { it.formattedMessage }
+fun ListAppender<ILoggingEvent>.clear() = list.clear()

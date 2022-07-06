@@ -4,11 +4,10 @@ import kotlin.test.assertNull
 
 class NullNodeTest {
     @Test
-    fun testFields() {
-        val node = NullNode.instance
-        assertEquals(0, node.treeSize)
-        assertNull(node.name)
-        assertNull(node.left)
-        assertNull(node.right)
+    fun fields() {
+        assertEquals(0, NullNode.treeSize)
+        assertNull(NullNode.name)
+        assertNull(NullNode.left)
+        assertNull(NullNode.right)
     }
 }

@@ -1,4 +1,4 @@
-fun main() = with(WizardTowerProxy(IvoryTower())) {
+fun main() = with(WizardTowerProxy(IvoryTower)) {
     enter(Wizard("Red wizard"))
     enter(Wizard("White wizard"))
     enter(Wizard("Black wizard"))

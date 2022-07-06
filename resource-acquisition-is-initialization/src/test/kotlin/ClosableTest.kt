@@ -1,20 +1,19 @@
-import com.ltyocg.commons.logContents
+import com.ltyocg.commons.assertListAppender
+import com.ltyocg.commons.formattedList
 import org.junit.jupiter.api.Test
 import kotlin.test.assertContains
 
 class ClosableTest {
     @Test
     fun `open close`() {
-        logContents {
-            SlidingDoor().use {
-                TreasureChest().use {
-                    assertContains(messageList, "Sliding door opens.")
-                    assertContains(messageList, "Treasure chest opens.")
-                    clear()
-                }
+        val assertListAppender = assertListAppender(SlidingDoor::class, TreasureChest::class)
+        SlidingDoor().use {
+            TreasureChest().use {
+                assertContains(assertListAppender.formattedList(), "Sliding door opens.")
+                assertContains(assertListAppender.formattedList(), "Treasure chest opens.")
             }
-            assertContains(messageList, "Treasure chest closes.")
-            assertContains(messageList, "Sliding door closes.")
         }
+        assertContains(assertListAppender.formattedList(), "Treasure chest closes.")
+        assertContains(assertListAppender.formattedList(), "Sliding door closes.")
     }
 }

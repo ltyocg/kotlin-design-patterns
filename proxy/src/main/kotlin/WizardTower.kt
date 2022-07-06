@@ -4,7 +4,7 @@ interface WizardTower {
     fun enter(wizard: Wizard)
 }
 
-class IvoryTower : WizardTower {
+object IvoryTower : WizardTower {
     private val log = LoggerFactory.getLogger(javaClass)
     override fun enter(wizard: Wizard) = log.info("{} enters the tower.", wizard)
 }

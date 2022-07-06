@@ -1,22 +1,36 @@
-import com.ltyocg.commons.assertLogContains
+import ch.qos.logback.classic.Level
+import ch.qos.logback.classic.filter.LevelFilter
+import com.ltyocg.commons.assertListAppender
+import com.ltyocg.commons.formattedList
 import kotlin.test.Test
+import kotlin.test.assertContains
 
 
 class ConfigureForDosVisitorTest {
     @Test
-    fun `test visit for zoom`() {
+    fun `visit for zoom`() {
         val zoom = Zoom()
-        assertLogContains("$zoom used with Dos configurator.") {
-            ConfigureForDosVisitor().visit(zoom)
+        val assertListAppender = assertListAppender(ConfigureForDosVisitor::class).apply {
+            addFilter(LevelFilter().apply { setLevel(Level.INFO) })
         }
+        ConfigureForDosVisitor().visit(zoom)
+        assertContains(
+            assertListAppender.formattedList(),
+            "$zoom used with Dos configurator."
+        )
     }
 
     @Test
-    fun `test visit for hayes`() {
+    fun `visit for hayes`() {
         val hayes = Hayes()
-        assertLogContains("$hayes used with Dos configurator.") {
-            ConfigureForDosVisitor().visit(hayes)
+        val assertListAppender = assertListAppender(ConfigureForDosVisitor::class).apply {
+            addFilter(LevelFilter().apply { setLevel(Level.INFO) })
         }
+        ConfigureForDosVisitor().visit(hayes)
+        assertContains(
+            assertListAppender.formattedList(),
+            "$hayes used with Dos configurator."
+        )
     }
 }
 

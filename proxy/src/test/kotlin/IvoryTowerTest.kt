@@ -1,24 +1,21 @@
-import com.ltyocg.commons.assertLogContentEquals
+import com.ltyocg.commons.assertListAppender
+import com.ltyocg.commons.formattedList
 import kotlin.test.Test
+import kotlin.test.assertContentEquals
 
 class IvoryTowerTest {
     @Test
     fun enter() {
-        val tower = IvoryTower()
-        assertLogContentEquals(
+        val assertListAppender = assertListAppender(IvoryTower::class)
+        listOf("Gandalf", "Dumbledore", "Oz", "Merlin").map(::Wizard).forEach(IvoryTower::enter)
+        assertContentEquals(
             listOf(
                 "Gandalf enters the tower.",
                 "Dumbledore enters the tower.",
                 "Oz enters the tower.",
                 "Merlin enters the tower."
-            )
-        ) {
-            listOf(
-                Wizard("Gandalf"),
-                Wizard("Dumbledore"),
-                Wizard("Oz"),
-                Wizard("Merlin")
-            ).forEach(tower::enter)
-        }
+            ),
+            assertListAppender.formattedList()
+        )
     }
 }

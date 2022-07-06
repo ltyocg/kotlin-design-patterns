@@ -1,37 +1,33 @@
-import com.ltyocg.commons.logContents
+import com.ltyocg.commons.assertListAppender
+import com.ltyocg.commons.formattedList
 import kotlin.test.*
 
 class TreeTest {
-    private val treeRoot = NodeImpl(
+    private val treeRoot = node(
         "root",
-        NodeImpl(
+        node(
             "level1_a",
-            NodeImpl(
+            node(
                 "level2_a",
-                NodeImpl("level3_a", NullNode.instance, NullNode.instance),
-                NodeImpl("level3_b", NullNode.instance, NullNode.instance)
+                node("level3_a", NullNode, NullNode),
+                node("level3_b", NullNode, NullNode)
             ),
-            NodeImpl("level2_b", NullNode.instance, NullNode.instance)
+            node("level2_b", NullNode, NullNode)
         ),
-        NodeImpl("level1_b", NullNode.instance, NullNode.instance)
+        node("level1_b", NullNode, NullNode)
     )
 
     @Test
-    fun testTreeSize() = assertEquals(7, treeRoot.treeSize)
+    fun treeSize() = assertEquals(7, treeRoot.treeSize)
 
     @Test
-    fun testWalk() {
-        val list = logContents { treeRoot.walk() }
-        arrayOf(
-            "root",
-            "level1_a",
-            "level2_a",
-            "level3_a",
-            "level3_b",
-            "level2_b",
-            "level1_b"
-        ).forEach { assertContains(list, it) }
-        assertEquals(7, list.size)
+    fun walk() {
+        val assertListAppender = assertListAppender(NodeImpl::class)
+        treeRoot.walk()
+        assertContentEquals(
+            listOf("root", "level1_a", "level2_a", "level3_a", "level3_b", "level2_b", "level1_b"),
+            assertListAppender.formattedList()
+        )
     }
 
     @Test
@@ -47,8 +43,8 @@ class TreeTest {
         assertNotNull(level3)
         assertEquals("level3_a", level3.name)
         assertEquals(1, level3.treeSize)
-        assertSame(NullNode.instance, level3.right)
-        assertSame(NullNode.instance, level3.left)
+        assertSame(NullNode, level3.right)
+        assertSame(NullNode, level3.left)
     }
 
     @Test
@@ -56,7 +52,7 @@ class TreeTest {
         val level1 = treeRoot.right
         assertEquals("level1_b", level1.name)
         assertEquals(1, level1.treeSize)
-        assertSame(NullNode.instance, level1.right)
-        assertSame(NullNode.instance, level1.left)
+        assertSame(NullNode, level1.right)
+        assertSame(NullNode, level1.left)
     }
 }
