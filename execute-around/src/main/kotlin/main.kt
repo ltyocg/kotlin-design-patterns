@@ -7,7 +7,7 @@ fun main() {
     SimpleFileWriter("testfile.txt") {
         it.write("Gandalf was here")
     }
-    Scanner(File("testfile.txt"))
-        .useDelimiter(System.getProperty("line.separator"))
-        .forEach(log::info)
+    Scanner(File("testfile.txt")).use {
+        it.useDelimiter(System.getProperty("line.separator")).forEach(log::info)
+    }
 }

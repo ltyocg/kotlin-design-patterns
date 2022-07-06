@@ -1,6 +1,6 @@
 class Sentence(words: List<Word>) : LetterComposite() {
     init {
-        words.forEach(this::add)
+        words.forEach(::add)
     }
 
     override fun printThisAfter() = println(".")

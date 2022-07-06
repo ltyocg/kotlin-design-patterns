@@ -9,6 +9,6 @@ abstract class CoarseGrainedObject<T> {
 object ConsoleCoarseGrainedObject : CoarseGrainedObject<String>() {
     override fun getData(): Array<String?> = arrayOf(dependentObjects[0].data, dependentObjects[1].data)
     fun init() {
-        dependentObjects = arrayOf(MessageDependentObject(), SignalDependentObject())
+        dependentObjects = arrayOf(MessageDependentObject, SignalDependentObject)
     }
 }
