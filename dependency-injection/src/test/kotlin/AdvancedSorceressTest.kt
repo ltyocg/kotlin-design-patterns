@@ -1,11 +1,17 @@
-import com.ltyocg.commons.assertLogContains
+import com.ltyocg.commons.assertListAppender
+import com.ltyocg.commons.formattedList
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class AdvancedSorceressTest {
     @Test
-    fun `smoke everything`() = listOf(OldTobyTobacco(), RivendellTobacco(), SecondBreakfastTobacco()).forEach {
-        assertLogContains("AdvancedSorceress smoking ${it::class.simpleName}") {
+    fun `smoke everything`() {
+        val assertListAppender = assertListAppender {
+            bind<Tobacco>(true)
+        }
+        listOf(OldTobyTobacco, RivendellTobacco, SecondBreakfastTobacco).forEach {
             AdvancedSorceress().apply { setTobacco(it) }.smoke()
+            assertEquals("AdvancedSorceress smoking ${it::class.simpleName}", assertListAppender.formattedList().lastOrNull())
         }
     }
 }

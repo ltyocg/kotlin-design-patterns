@@ -16,21 +16,14 @@ class ClubbedTroll(private val decorated: Troll) : Troll {
     override val attackPower: Int
         get() = decorated.attackPower + 10
 
-    override fun fleeBattle() {
-        decorated.fleeBattle()
-    }
+    override fun fleeBattle() = decorated.fleeBattle()
 }
 
 class SimpleTroll : Troll {
     private val log = LoggerFactory.getLogger(javaClass)
-    override fun attack() {
-        log.info("The troll tries to grab you!")
-    }
-
+    override fun attack() = log.info("The troll tries to grab you!")
     override val attackPower: Int
         get() = 10
 
-    override fun fleeBattle() {
-        log.info("The troll shrieks in horror and runs away!")
-    }
+    override fun fleeBattle() = log.info("The troll shrieks in horror and runs away!")
 }

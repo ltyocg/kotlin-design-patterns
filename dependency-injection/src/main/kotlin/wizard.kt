@@ -19,6 +19,5 @@ class GuiceWizard(private val tobacco: Tobacco) : Wizard {
 }
 
 class SimpleWizard : Wizard {
-    private val tobacco = OldTobyTobacco()
-    override fun smoke() = tobacco.smoke(this)
+    override fun smoke() = OldTobyTobacco.smoke(this)
 }

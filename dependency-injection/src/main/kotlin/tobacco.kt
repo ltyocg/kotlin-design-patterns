@@ -1,12 +1,10 @@
 import org.slf4j.LoggerFactory
 
-abstract class Tobacco {
+sealed class Tobacco {
     private val log = LoggerFactory.getLogger(javaClass)
-    fun smoke(wizard: Wizard) {
-        log.info("{} smoking {}", wizard::class.simpleName, this::class.simpleName)
-    }
+    fun smoke(wizard: Wizard) = log.info("{} smoking {}", wizard::class.simpleName, this::class.simpleName)
 }
 
-class OldTobyTobacco : Tobacco()
-class RivendellTobacco : Tobacco()
-class SecondBreakfastTobacco : Tobacco()
+object OldTobyTobacco : Tobacco()
+object RivendellTobacco : Tobacco()
+object SecondBreakfastTobacco : Tobacco()

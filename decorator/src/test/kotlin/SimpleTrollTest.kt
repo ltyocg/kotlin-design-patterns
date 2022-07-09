@@ -1,4 +1,5 @@
-import com.ltyocg.commons.assertLogContains
+import com.ltyocg.commons.assertListAppender
+import com.ltyocg.commons.formattedList
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -7,11 +8,10 @@ class SimpleTrollTest {
     fun `troll actions`() {
         val troll = SimpleTroll()
         assertEquals(10, troll.attackPower)
-        assertLogContains("The troll tries to grab you!") {
-            troll.attack()
-        }
-        assertLogContains("The troll shrieks in horror and runs away!") {
-            troll.fleeBattle()
-        }
+        val assertListAppender = assertListAppender(SimpleTroll::class)
+        troll.attack()
+        assertEquals("The troll tries to grab you!", assertListAppender.formattedList().lastOrNull())
+        troll.fleeBattle()
+        assertEquals("The troll shrieks in horror and runs away!", assertListAppender.formattedList().lastOrNull())
     }
 }

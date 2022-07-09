@@ -4,8 +4,8 @@ import org.springframework.context.support.beans
 
 fun main() {
     SimpleWizard().smoke()
-    AdvancedWizard(SecondBreakfastTobacco()).smoke()
-    AdvancedSorceress().apply { setTobacco(SecondBreakfastTobacco()) }.smoke()
+    AdvancedWizard(SecondBreakfastTobacco).smoke()
+    AdvancedSorceress().apply { setTobacco(SecondBreakfastTobacco) }.smoke()
     StaticApplicationContext().apply {
         beans {
             bean<RivendellTobacco>()
