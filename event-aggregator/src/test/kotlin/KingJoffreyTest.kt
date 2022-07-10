@@ -1,14 +1,16 @@
-import com.ltyocg.commons.assertLogContains
+import com.ltyocg.commons.assertListAppender
+import com.ltyocg.commons.formattedList
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class KingJoffreyTest {
     @Test
-    fun `test onEvent`() {
+    fun onEvent() {
         val kingJoffrey = KingJoffrey()
+        val assertListAppender = assertListAppender(KingJoffrey::class)
         Event.values().forEach {
-            assertLogContains("Received event from the King's Hand: $it") {
-                kingJoffrey.onEvent(it)
-            }
+            kingJoffrey.onEvent(it)
+            assertEquals("Received event from the King's Hand: $it", assertListAppender.formattedList().lastOrNull())
         }
     }
 }
