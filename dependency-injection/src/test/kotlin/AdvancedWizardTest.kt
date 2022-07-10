@@ -1,5 +1,5 @@
 import com.ltyocg.commons.assertListAppender
-import com.ltyocg.commons.formattedList
+import com.ltyocg.commons.lastMessage
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -11,7 +11,7 @@ class AdvancedWizardTest {
         }
         listOf(OldTobyTobacco, RivendellTobacco, SecondBreakfastTobacco).forEach {
             AdvancedWizard(it).smoke()
-            assertEquals("AdvancedWizard smoking ${it::class.simpleName}", assertListAppender.formattedList().lastOrNull())
+            assertEquals("AdvancedWizard smoking ${it::class.simpleName}", assertListAppender.lastMessage())
         }
     }
 }

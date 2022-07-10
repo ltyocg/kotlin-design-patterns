@@ -1,6 +1,6 @@
 import com.ltyocg.commons.assertListAppender
 import com.ltyocg.commons.clear
-import com.ltyocg.commons.formattedList
+import com.ltyocg.commons.lastMessage
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import kotlin.test.assertEquals
@@ -18,7 +18,7 @@ class DragonSlayingStrategyTest {
     fun execute(strategy: DragonSlayingStrategy, expectedResult: String) {
         assertListAppender.clear()
         strategy.execute()
-        assertEquals(expectedResult, assertListAppender.formattedList().lastOrNull())
+        assertEquals(expectedResult, assertListAppender.lastMessage())
         assertEquals(1, assertListAppender.list.size)
     }
 

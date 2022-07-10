@@ -1,5 +1,5 @@
 import com.ltyocg.commons.assertListAppender
-import com.ltyocg.commons.formattedList
+import com.ltyocg.commons.lastMessage
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -8,6 +8,6 @@ class SimpleWizardTest {
     fun smoke() {
         val assertListAppender = assertListAppender(OldTobyTobacco::class)
         SimpleWizard().smoke()
-        assertEquals("SimpleWizard smoking OldTobyTobacco", assertListAppender.formattedList().lastOrNull())
+        assertEquals("SimpleWizard smoking OldTobyTobacco", assertListAppender.lastMessage())
     }
 }

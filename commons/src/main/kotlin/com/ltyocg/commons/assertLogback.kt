@@ -82,4 +82,5 @@ internal constructor() {
 }
 
 fun ListAppender<ILoggingEvent>.formattedList(): List<String> = list.map { it.formattedMessage }
+fun ListAppender<ILoggingEvent>.lastMessage(): String? = list.lastOrNull()?.formattedMessage
 fun ListAppender<ILoggingEvent>.clear() = list.clear()

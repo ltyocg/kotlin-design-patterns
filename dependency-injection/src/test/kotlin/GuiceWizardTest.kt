@@ -1,5 +1,5 @@
 import com.ltyocg.commons.assertListAppender
-import com.ltyocg.commons.formattedList
+import com.ltyocg.commons.lastMessage
 import org.springframework.beans.factory.getBean
 import org.springframework.context.support.StaticApplicationContext
 import org.springframework.context.support.beans
@@ -14,7 +14,7 @@ class GuiceWizardTest {
         }
         listOf(OldTobyTobacco, RivendellTobacco, SecondBreakfastTobacco).forEach {
             GuiceWizard(it).smoke()
-            assertEquals("GuiceWizard smoking ${it::class.simpleName}", assertListAppender.formattedList().lastOrNull())
+            assertEquals("GuiceWizard smoking ${it::class.simpleName}", assertListAppender.lastMessage())
         }
     }
 
@@ -34,7 +34,7 @@ class GuiceWizardTest {
                     bean<GuiceWizard>()
                 }.initialize(this)
             }.getBean<GuiceWizard>().smoke()
-            assertEquals("GuiceWizard smoking ${it.simpleName}", assertListAppender.formattedList().lastOrNull())
+            assertEquals("GuiceWizard smoking ${it.simpleName}", assertListAppender.lastMessage())
         }
     }
 }

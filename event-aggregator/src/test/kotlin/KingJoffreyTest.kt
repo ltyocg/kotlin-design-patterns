@@ -1,5 +1,5 @@
 import com.ltyocg.commons.assertListAppender
-import com.ltyocg.commons.formattedList
+import com.ltyocg.commons.lastMessage
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -10,7 +10,7 @@ class KingJoffreyTest {
         val assertListAppender = assertListAppender(KingJoffrey::class)
         Event.values().forEach {
             kingJoffrey.onEvent(it)
-            assertEquals("Received event from the King's Hand: $it", assertListAppender.formattedList().lastOrNull())
+            assertEquals("Received event from the King's Hand: $it", assertListAppender.lastMessage())
         }
     }
 }
