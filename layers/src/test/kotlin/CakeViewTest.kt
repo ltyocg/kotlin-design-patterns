@@ -1,8 +1,10 @@
-import com.ltyocg.commons.assertLogContains
+import com.ltyocg.commons.assertListAppender
+import com.ltyocg.commons.lastMessage
 import layers.*
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class CakeViewTest {
     @Test
@@ -17,6 +19,8 @@ class CakeViewTest {
         )
         val bakingService = mock<CakeBakingService>()
         whenever(bakingService.getAllCakes()).thenReturn(listOf(cake))
-        assertLogContains(cake.toString()) { CakeView(bakingService).render() }
+        val assertListAppender = assertListAppender(CakeView::class)
+        CakeView(bakingService).render()
+        assertEquals(cake.toString(), assertListAppender.lastMessage())
     }
 }

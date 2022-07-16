@@ -1,9 +1,11 @@
-import com.ltyocg.commons.assertLogContains
+import com.ltyocg.commons.assertListAppender
+import com.ltyocg.commons.lastMessage
 import org.mockito.kotlin.inOrder
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class WeatherTest {
     @Test
@@ -12,14 +14,13 @@ class WeatherTest {
         val weather = Weather()
         weather.addObserver(observer)
         verifyNoMoreInteractions(observer)
-        assertLogContains("The weather changed to rainy.") {
-            weather.timePasses()
-        }
+        val assertListAppender = assertListAppender(Weather::class)
+        weather.timePasses()
+        assertEquals("The weather changed to rainy.", assertListAppender.lastMessage())
         verify(observer).update(WeatherType.RAINY)
         weather.removeObserver(observer)
-        assertLogContains("The weather changed to windy.") {
-            weather.timePasses()
-        }
+        weather.timePasses()
+        assertEquals("The weather changed to windy.", assertListAppender.lastMessage())
         verifyNoMoreInteractions(observer)
     }
 
