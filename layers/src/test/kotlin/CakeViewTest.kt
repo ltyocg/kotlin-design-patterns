@@ -6,7 +6,7 @@ import kotlin.test.Test
 
 class CakeViewTest {
     @Test
-    fun `test render`() {
+    fun render() {
         val cake = CakeInfo(
             cakeToppingInfo = CakeToppingInfo(name = "topping", calories = 1000),
             cakeLayerInfos = listOf(
