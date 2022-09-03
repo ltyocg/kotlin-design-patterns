@@ -15,11 +15,11 @@ subprojects {
         mavenCentral()
     }
     dependencies {
-        implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-slf4j", "1.6.1")
-        implementation("ch.qos.logback", "logback-classic", "1.2.11")
+        implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-slf4j", "1.6.4")
+        implementation("ch.qos.logback", "logback-classic", "1.4.0")
         implementation(kotlin("reflect"))
         testImplementation(kotlin("test"))
-        testImplementation("org.junit.jupiter", "junit-jupiter-params", "5.8.2")
+        testImplementation("org.junit.jupiter", "junit-jupiter-params", "5.9.0")
         testImplementation("org.mockito.kotlin", "mockito-kotlin", "4.0.0")
         testImplementation("org.mockito", "mockito-inline", "4.5.1")
     }

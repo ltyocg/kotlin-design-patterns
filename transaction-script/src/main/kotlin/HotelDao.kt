@@ -10,7 +10,7 @@ class HotelDao(private val dataSource: DataSource) {
             val resultSet = statement.executeQuery()
             return sequence {
                 while (resultSet.next()) yield(createRoom(resultSet))
-                sequenceOf(resultSet, statement, connection).forEach(AutoCloseable::close)
+                arrayOf(resultSet, statement, connection).forEach(AutoCloseable::close)
             }
         }
 
