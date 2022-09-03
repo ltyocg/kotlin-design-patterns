@@ -9,7 +9,10 @@ class FileLoader : Serializable {
     private val log = LoggerFactory.getLogger(javaClass)
     var isLoaded = false
     fun loadData(): String? = try {
-        BufferedReader(FileReader(File(fileName))).use { return it.lineSequence().joinToString("\n").also { isLoaded = true } }
+        File(fileName)
+            .let(::FileReader)
+            .let(::BufferedReader)
+            .use { return it.lineSequence().joinToString("\n").also { isLoaded = true } }
     } catch (e: Exception) {
         log.error("File {} does not exist", fileName)
         null
