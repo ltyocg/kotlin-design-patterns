@@ -10,7 +10,13 @@ class Character(var name: String?) {
         append(" named ")
         append(name)
         append(" armed with a ")
-        append(if (weapon != null) weapon else if (spell != null) spell else "with nothing")
+        append(
+            when {
+                weapon != null -> weapon
+                spell != null -> spell
+                else -> "with nothing"
+            }
+        )
         if (abilities != null) append(" and wielding $abilities abilities")
         append('.')
     }

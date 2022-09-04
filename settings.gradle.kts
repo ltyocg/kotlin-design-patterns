@@ -148,7 +148,6 @@ include(
     "typeobjectpattern",
     "unit-of-work",
     "update-method",
-    "value-object",
     "version-number",
     "visitor"
 )
