@@ -4,10 +4,10 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotSame
 import kotlin.test.assertSame
 
-class PrototypeTest<P : Prototype> {
+class PrototypeTest<P : Prototype<P>> {
     @ParameterizedTest
     @MethodSource("dataProvider")
-    fun testPrototype(testedPrototype: P, expectedToString: String) {
+    fun prototype(testedPrototype: P, expectedToString: String) {
         assertEquals(expectedToString, testedPrototype.toString())
         val clone = testedPrototype.copy()
         assertNotSame(clone, testedPrototype)
