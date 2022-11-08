@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.7.1"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("plugin.spring") version "1.7.10"
+    kotlin("plugin.spring") version "+"
 }
 dependencies {
     implementation("org.springframework.boot", "spring-boot-starter-web")

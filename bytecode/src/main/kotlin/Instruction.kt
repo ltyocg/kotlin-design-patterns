@@ -13,11 +13,9 @@ enum class Instruction(val intValue: Int) {
 
     companion object {
         fun getInstruction(value: Int): Instruction {
-            try {
-                return values().first { it.intValue == value }
-            } catch (e: Exception) {
-                throw IllegalArgumentException("Invalid instruction value", e)
-            }
+            val instruction = values().firstOrNull { it.intValue == value }
+            requireNotNull(instruction) { "Invalid instruction value" }
+            return instruction
         }
     }
 }

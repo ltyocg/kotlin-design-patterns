@@ -22,11 +22,7 @@ class TaskGenerator(
                 val statusMsg = "Message-" + count + " submitted by " + Thread.currentThread().name
                 submit(Message(statusMsg))
                 log.info(statusMsg)
-
-                // reduce the message count.
                 count--
-
-                // Make the current thread to sleep after every Message submission.
                 Thread.sleep(1000)
             }
         } catch (e: Exception) {
