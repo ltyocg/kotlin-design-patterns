@@ -1,0 +1,1 @@
+class IdNotFoundException(message: String?) : RuntimeException(message)

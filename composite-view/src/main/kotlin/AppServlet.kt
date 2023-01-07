@@ -9,21 +9,22 @@ class AppServlet : HttpServlet() {
     }
 
     public override fun doPost(req: HttpServletRequest, resp: HttpServletResponse) {
-        resp.contentType = "text/html"
+        resp.contentType = CONTENT_TYPE
         resp.writer.use { it.println(msg("Post")) }
     }
 
     public override fun doDelete(req: HttpServletRequest, resp: HttpServletResponse) {
-        resp.contentType = "text/html"
+        resp.contentType = CONTENT_TYPE
         resp.writer.use { it.println(msg("Delete")) }
     }
 
     public override fun doPut(req: HttpServletRequest, resp: HttpServletResponse) {
-        resp.contentType = "text/html"
+        resp.contentType = CONTENT_TYPE
         resp.writer.use { it.println(msg("Put")) }
     }
 
     companion object {
+        private const val CONTENT_TYPE = "text/html"
         fun msg(type: String): String = """
             <h1>This Server Doesn't Support $type Requests</h1>
             <h2>Use a GET request with boolean values for the following parameters<h2>
