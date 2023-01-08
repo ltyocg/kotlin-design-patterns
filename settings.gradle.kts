@@ -124,6 +124,7 @@ include(
     "role-object",
     "saga",
     "separated-interface",
+    "serialized-entity",
     "servant",
     "serverless",
     "service-layer",

@@ -7,9 +7,9 @@ plugins {
 }
 dependencies {
     implementation("org.springframework.boot", "spring-boot-starter-web")
-    implementation("org.apache.camel.springboot", "camel-spring-boot-starter", "3.16.0")
+    implementation("org.apache.camel.springboot", "camel-spring-boot-starter", "+")
     testImplementation("org.springframework.boot", "spring-boot-starter-test")
-    testImplementation("org.apache.camel", "camel-test-spring-junit5", "3.16.0")
+    testImplementation("org.apache.camel", "camel-test-spring-junit5", "+")
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions {

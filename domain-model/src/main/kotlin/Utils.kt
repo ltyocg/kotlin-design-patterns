@@ -23,8 +23,8 @@ object Utils {
     fun deleteSchema(dataSource: DataSource) {
         executeSQL(
             """
-                DROP TABLE CUSTOMERS IF EXISTS CASCADE;
                 DROP TABLE PURCHASES IF EXISTS CASCADE;
+                DROP TABLE CUSTOMERS IF EXISTS CASCADE;
                 DROP TABLE PRODUCTS IF EXISTS CASCADE;
             """,
             dataSource
