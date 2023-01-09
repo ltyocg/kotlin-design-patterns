@@ -22,6 +22,7 @@ include(
     "callback",
     "chain-of-responsibility",
     "circuit-breaker",
+    "collecting-parameter",
     "collection-pipeline",
     "combinator",
     "command",

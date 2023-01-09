@@ -3,7 +3,7 @@ import kotlin.test.assertEquals
 
 class AlchemistShopTest {
     @Test
-    fun `test shop`() {
+    fun shop() {
         val shop = AlchemistShop()
         val bottomShelf = shop.bottomShelf
         assertEquals(5, bottomShelf.size)
@@ -11,6 +11,6 @@ class AlchemistShopTest {
         assertEquals(8, topShelf.size)
         val allPotions = topShelf + bottomShelf
         assertEquals(13, allPotions.size)
-        assertEquals(5, allPotions.distinctBy(System::identityHashCode).size)
+        assertEquals(5, allPotions.toSet().size)
     }
 }
