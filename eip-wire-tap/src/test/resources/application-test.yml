@@ -1,3 +1,0 @@
-entry: direct:entry
-endpoint: mock:endpoint
-wireTapEndpoint: mock:wireTapEndpoint
