@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+import org.springframework.orm.jpa.EntityManagerFactoryInfo
 import org.springframework.orm.jpa.JpaTransactionManager
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean
 import org.springframework.transaction.annotation.EnableTransactionManagement
@@ -18,8 +19,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 @EnableTransactionManagement
 open class ApplicationConfig {
     @Bean
-    open fun transactionManager(entityManagerFactory: EntityManagerFactory): JpaTransactionManager =
-        JpaTransactionManager(entityManagerFactory)
+    open fun transactionManager(entityManagerFactoryInfo: EntityManagerFactoryInfo): JpaTransactionManager =
+        JpaTransactionManager(entityManagerFactoryInfo as EntityManagerFactory)
 
     @Bean
     open fun entityManagerFactory(): LocalContainerEntityManagerFactoryBean =

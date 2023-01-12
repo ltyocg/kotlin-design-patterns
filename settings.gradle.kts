@@ -28,6 +28,7 @@ include(
     "command",
     "commander",
     "commons",
+    "component",
     "composite",
     "composite-entity",
     "composite-view",
