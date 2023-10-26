@@ -1,6 +1,6 @@
 abstract class ObjectPool<T> {
-    private val available: MutableSet<T> = mutableSetOf()
-    private val inUse: MutableSet<T> = mutableSetOf()
+    private val available = mutableSetOf<T>()
+    private val inUse = mutableSetOf<T>()
     protected abstract fun create(): T
 
     @Synchronized

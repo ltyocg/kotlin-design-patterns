@@ -1,7 +1,5 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    kotlin("jvm") version "+"
+    kotlin("jvm") version "1.9.10"
 }
 repositories {
     mavenCentral()
@@ -15,18 +13,18 @@ subprojects {
         mavenCentral()
     }
     dependencies {
-        implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-slf4j", "+")
-        implementation("ch.qos.logback", "logback-classic", "+")
+        implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-slf4j", "1.7.3")
+        implementation("ch.qos.logback", "logback-classic", "1.4.11")
         implementation(kotlin("reflect"))
         testImplementation(kotlin("test"))
-        testImplementation("org.junit.jupiter", "junit-jupiter-params", "+")
-        testImplementation("org.mockito.kotlin", "mockito-kotlin", "+")
-        testImplementation("org.mockito", "mockito-inline", "+")
+        testImplementation("org.junit.jupiter", "junit-jupiter-params", "5.10.0")
+        testImplementation("org.mockito.kotlin", "mockito-kotlin", "5.1.0")
+        testImplementation("org.mockito", "mockito-inline", "5.2.0")
     }
     tasks.test {
         useJUnitPlatform()
     }
-    tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+    kotlin {
+        jvmToolchain(17)
     }
 }

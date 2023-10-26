@@ -34,6 +34,7 @@ include(
     "composite-view",
     "converter",
     "cqrs",
+    "currying",
     "dao",
     "data-bus",
     "data-locality",

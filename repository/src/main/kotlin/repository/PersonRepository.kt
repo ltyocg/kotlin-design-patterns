@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface PersonRepository : CrudRepository<Person, Long?>, JpaSpecificationExecutor<Person> {
     fun findByName(name: String): Person?
+    override fun findAll(): List<Person>
 }

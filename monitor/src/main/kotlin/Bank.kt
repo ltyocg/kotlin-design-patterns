@@ -9,7 +9,7 @@ class Bank(accountNum: Int, baseAmount: Int) {
         if (accounts[accountA] >= amount) {
             accounts[accountB] += amount
             accounts[accountA] -= amount
-            log.info("Transferred from account :$accountA to account :$accountB , amount :$amount . balance :$balance")
+            if (log.isDebugEnabled) log.debug("Transferred from account : {} to account : {} , amount : {} . balance : {}", accountA, accountB, amount, balance)
         }
     }
 

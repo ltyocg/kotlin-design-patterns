@@ -11,14 +11,14 @@ class CachingTest {
     }
 
     @Test
-    fun `test read and write through strategy`() = useReadAndWriteThroughStrategy(appManager)
+    fun `read and write through strategy`() = useReadAndWriteThroughStrategy(appManager)
 
     @Test
-    fun `test read through and write around strategy`() = useReadThroughAndWriteAroundStrategy(appManager)
+    fun `read through and write around strategy`() = useReadThroughAndWriteAroundStrategy(appManager)
 
     @Test
-    fun `test read through and write behind strategy`() = useReadThroughAndWriteBehindStrategy(appManager)
+    fun `read through and write behind strategy`() = useReadThroughAndWriteBehindStrategy(appManager)
 
     @Test
-    fun `test cache aside strategy`() = useCacheAsideStrategy(appManager)
+    fun `cache aside strategy`() = useCacheAsideStrategy(appManager)
 }

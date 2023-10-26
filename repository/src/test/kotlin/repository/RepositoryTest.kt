@@ -1,9 +1,9 @@
 package repository
 
+import jakarta.annotation.Resource
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit.jupiter.SpringExtension
-import javax.annotation.Resource
 import kotlin.test.*
 
 @ExtendWith(SpringExtension::class)
@@ -27,7 +27,7 @@ class RepositoryTest {
 
     @Test
     fun findAll() {
-        val actuals = repository.findAll().toList()
+        val actuals = repository.findAll()
         assertTrue(actuals.containsAll(persons))
         assertTrue(persons.containsAll(actuals))
     }
