@@ -48,6 +48,7 @@ include(
     "double-buffer",
     "double-checked-locking",
     "double-dispatch",
+    "embedded-value",
     "event-aggregator",
     "event-asynchronous",
     "event-driven-architecture",

@@ -15,6 +15,7 @@ subprojects {
     dependencies {
         implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-slf4j", "1.7.3")
         implementation("ch.qos.logback", "logback-classic", "1.4.11")
+        implementation("io.github.oshai", "kotlin-logging-jvm", "5.1.0")
         implementation(kotlin("reflect"))
         testImplementation(kotlin("test"))
         testImplementation("org.junit.jupiter", "junit-jupiter-params", "5.10.0")
