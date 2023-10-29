@@ -1,5 +1,4 @@
-sealed class Units(vararg children: Units) {
-    private val children = arrayOf(*children)
+sealed class Units(private vararg val children: Units) {
     open fun accept(visitor: UnitsVisitor) {
         children.forEach { it.accept(visitor) }
     }

@@ -1,8 +1,8 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 object FishingBoat {
-    private val log = LoggerFactory.getLogger(javaClass)
-    fun sail() = log.info("The fishing boat is sailing")
+    private val logger = KotlinLogging.logger {}
+    fun sail() = logger.info { "The fishing boat is sailing" }
 }
 
 interface RowingBoat {

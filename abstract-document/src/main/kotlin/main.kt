@@ -1,8 +1,8 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
-    log.info("Constructing parts and car")
+    logger.info { "Constructing parts and car" }
     val car = Car(
         mapOf(
             Property.MODEL.name to "300SL",
@@ -21,9 +21,9 @@ fun main() {
             )
         )
     )
-    log.info("Here is our car:")
-    log.info("-> model: {}", car.model)
-    log.info("-> price: {}", car.price)
-    log.info("-> parts:")
-    car.parts.forEach { log.info("\t{}/{}/{}", it.type, it.model, it.price) }
+    logger.info { "Here is our car:" }
+    logger.info { "-> model: ${car.model}" }
+    logger.info { "-> price: ${car.price}" }
+    logger.info { "-> parts:" }
+    car.parts.forEach { logger.info { "\t${it.type}/${it.model}/${it.price}" } }
 }

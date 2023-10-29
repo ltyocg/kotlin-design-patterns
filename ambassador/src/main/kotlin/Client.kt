@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class Client {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     suspend fun useService(value: Int): Long =
-        ServiceAmbassador.doRemoteFunction(value).also { log.info("Service result: {}", it) }
+        ServiceAmbassador.doRemoteFunction(value).also { logger.info { "Service result: $it" } }
 }

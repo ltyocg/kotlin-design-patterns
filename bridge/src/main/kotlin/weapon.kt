@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 sealed interface Weapon {
     fun wield()
@@ -8,37 +8,37 @@ sealed interface Weapon {
 }
 
 class Hammer(override val enchantment: Enchantment) : Weapon {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override fun wield() {
-        log.info("The hammer is wielded.")
+        logger.info { "The hammer is wielded." }
         enchantment.onActivate()
     }
 
     override fun swing() {
-        log.info("The hammer is swung.")
+        logger.info { "The hammer is swung." }
         enchantment.apply()
     }
 
     override fun unwield() {
-        log.info("The hammer is unwielded.")
+        logger.info { "The hammer is unwielded." }
         enchantment.onDeactivate()
     }
 }
 
 class Sword(override val enchantment: Enchantment) : Weapon {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override fun wield() {
-        log.info("The sword is wielded.")
+        logger.info { "The sword is wielded." }
         enchantment.onActivate()
     }
 
     override fun swing() {
-        log.info("The sword is swung.")
+        logger.info { "The sword is swung." }
         enchantment.apply()
     }
 
     override fun unwield() {
-        log.info("The sword is unwielded.")
+        logger.info { "The sword is unwielded." }
         enchantment.onDeactivate()
     }
 }

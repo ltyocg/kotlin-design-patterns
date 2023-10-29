@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 sealed interface UnitsVisitor {
     fun visitSoldier(soldier: Soldier) {}
@@ -7,25 +7,16 @@ sealed interface UnitsVisitor {
 }
 
 class CommanderVisitor : UnitsVisitor {
-    private companion object {
-        private val log = LoggerFactory.getLogger(CommanderVisitor::class.java)
-    }
-
-    override fun visitCommander(commander: Commander) = log.info("Good to see you {}", commander)
+    private val logger = KotlinLogging.logger {}
+    override fun visitCommander(commander: Commander) = logger.info { "Good to see you $commander" }
 }
 
 class SergeantVisitor : UnitsVisitor {
-    private companion object {
-        private val log = LoggerFactory.getLogger(SergeantVisitor::class.java)
-    }
-
-    override fun visitSergeant(sergeant: Sergeant) = log.info("Hello {}", sergeant)
+    private val logger = KotlinLogging.logger {}
+    override fun visitSergeant(sergeant: Sergeant) = logger.info { "Hello $sergeant" }
 }
 
 class SoldierVisitor : UnitsVisitor {
-    private companion object {
-        private val log = LoggerFactory.getLogger(SoldierVisitor::class.java)
-    }
-
-    override fun visitSoldier(soldier: Soldier) = log.info("Greetings {}", soldier)
+    private val logger = KotlinLogging.logger {}
+    override fun visitSoldier(soldier: Soldier) = logger.info { "Greetings $soldier" }
 }

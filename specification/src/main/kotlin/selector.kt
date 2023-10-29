@@ -15,13 +15,13 @@ class ColorSelector(private val color: Color) : AbstractSelector<Creature>() {
 
 class ConjunctionSelector<T>
 internal constructor(vararg selectors: AbstractSelector<T>) : AbstractSelector<T>() {
-    private val leafComponents = listOf(*selectors)
+    private val leafComponents = selectors.toList()
     override fun invoke(t: T): Boolean = leafComponents.all { it(t) }
 }
 
 class DisjunctionSelector<T>
 internal constructor(vararg selectors: AbstractSelector<T>) : AbstractSelector<T>() {
-    private val leafComponents = listOf(*selectors)
+    private val leafComponents = selectors.toList()
     override fun invoke(t: T): Boolean = leafComponents.any { it(t) }
 }
 

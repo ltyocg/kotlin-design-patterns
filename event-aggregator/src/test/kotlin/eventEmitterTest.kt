@@ -34,7 +34,7 @@ abstract class EventEmitterTest<E : EventEmitter>(
     }
 
     private fun testAllDays(specialDay: DayOfWeek?, event: Event?, emitter: E, vararg observers: EventObserver) {
-        DayOfWeek.values().forEach {
+        DayOfWeek.entries.forEach {
             emitter.timePasses(it)
             if (it == specialDay) observers.forEach { observer -> verify(observer, times(1)).onEvent(eq(event)) }
             else verifyNoMoreInteractions(*observers)

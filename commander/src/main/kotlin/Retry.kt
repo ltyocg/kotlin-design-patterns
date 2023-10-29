@@ -13,7 +13,6 @@ class Retry<T>(
 ) {
     private val attempts = AtomicInteger()
     private val test = ignoreTests.reduce { acc, predicate -> { acc(it) || predicate(it) } }
-
     suspend fun perform(list: MutableList<Exception>, obj: T) {
         do {
             try {

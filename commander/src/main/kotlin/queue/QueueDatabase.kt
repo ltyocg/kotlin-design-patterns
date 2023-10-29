@@ -5,7 +5,7 @@ import java.util.*
 
 class QueueDatabase(vararg exc: Exception) : Database<QueueTask>() {
     private val data: Queue<QueueTask> = LinkedList()
-    val exceptionsList = mutableListOf(*exc)
+    val exceptionsList = exc.toMutableList()
     override fun add(obj: QueueTask): QueueTask {
         data.offer(obj)
         return obj

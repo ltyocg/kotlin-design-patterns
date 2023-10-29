@@ -1,18 +1,20 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
-    log.info("elf kingdom")
-    createKingdom(KingdomType.ELF).log()
-    log.info("orc kingdom")
-    createKingdom(KingdomType.ORC).log()
+    logger.info { "elf kingdom" }
+    createKingdom(KingdomType.ELF).apply {
+        logger.info { army.description }
+        logger.info { castle.description }
+        logger.info { king.description }
+    }
+    logger.info { "orc kingdom" }
+    createKingdom(KingdomType.ORC).apply {
+        logger.info { army.description }
+        logger.info { castle.description }
+        logger.info { king.description }
+    }
 }
 
 fun createKingdom(kingdomType: KingdomType): Kingdom =
     KingdomFactory.makeFactory(kingdomType).let { Kingdom(it.createKing(), it.createCastle(), it.createArmy()) }
-
-private fun Kingdom.log() {
-    log.info(army.description)
-    log.info(castle.description)
-    log.info(king.description)
-}

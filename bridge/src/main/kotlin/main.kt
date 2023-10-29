@@ -1,14 +1,14 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val log = KotlinLogging.logger {}
 fun main() {
-    log.info("The knight receives an enchanted sword.")
+    log.info { "The knight receives an enchanted sword." }
     with(Sword(SoulEatingEnchantment)) {
         wield()
         swing()
         unwield()
     }
-    log.info("The valkyrie receives an enchanted hammer.")
+    log.info { "The valkyrie receives an enchanted hammer." }
     with(Hammer(FlyingEnchantment)) {
         wield()
         swing()

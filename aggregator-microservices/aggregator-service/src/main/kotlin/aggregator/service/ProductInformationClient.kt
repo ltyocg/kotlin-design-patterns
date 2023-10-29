@@ -1,6 +1,6 @@
 package aggregator.service
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.IOException
 import java.net.URI
 import java.net.http.HttpClient
@@ -8,7 +8,7 @@ import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 
 object ProductInformationClient {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     fun getProductTitle(): String? {
         try {
             return HttpClient.newHttpClient().send(
@@ -19,7 +19,7 @@ object ProductInformationClient {
                 HttpResponse.BodyHandlers.ofString()
             ).body()
         } catch (e: IOException) {
-            log.error("IOException Occurred", e)
+            logger.error(e) { "IOException Occurred" }
         }
         return null
     }

@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 interface ModemVisitor
 interface HayesVisitor : ModemVisitor {
@@ -11,12 +11,12 @@ interface ZoomVisitor : ModemVisitor {
 
 interface AllModemVisitor : HayesVisitor, ZoomVisitor
 class ConfigureForDosVisitor : AllModemVisitor {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun visit(hayes: Hayes) = log.info("{} used with Dos configurator.", hayes)
-    override fun visit(zoom: Zoom) = log.info("{} used with Dos configurator.", zoom)
+    private val logger = KotlinLogging.logger {}
+    override fun visit(hayes: Hayes) = logger.info { "$hayes used with Dos configurator." }
+    override fun visit(zoom: Zoom) = logger.info { "$zoom used with Dos configurator." }
 }
 
 class ConfigureForUnixVisitor : ZoomVisitor {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun visit(zoom: Zoom) = log.info("{} used with Unix configurator.", zoom)
+    private val logger = KotlinLogging.logger {}
+    override fun visit(zoom: Zoom) = logger.info { "$zoom used with Unix configurator." }
 }

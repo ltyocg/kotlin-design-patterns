@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 sealed interface Enchantment {
     fun onActivate()
@@ -6,16 +6,16 @@ sealed interface Enchantment {
     fun onDeactivate()
 }
 
-object FlyingEnchantment : Enchantment {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun onActivate() = log.info("The item begins to glow faintly.")
-    override fun apply() = log.info("The item flies and strikes the enemies finally returning to owner's hand.")
-    override fun onDeactivate() = log.info("The item's glow fades.")
+data object FlyingEnchantment : Enchantment {
+    private val logger = KotlinLogging.logger {}
+    override fun onActivate() = logger.info { "The item begins to glow faintly." }
+    override fun apply() = logger.info { "The item flies and strikes the enemies finally returning to owner's hand." }
+    override fun onDeactivate() = logger.info { "The item's glow fades." }
 }
 
-object SoulEatingEnchantment : Enchantment {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun onActivate() = log.info("The item spreads bloodlust.")
-    override fun apply() = log.info("The item eats the soul of enemies.")
-    override fun onDeactivate() = log.info("Bloodlust slowly disappears.")
+data object SoulEatingEnchantment : Enchantment {
+    private val logger = KotlinLogging.logger {}
+    override fun onActivate() = logger.info { "The item spreads bloodlust." }
+    override fun apply() = logger.info { "The item eats the soul of enemies." }
+    override fun onDeactivate() = logger.info { "Bloodlust slowly disappears." }
 }

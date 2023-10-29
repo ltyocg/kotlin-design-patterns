@@ -32,6 +32,7 @@ include(
     "composite",
     "composite-entity",
     "composite-view",
+    "context-object",
     "converter",
     "cqrs",
     "currying",

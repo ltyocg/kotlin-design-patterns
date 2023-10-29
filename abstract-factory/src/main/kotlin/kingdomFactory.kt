@@ -10,13 +10,13 @@ sealed interface KingdomFactory {
         }
     }
 
-    private object ElfKingdomFactory : KingdomFactory {
+    private data object ElfKingdomFactory : KingdomFactory {
         override fun createCastle(): Castle = Castle.ElfCastle()
         override fun createKing(): King = King.ElfKing()
         override fun createArmy(): Army = Army.ElfArmy()
     }
 
-    private object OrcKingdomFactory : KingdomFactory {
+    private data object OrcKingdomFactory : KingdomFactory {
         override fun createCastle(): Castle = Castle.OrcCastle()
         override fun createKing(): King = King.OrcKing()
         override fun createArmy(): Army = Army.OrcArmy()
