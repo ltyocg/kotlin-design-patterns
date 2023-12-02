@@ -2,7 +2,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.*
 
 private val logger = KotlinLogging.logger {}
-suspend fun main() = withContext(Dispatchers.Default) {
+suspend fun main() = runBlocking {
     val deferred1 = lazyVal(10, 500)
     val deferred2 = lazyVal("test", 300)
     val deferred3 = lazyVal(50L, 700)

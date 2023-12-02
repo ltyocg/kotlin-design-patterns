@@ -1,6 +1,6 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val factory = WeaponFactory.factory {
         it.add(WeaponType.AXE, ::Axe)
@@ -10,6 +10,5 @@ fun main() {
     }
     sequenceOf(WeaponType.AXE, WeaponType.SPEAR, WeaponType.SWORD, WeaponType.BOW)
         .map(factory::create)
-        .map(Weapon::toString)
-        .forEach(log::info)
+        .forEach { logger.info { it } }
 }

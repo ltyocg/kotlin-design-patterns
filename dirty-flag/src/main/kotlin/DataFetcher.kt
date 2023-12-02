@@ -1,11 +1,11 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.File
 import java.net.URLDecoder
 import java.nio.charset.Charset
 
 
 class DataFetcher {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val filename = "world.txt"
     private var lastFetched = -1L
 
@@ -15,7 +15,7 @@ class DataFetcher {
     fun fetch(): List<String> {
         val file = File(URLDecoder.decode(javaClass.classLoader.getResource(filename)!!.file, Charset.defaultCharset()))
         return if (isDirty(file.lastModified())) {
-            log.info("{} is dirty! Re-fetching file content...", filename)
+            logger.info { "$filename is dirty! Re-fetching file content..." }
             file.readLines()
         } else emptyList()
     }

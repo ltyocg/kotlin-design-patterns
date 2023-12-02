@@ -1,14 +1,14 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 sealed class DwarvenMineWorker {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     abstract val name: String
     fun action(vararg actions: Action) = actions.forEach {
         when (it) {
-            Action.GO_TO_SLEEP -> log.info("{} goes to sleep.", name)
-            Action.WAKE_UP -> log.info("{} wakes up.", name)
-            Action.GO_HOME -> log.info("{} goes home.", name)
-            Action.GO_TO_MINE -> log.info("{} goes to the mine.", name)
+            Action.GO_TO_SLEEP -> logger.info { "$name goes to sleep." }
+            Action.WAKE_UP -> logger.info { "$name wakes up." }
+            Action.GO_HOME -> logger.info { "$name goes home." }
+            Action.GO_TO_MINE -> logger.info { "$name goes to the mine." }
             Action.WORK -> work()
         }
     }
@@ -20,19 +20,19 @@ sealed class DwarvenMineWorker {
 }
 
 class DwarvenCartOperator : DwarvenMineWorker() {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override val name = "Dwarf cart operator"
-    override fun work() = log.info("{} moves gold chunks out of the mine.", name)
+    override fun work() = logger.info { "$name moves gold chunks out of the mine." }
 }
 
 class DwarvenGoldDigger : DwarvenMineWorker() {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override val name = "Dwarf gold digger"
-    override fun work() = log.info("{} digs for gold.", name)
+    override fun work() = logger.info { "$name digs for gold." }
 }
 
 class DwarvenTunnelDigger : DwarvenMineWorker() {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override val name = "Dwarven tunnel digger"
-    override fun work() = log.info("{} creates another promising tunnel.", name)
+    override fun work() = logger.info { "$name creates another promising tunnel." }
 }

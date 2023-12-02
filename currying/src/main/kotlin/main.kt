@@ -1,9 +1,9 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.time.LocalDate
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
-    log.info("Librarian begins their work.")
+    logger.info { "Librarian begins their work." }
     val fantasyBookFunc = Book.builder().withGenre(Genre.FANTASY)
     val horrorBookFunc = Book.builder().withGenre(Genre.HORROR)
     val scifiBookFunc = Book.builder().withGenre(Genre.SCIFI)
@@ -27,12 +27,12 @@ fun main() {
         .withAuthor("Isaac Asimov")
         .withTitle("Foundation")
         .withPublicationDate(LocalDate.of(1942, 5, 1))
-    log.info("Stephen King Books:")
-    log.info(shining.toString())
-    log.info(darkTower.toString())
-    log.info("J.K. Rowling Books:")
-    log.info(chamberOfSecrets.toString())
-    log.info("Sci-fi Books:")
-    log.info(dune.toString())
-    log.info(foundation.toString())
+    logger.info { "Stephen King Books:" }
+    logger.info { shining }
+    logger.info { darkTower }
+    logger.info { "J.K. Rowling Books:" }
+    logger.info { chamberOfSecrets }
+    logger.info { "Sci-fi Books:" }
+    logger.info { dune }
+    logger.info { foundation }
 }

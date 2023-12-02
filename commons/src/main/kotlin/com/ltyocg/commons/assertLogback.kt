@@ -3,6 +3,7 @@ package com.ltyocg.commons
 import ch.qos.logback.classic.Logger
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.read.ListAppender
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.slf4j.LoggerFactory
 import kotlin.reflect.KClass
 
@@ -18,7 +19,7 @@ fun assertListAppender(builderAction: ListAppenderBuilder.() -> Unit): ListAppen
 class ListAppenderBuilder
 internal constructor() {
     @PublishedApi
-    internal val log = LoggerFactory.getLogger(javaClass)
+    internal val logger = KotlinLogging.logger {}
 
     @PublishedApi
     internal val list = mutableListOf<KClass<*>>()
@@ -26,7 +27,7 @@ internal constructor() {
         val kClass = T::class
         list.add(kClass)
         if (sealedSubclasses) {
-            if (!kClass.isSealed) log.warn("{} is not a sealed class", kClass)
+            if (!kClass.isSealed) logger.warn { "$kClass is not a sealed class" }
             kClass.sealedSubclasses.forEach(list::add)
         }
     }

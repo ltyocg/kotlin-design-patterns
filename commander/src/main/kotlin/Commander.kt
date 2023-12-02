@@ -1,9 +1,9 @@
 import employeehandle.EmployeeHandle
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import messagingservice.MessagingService
-import org.slf4j.LoggerFactory
 import paymentservice.PaymentService
 import queue.QueueDatabase
 import queue.QueueTask
@@ -23,7 +23,7 @@ class Commander(
     private val messageTime: Long,
     private val employeeTime: Long,
 ) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private var queueItems = 0
     private var finalSiteMsgShown: Boolean = false
 
@@ -31,31 +31,35 @@ class Commander(
         Retry(
             {
                 if (it.isNotEmpty()) {
-                    if (it[0] is DatabaseUnavailableException) log.debug("Order {}: Error in connecting to shipping service, trying again..", order.id)
-                    else log.debug("Order {}: Error in creating shipping request..", order.id)
+                    logger.debug {
+                        if (it[0] is DatabaseUnavailableException) "Order ${order.id}: Error in connecting to shipping service, trying again.."
+                        else "Order ${order.id}: Error in creating shipping request.."
+                    }
                     throw it.removeAt(0)
                 }
-                log.info("Order {}: Shipping placed successfully, transaction id: {}", order.id, shippingService.receiveRequest(order.item, order.user.address))
-                log.info("Order has been placed and will be shipped to you. Please wait while we make your payment... ")
+                logger.info { "Order ${order.id}: Shipping placed successfully, transaction id: ${shippingService.receiveRequest(order.item, order.user.address)}" }
+                logger.info { "Order has been placed and will be shipped to you. Please wait while we make your payment... " }
                 sendPaymentRequest(order)
             },
             { obj: Order, err ->
                 when (err) {
                     is ShippingNotPossibleException -> {
-                        log.info("Shipping is currently not possible to your address. We are working on the problem and will get back to you asap.")
+                        logger.info { "Shipping is currently not possible to your address. We are working on the problem and will get back to you asap." }
                         finalSiteMsgShown = true
-                        log.info("Order {}: Shipping not possible to address, trying to add problem to employee db..", order.id)
+                        logger.info { "Order ${order.id}: Shipping not possible to address, trying to add problem to employee db.." }
                         employeeHandleIssue(obj)
                     }
+
                     is ItemUnavailableException -> {
-                        log.info("This item is currently unavailable. We will inform you as soon as the item becomes available again.")
+                        logger.info { "This item is currently unavailable. We will inform you as soon as the item becomes available again." }
                         finalSiteMsgShown = true
-                        log.info("Order {}: Item {} unavailable, trying to add " + "problem to employee handle..", order.id, order.item)
+                        logger.info { "Order ${order.id}: Item ${order.item} unavailable, trying to add " + "problem to employee handle.." }
                         employeeHandleIssue(obj)
                     }
+
                     else -> {
-                        log.info("Sorry, there was a problem in creating your order. Please try later.")
-                        log.error("Order {}: Shipping service unavailable, order not placed..", order.id)
+                        logger.info { "Sorry, there was a problem in creating your order. Please try later." }
+                        logger.error { "Order ${order.id}: Shipping service unavailable, order not placed.." }
                         finalSiteMsgShown = true
                     }
                 }
@@ -71,7 +75,7 @@ class Commander(
             if (order.paid == Order.PaymentStatus.TRYING) {
                 order.paid = Order.PaymentStatus.NOT_DONE
                 sendPaymentFailureMessage(order)
-                log.error("Order {}: Payment time for order over, failed and returning..", order.id)
+                logger.error { "Order ${order.id}: Payment time for order over, failed and returning.." }
             }
             return@coroutineScope
         }
@@ -79,16 +83,18 @@ class Commander(
             Retry(
                 {
                     if (it.isNotEmpty()) {
-                        if (it[0] is DatabaseUnavailableException) log.debug("Order {}: Error in connecting to payment service, trying again..", order.id)
-                        else log.debug("Order {}: Error in creating payment request..", order.id)
+                        logger.debug {
+                            if (it[0] is DatabaseUnavailableException) "Order ${order.id}: Error in connecting to payment service, trying again.."
+                            else "Order ${order.id}: Error in creating payment request.."
+                        }
                         throw it.removeAt(0)
                     }
                     if (order.paid == Order.PaymentStatus.TRYING) {
                         val transactionId = paymentService.receiveRequest(order.price)
                         order.paid = Order.PaymentStatus.DONE
-                        log.info("Order {}: Payment successful, transaction Id: {}", order.id, transactionId)
+                        logger.info { "Order ${order.id}: Payment successful, transaction Id: $transactionId" }
                         if (!finalSiteMsgShown) {
-                            log.info("Payment made successfully, thank you for shopping with us!!")
+                            logger.info { "Payment made successfully, thank you for shopping with us!!" }
                             finalSiteMsgShown = true
                         }
                         sendSuccessMessage(order)
@@ -97,19 +103,19 @@ class Commander(
                 { o: Order, err ->
                     if (err is PaymentDetailsErrorException) {
                         if (!finalSiteMsgShown) {
-                            log.info("There was an error in payment. Your account/card details may have been incorrect. Meanwhile, your order has been converted to COD and will be shipped.")
+                            logger.info { "There was an error in payment. Your account/card details may have been incorrect. Meanwhile, your order has been converted to COD and will be shipped." }
                             finalSiteMsgShown = true
                         }
-                        log.error("Order {}: Payment details incorrect, failed..", order.id)
+                        logger.error { "Order ${order.id}: Payment details incorrect, failed.." }
                         o.paid = Order.PaymentStatus.NOT_DONE
                         sendPaymentFailureMessage(o)
                     } else {
                         if (o.messageSent == Order.MessageSent.NONE_SENT) {
                             if (!finalSiteMsgShown) {
-                                log.info("There was an error in payment. We are on it, and will get back to you asap. Don't worry, your order has been placed and will be shipped.")
+                                logger.info { "There was an error in payment. We are on it, and will get back to you asap. Don't worry, your order has been placed and will be shipped." }
                                 finalSiteMsgShown = true
                             }
-                            log.warn("Order {}: Payment error, going to queue..", order.id)
+                            logger.warn { "Order ${order.id}: Payment error, going to queue.." }
                             sendPaymentPossibleErrorMsg(o)
                         }
                         if (o.paid == Order.PaymentStatus.TRYING && System.currentTimeMillis() - o.createdTime < paymentTime)
@@ -125,7 +131,7 @@ class Commander(
 
     private suspend fun updateQueue(qt: QueueTask): Unit = coroutineScope {
         if (System.currentTimeMillis() - qt.order.createdTime >= queueTime) {
-            log.trace("Order {}: Queue time for order over, failed..", qt.order.id)
+            logger.trace { "Order ${qt.order.id}: Queue time for order over, failed.." }
             return@coroutineScope
         } else if (
             qt.taskType == QueueTask.TaskType.PAYMENT && qt.order.paid != Order.PaymentStatus.TRYING ||
@@ -136,28 +142,28 @@ class Commander(
                     ) ||
             qt.taskType == QueueTask.TaskType.EMPLOYEE_DB && qt.order.addedToEmployeeHandle
         ) {
-            log.trace("Order {}: Not queueing task since task already done..", qt.order.id)
+            logger.trace { "Order ${qt.order.id}: Not queueing task since task already done.." }
             return@coroutineScope
         }
         launch {
             Retry(
                 {
                     if (it.isNotEmpty()) {
-                        log.warn("Order {}: Error in connecting to queue db, trying again..", qt.order.id)
+                        logger.warn { "Order ${qt.order.id}: Error in connecting to queue db, trying again.." }
                         throw it.removeAt(0)
                     }
                     queue.add(qt)
                     queueItems++
-                    log.info("Order {}: {} task enqueued..", qt.order.id, qt.type)
+                    logger.info { "Order ${qt.order.id}: ${qt.type} task enqueued.." }
                     tryDoingTasksInQueue()
                 },
                 { qt1: QueueTask, _ ->
                     if (qt1.taskType == QueueTask.TaskType.PAYMENT) {
                         qt1.order.paid = Order.PaymentStatus.NOT_DONE
                         sendPaymentFailureMessage(qt1.order)
-                        log.error("Order {}: Unable to enqueue payment task, payment failed..", qt1.order.id)
+                        logger.error { "Order ${qt1.order.id}: Unable to enqueue payment task, payment failed.." }
                     }
-                    log.error("Order {}: Unable to enqueue task of type {}, trying to add to employee handle..", qt1.order.id, qt1.type)
+                    logger.error { "Order ${qt1.order.id}: Unable to enqueue task of type ${qt1.type}, trying to add to employee handle.." }
                     employeeHandleIssue(qt1.order)
                 },
                 numOfRetries,
@@ -172,54 +178,58 @@ class Commander(
             Retry(
                 {
                     if (it.isNotEmpty()) {
-                        log.warn("Error in accessing queue db to do tasks, trying again..")
+                        logger.warn { "Error in accessing queue db to do tasks, trying again.." }
                         throw it.removeAt(0)
                     }
                     if (queueItems != 0) {
                         val qt = queue.peek()
-                        log.trace("Order {}: Started doing task of type {}", qt.order.id, qt.type)
+                        logger.trace { "Order ${qt.order.id}: Started doing task of type ${qt.type}" }
                         if (qt.firstAttemptTime == -1L) qt.firstAttemptTime = System.currentTimeMillis()
                         if (System.currentTimeMillis() - qt.firstAttemptTime >= queueTaskTime) {
                             tryDequeue()
-                            log.trace("Order {}: This queue task of type {} does not need to be done anymore (timeout), dequeue..", qt.order.id, qt.type)
+                            logger.trace { "Order ${qt.order.id}: This queue task of type ${qt.type} does not need to be done anymore (timeout), dequeue.." }
                         } else when (qt.taskType) {
                             QueueTask.TaskType.PAYMENT -> if (qt.order.paid != Order.PaymentStatus.TRYING) {
                                 tryDequeue()
-                                log.trace("Order {}: This payment task already done, dequeueing..", qt.order.id)
+                                logger.trace { "Order ${qt.order.id}: This payment task already done, dequeueing.." }
                             } else {
                                 sendPaymentRequest(qt.order)
-                                log.debug("Order {}: Trying to connect to payment service..", qt.order.id)
+                                logger.debug { "Order ${qt.order.id}: Trying to connect to payment service.." }
                             }
+
                             QueueTask.TaskType.MESSAGING -> if (qt.order.messageSent == Order.MessageSent.PAYMENT_FAIL || qt.order.messageSent == Order.MessageSent.PAYMENT_SUCCESSFUL) {
                                 tryDequeue()
-                                log.trace("Order {}: This messaging task does not need to be done, dequeue..", qt.order.id)
+                                logger.trace { "Order ${qt.order.id}: This messaging task does not need to be done, dequeue.." }
                             } else if (qt.messageType == 1 && (qt.order.messageSent != Order.MessageSent.NONE_SENT || qt.order.paid != Order.PaymentStatus.TRYING)) {
                                 tryDequeue()
-                                log.trace("Order {}: This messaging task does not need to be done, dequeue..", qt.order.id)
+                                logger.trace { "Order ${qt.order.id}: This messaging task does not need to be done, dequeue.." }
                             } else when (qt.messageType) {
                                 0 -> {
                                     sendPaymentFailureMessage(qt.order)
-                                    log.debug("Order {}: Trying to connect to messaging service..", qt.order.id)
+                                    logger.debug { "Order ${qt.order.id}: Trying to connect to messaging service.." }
                                 }
+
                                 1 -> {
                                     sendPaymentPossibleErrorMsg(qt.order)
-                                    log.debug("Order {}: Trying to connect to messaging service..", qt.order.id)
+                                    logger.debug { "Order ${qt.order.id}: Trying to connect to messaging service.." }
                                 }
+
                                 2 -> {
                                     sendSuccessMessage(qt.order)
-                                    log.debug("Order {}: Trying to connect to messaging service..", qt.order.id)
+                                    logger.debug { "Order ${qt.order.id}: Trying to connect to messaging service.." }
                                 }
                             }
+
                             QueueTask.TaskType.EMPLOYEE_DB -> if (qt.order.addedToEmployeeHandle) {
                                 tryDequeue()
-                                log.trace("Order {}: This employee handle task already done, dequeue..", qt.order.id)
+                                logger.trace { "Order ${qt.order.id}: This employee handle task already done, dequeue.." }
                             } else {
                                 employeeHandleIssue(qt.order)
-                                log.debug("Order {}: Trying to connect to employee handle..", qt.order.id)
+                                logger.debug { "Order ${qt.order.id}: Trying to connect to employee handle.." }
                             }
                         }
                     }
-                    if (queueItems == 0) log.trace("Queue is empty, returning..")
+                    if (queueItems == 0) logger.trace { "Queue is empty, returning.." }
                     else {
                         delay(queueTaskTime / 3)
                         tryDoingTasksInQueue()
@@ -238,7 +248,7 @@ class Commander(
             Retry(
                 {
                     if (it.isNotEmpty()) {
-                        log.warn("Error in accessing queue db to dequeue task, trying again..")
+                        logger.warn { "Error in accessing queue db to dequeue task, trying again.." }
                         throw it.removeAt(0)
                     }
                     queue.dequeue()
@@ -254,26 +264,26 @@ class Commander(
 
     private suspend fun sendSuccessMessage(order: Order) = coroutineScope {
         if (order.isMessageTimeOver) {
-            log.trace("Order {}: Message time for order over, returning..", order.id)
+            logger.trace { "Order ${order.id}: Message time for order over, returning.." }
             return@coroutineScope
         }
         launch {
             Retry(
                 {
                     if (it.isNotEmpty()) {
-                        if (it[0] is DatabaseUnavailableException) log.debug("Order {}: Error in connecting to messaging service (Payment Success msg), trying again..", order.id)
-                        else log.debug("Order {}: Error in creating Payment Success messaging request..", order.id)
+                        if (it[0] is DatabaseUnavailableException) logger.debug { "Order ${order.id}: Error in connecting to messaging service (Payment Success msg), trying again.." }
+                        else logger.debug { "Order ${order.id}: Error in creating Payment Success messaging request.." }
                         throw it.removeAt(0)
                     }
                     if (order.messageSent != Order.MessageSent.PAYMENT_FAIL && order.messageSent != Order.MessageSent.PAYMENT_SUCCESSFUL) {
                         order.messageSent = Order.MessageSent.PAYMENT_SUCCESSFUL
-                        log.info("Order {}: Payment Success message sent, request Id: {}", order.id, messagingService.receiveRequest(2))
+                        logger.info { "Order ${order.id}: Payment Success message sent, request Id: ${messagingService.receiveRequest(2)}" }
                     }
                 },
                 { o: Order, _ ->
                     if ((o.messageSent == Order.MessageSent.NONE_SENT || o.messageSent == Order.MessageSent.PAYMENT_TRYING) && !o.isMessageTimeOver) {
                         updateQueue(QueueTask(order, QueueTask.TaskType.MESSAGING, 2))
-                        log.info("Order {}: Error in sending Payment Success message, trying to queue task and add to employee handle..", order.id)
+                        logger.info { "Order ${order.id}: Error in sending Payment Success message, trying to queue task and add to employee handle.." }
                         employeeHandleIssue(o)
                     }
                 },
@@ -286,26 +296,26 @@ class Commander(
 
     private suspend fun sendPaymentFailureMessage(order: Order) = coroutineScope {
         if (order.isMessageTimeOver) {
-            log.trace("Order {}: Message time for order over, returning..", order.id)
+            logger.trace { "Order ${order.id}: Message time for order over, returning.." }
             return@coroutineScope
         }
         launch {
             Retry(
                 {
                     if (it.isNotEmpty()) {
-                        if (it[0] is DatabaseUnavailableException) log.debug("Order {}: Error in connecting to messaging service (Payment Failure msg), trying again..", order.id)
-                        else log.debug("Order {}: Error in creating Payment Failure message request..", order.id)
+                        if (it[0] is DatabaseUnavailableException) logger.debug { "Order ${order.id}: Error in connecting to messaging service (Payment Failure msg), trying again.." }
+                        else logger.debug { "Order ${order.id}: Error in creating Payment Failure message request.." }
                         throw it.removeAt(0)
                     }
                     if (order.messageSent != Order.MessageSent.PAYMENT_FAIL && order.messageSent != Order.MessageSent.PAYMENT_SUCCESSFUL) {
                         order.messageSent = Order.MessageSent.PAYMENT_FAIL
-                        log.info("Order {}: Payment Failure message sent, request Id: {}", order.id, messagingService.receiveRequest(0))
+                        logger.info { "Order ${order.id}: Payment Failure message sent, request Id: ${messagingService.receiveRequest(0)}" }
                     }
                 },
                 { o: Order, _ ->
                     if ((o.messageSent == Order.MessageSent.NONE_SENT || o.messageSent == Order.MessageSent.PAYMENT_TRYING) && !o.isMessageTimeOver) {
                         updateQueue(QueueTask(order, QueueTask.TaskType.MESSAGING, 0))
-                        log.info("Order {}: Error in sending Payment Failure message, trying to queue task and add to employee handle..", order.id)
+                        logger.info { "Order ${order.id}: Error in sending Payment Failure message, trying to queue task and add to employee handle.." }
                         employeeHandleIssue(o)
                     }
                 },
@@ -318,26 +328,28 @@ class Commander(
 
     private suspend fun sendPaymentPossibleErrorMsg(order: Order) = coroutineScope {
         if (order.isMessageTimeOver) {
-            log.trace("Order {}: Message time for order over, returning..", order.id)
+            logger.trace { "Order ${order.id}: Message time for order over, returning.." }
             return@coroutineScope
         }
         launch {
             Retry(
                 {
                     if (it.isNotEmpty()) {
-                        if (it[0] is DatabaseUnavailableException) log.debug("Order {}: Error in connecting to messaging service (Payment Error msg), trying again..", order.id)
-                        else log.debug("Order {}: Error in creating Payment Error message request..", order.id)
+                        logger.debug {
+                            if (it[0] is DatabaseUnavailableException) "Order ${order.id}: Error in connecting to messaging service (Payment Error msg), trying again.."
+                            else "Order ${order.id}: Error in creating Payment Error message request.."
+                        }
                         throw it.removeAt(0)
                     }
                     if (order.paid == Order.PaymentStatus.TRYING && order.messageSent == Order.MessageSent.NONE_SENT) {
                         order.messageSent = Order.MessageSent.PAYMENT_TRYING
-                        log.info("Order {}: Payment Error message sent, request Id: {}", order.id, messagingService.receiveRequest(1))
+                        logger.info { "Order ${order.id}: Payment Error message sent, request Id: ${messagingService.receiveRequest(1)}" }
                     }
                 },
                 { o: Order, _ ->
                     if (o.messageSent == Order.MessageSent.NONE_SENT && o.paid == Order.PaymentStatus.TRYING && !o.isMessageTimeOver) {
                         updateQueue(QueueTask(order, QueueTask.TaskType.MESSAGING, 1))
-                        log.info("Order {}: Error in sending Payment Error message, trying to queue task and add to employee handle..", order.id)
+                        logger.info { "Order ${order.id}: Error in sending Payment Error message, trying to queue task and add to employee handle.." }
                         employeeHandleIssue(o)
                     }
                 },
@@ -350,26 +362,26 @@ class Commander(
 
     private suspend fun employeeHandleIssue(order: Order) = coroutineScope {
         if (System.currentTimeMillis() - order.createdTime >= employeeTime) {
-            log.trace("Order {}: Employee handle time for order over, returning..", order.id)
+            logger.trace { "Order ${order.id}: Employee handle time for order over, returning.." }
             return@coroutineScope
         }
         launch {
             Retry(
                 {
                     if (it.isNotEmpty()) {
-                        log.warn("Order {}: Error in connecting to employee handle, trying again..", order.id)
+                        logger.warn { "Order ${order.id}: Error in connecting to employee handle, trying again.." }
                         throw it.removeAt(0)
                     }
                     if (!order.addedToEmployeeHandle) {
                         employeeDb.receiveRequest(order)
                         order.addedToEmployeeHandle = true
-                        log.info("Order {}: Added order to employee database", order.id)
+                        logger.info { "Order ${order.id}: Added order to employee database" }
                     }
                 },
                 { o: Order, _ ->
                     if (!o.addedToEmployeeHandle && System.currentTimeMillis() - order.createdTime < employeeTime) {
                         updateQueue(QueueTask(order, QueueTask.TaskType.EMPLOYEE_DB, -1))
-                        log.warn("Order {}: Error in adding to employee db, trying to queue task..", order.id)
+                        logger.warn { "Order ${order.id}: Error in adding to employee db, trying to queue task.." }
                     }
                 },
                 numOfRetries,

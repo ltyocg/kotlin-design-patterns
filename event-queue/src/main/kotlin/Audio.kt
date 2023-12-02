@@ -1,5 +1,5 @@
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.*
-import org.slf4j.LoggerFactory
 import java.io.File
 import javax.sound.sampled.AudioInputStream
 import javax.sound.sampled.AudioSystem
@@ -7,7 +7,7 @@ import javax.sound.sampled.LineUnavailableException
 import kotlin.math.max
 
 class Audio internal constructor() {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private var headIndex = 0
     private var tailIndex = 0
     private var updateJob: Job? = null
@@ -38,7 +38,7 @@ class Audio internal constructor() {
                     start()
                 }
             } catch (e: LineUnavailableException) {
-                log.trace("Error occoured while loading the audio: The line is unavailable", e)
+                logger.trace(e) { "Error occoured while loading the audio: The line is unavailable" }
             }
         }
         startThread()

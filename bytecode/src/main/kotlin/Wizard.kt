@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class Wizard(
     var health: Int,
@@ -7,19 +7,19 @@ class Wizard(
     numberOfPlayedSounds: Int,
     numberOfSpawnedParticles: Int
 ) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     var numberOfPlayedSounds = numberOfPlayedSounds
         private set
     var numberOfSpawnedParticles = numberOfSpawnedParticles
         private set
 
     fun playSound() {
-        log.info("Playing sound")
+        logger.info { "Playing sound" }
         numberOfPlayedSounds++
     }
 
     fun spawnParticles() {
-        log.info("Spawning particles")
+        logger.info { "Spawning particles" }
         numberOfSpawnedParticles++
     }
 }

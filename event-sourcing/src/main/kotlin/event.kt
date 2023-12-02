@@ -33,9 +33,7 @@ class MoneyDepositEvent(
     val accountNo: Int,
     @Contextual val money: BigDecimal
 ) : DomainEvent() {
-    override fun process() {
-        AccountAggregate.getAccount(accountNo)?.handleEvent(this) ?: throw RuntimeException("Account not found")
-    }
+    override fun process() = AccountAggregate.getAccount(accountNo)?.handleEvent(this) ?: throw RuntimeException("Account not found")
 }
 
 @Serializable

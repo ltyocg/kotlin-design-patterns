@@ -1,17 +1,16 @@
-import kotlinx.coroutines.Dispatchers
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.slf4j.LoggerFactory
+import kotlinx.coroutines.runBlocking
 import java.util.concurrent.TimeUnit
 
-private val log = LoggerFactory.getLogger("main")
-suspend fun main() = withContext<Unit>(Dispatchers.Default) {
+private val logger = KotlinLogging.logger {}
+suspend fun main() = runBlocking<Unit> {
     val world = World()
     launch {
         while (true) {
-            log.info("Our world currently has the following countries:-")
-            world.fetch().asSequence().map { "\t$it" }.forEach(log::info)
+            logger.info { "Our world currently has the following countries:-" }
+            world.fetch().forEach { logger.info { "\t$it" } }
             delay(TimeUnit.SECONDS.toMillis(15))
         }
     }

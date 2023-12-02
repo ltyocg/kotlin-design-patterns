@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class Scene {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val frameBuffers = Array<Buffer>(2) { FrameBuffer() }
     private var current = 0
     private var next = 1
@@ -9,14 +9,14 @@ class Scene {
         get() = frameBuffers[current]
 
     fun draw(coordinateList: List<Pair<Int, Int>>) {
-        log.info("Start drawing next frame")
-        log.info("Current buffer: {} Next buffer: {}", current, next)
+        logger.info { "Start drawing next frame" }
+        logger.info { "Current buffer: $current Next buffer: $next" }
         frameBuffers[next].clearAll()
         coordinateList.forEach { (x, y) -> frameBuffers[next].draw(x, y) }
-        log.info("Swap current and next buffer")
+        logger.info { "Swap current and next buffer" }
         swap()
-        log.info("Finish swapping")
-        log.info("Current buffer: {} Next buffer: {}", current, next)
+        logger.info { "Finish swapping" }
+        logger.info { "Current buffer: $current Next buffer: $next" }
     }
 
     private fun swap() {

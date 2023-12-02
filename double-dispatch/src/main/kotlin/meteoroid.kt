@@ -1,26 +1,12 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 open class Meteoroid(left: Int, top: Int, right: Int, bottom: Int) : GameObject(left, top, right, bottom) {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun collision(gameObject: GameObject) {
-        gameObject.collisionResolve(this)
-    }
-
-    override fun collisionResolve(asteroid: FlamingAsteroid) {
-        log.info(Constants.HITS, asteroid::class.simpleName, this::class.simpleName)
-    }
-
-    override fun collisionResolve(meteoroid: Meteoroid) {
-        log.info(Constants.HITS, meteoroid::class.simpleName, this::class.simpleName)
-    }
-
-    override fun collisionResolve(mir: SpaceStationMir) {
-        log.info(Constants.HITS, mir::class.simpleName, this::class.simpleName)
-    }
-
-    override fun collisionResolve(iss: SpaceStationIss) {
-        log.info(Constants.HITS, iss::class.simpleName, this::class.simpleName)
-    }
+    private val logger = KotlinLogging.logger {}
+    override fun collision(gameObject: GameObject) = gameObject.collisionResolve(this)
+    override fun collisionResolve(asteroid: FlamingAsteroid) = logger.info { Constants.hits(asteroid::class.simpleName, this::class.simpleName) }
+    override fun collisionResolve(meteoroid: Meteoroid) = logger.info { Constants.hits(meteoroid::class.simpleName, this::class.simpleName) }
+    override fun collisionResolve(mir: SpaceStationMir) = logger.info { Constants.hits(mir::class.simpleName, this::class.simpleName) }
+    override fun collisionResolve(iss: SpaceStationIss) = logger.info { Constants.hits(iss::class.simpleName, this::class.simpleName) }
 }
 
 class FlamingAsteroid(left: Int, top: Int, right: Int, bottom: Int) : Meteoroid(left, top, right, bottom) {
@@ -28,7 +14,5 @@ class FlamingAsteroid(left: Int, top: Int, right: Int, bottom: Int) : Meteoroid(
         onFire = true
     }
 
-    override fun collision(gameObject: GameObject) {
-        gameObject.collisionResolve(this)
-    }
+    override fun collision(gameObject: GameObject) = gameObject.collisionResolve(this)
 }

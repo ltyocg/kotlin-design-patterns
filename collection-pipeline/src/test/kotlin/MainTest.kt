@@ -1,10 +1,10 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 
 class MainTest {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val cars = CarFactory.createCars()
 
     @Test
@@ -13,7 +13,7 @@ class MainTest {
     @Test
     fun getGroupingOfCarsByCategory() {
         val models = cars.getGroupingOfCarsByCategory()
-        log.info("Category {}", models)
+        logger.info { "Category $models" }
         assertEquals(
             mapOf(
                 Category.CONVERTIBLE to listOf(

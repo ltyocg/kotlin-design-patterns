@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 
@@ -8,7 +8,7 @@ class VirtualMachine(wizard1: Wizard, wizard2: Wizard) {
         Wizard(randomInt(3, 32), randomInt(3, 32), randomInt(3, 32), 0, 0)
     )
 
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     val stack = Stack<Int>()
     val wizards = arrayOf(wizard1, wizard2)
     fun execute(bytecode: IntArray) {
@@ -29,7 +29,7 @@ class VirtualMachine(wizard1: Wizard, wizard2: Wizard) {
                 Instruction.SPAWN_PARTICLES -> wizards[stack.pop()].spawnParticles()
             }
             i++
-            log.info("Executed {}, Stack contains {}", instruction.name, stack)
+            logger.info { "Executed ${instruction.name}, Stack contains $stack" }
         }
     }
 

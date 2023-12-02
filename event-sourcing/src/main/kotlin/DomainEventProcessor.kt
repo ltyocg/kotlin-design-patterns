@@ -32,7 +32,7 @@ class DomainEventProcessor {
                     subclass(MoneyTransferEvent::class)
                 }
                 contextual(BigDecimal::class, object : KSerializer<BigDecimal> {
-                    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("BigDecimal", PrimitiveKind.STRING)
+                    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(this::class.qualifiedName ?: "(anonymous class)", PrimitiveKind.STRING)
                     override fun deserialize(decoder: Decoder): BigDecimal = decoder.decodeString().toBigDecimal()
                     override fun serialize(encoder: Encoder, value: BigDecimal) {
                         encoder.encodeString(value.toPlainString())
@@ -40,14 +40,14 @@ class DomainEventProcessor {
                 })
             }
         }
-        private val file = File("Journal.json")
-        private val events = mutableListOf<String>()
+        private val file = File("Journal.jsonl")
+        private val events =
+            if (file.exists()) file.readLines()
+            else {
+                reset()
+                emptyList()
+            }
         private var index = 0
-
-        init {
-            if (file.exists()) events.addAll(file.readLines())
-            else reset()
-        }
 
         fun write(domainEvent: DomainEvent) = file.appendText(json.encodeToString(domainEvent) + System.getProperty("line.separator"))
         fun reset() {

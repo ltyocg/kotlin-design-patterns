@@ -1,12 +1,10 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
-fun main() {
-    with(Audio.INSTANCE) {
-        playSound(getAudioStream("event-queue/src/main/resources/Bass-Drum-1.wav"), -10f)
-        playSound(getAudioStream("event-queue/src/main/resources/Closed-Hi-Hat-1.wav"), -8f)
-        log.info("Press Enter key to stop the program...")
-        System.`in`.read()
-        stopService()
-    }
+private val logger = KotlinLogging.logger {}
+fun main() = with(Audio.INSTANCE) {
+    playSound(getAudioStream("event-queue/src/main/resources/Bass-Drum-1.wav"), -10f)
+    playSound(getAudioStream("event-queue/src/main/resources/Closed-Hi-Hat-1.wav"), -8f)
+    logger.info { "Press Enter key to stop the program..." }
+    System.`in`.read()
+    stopService()
 }

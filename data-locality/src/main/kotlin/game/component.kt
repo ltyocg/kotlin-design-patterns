@@ -1,34 +1,26 @@
 package game
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 sealed interface Component {
     fun update()
     fun render()
 }
 
-object AiComponent : Component {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun update() {
-        log.info("update AI component")
-    }
-
+data object AiComponent : Component {
+    private val logger = KotlinLogging.logger {}
+    override fun update() = logger.info { "update AI component" }
     override fun render() {}
 }
 
-object PhysicsComponent : Component {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun update() {
-        log.info("Update physics component of game")
-    }
-
+data object PhysicsComponent : Component {
+    private val logger = KotlinLogging.logger {}
+    override fun update() = logger.info { "Update physics component of game" }
     override fun render() {}
 }
 
-object RenderComponent : Component {
-    private val log = LoggerFactory.getLogger(javaClass)
+data object RenderComponent : Component {
+    private val logger = KotlinLogging.logger {}
     override fun update() {}
-    override fun render() {
-        log.info("Render Component")
-    }
+    override fun render() = logger.info { "Render Component" }
 }

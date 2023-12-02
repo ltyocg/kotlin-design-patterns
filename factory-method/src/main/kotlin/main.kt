@@ -1,14 +1,14 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 
 fun main() {
     with(OrcBlacksmith()) {
-        log.info("{} manufactured {}", this, manufactureWeapon(WeaponType.SPEAR))
-        log.info("{} manufactured {}", this, manufactureWeapon(WeaponType.AXE))
+        logger.info { "$this manufactured ${manufactureWeapon(WeaponType.SPEAR)}" }
+        logger.info { "$this manufactured ${manufactureWeapon(WeaponType.AXE)}" }
     }
     with(ElfBlacksmith()) {
-        log.info("{} manufactured {}", this, manufactureWeapon(WeaponType.SPEAR))
-        log.info("{} manufactured {}", this, manufactureWeapon(WeaponType.AXE))
+        logger.info { "$this manufactured ${manufactureWeapon(WeaponType.SPEAR)}" }
+        logger.info { "$this manufactured ${manufactureWeapon(WeaponType.AXE)}" }
     }
 }

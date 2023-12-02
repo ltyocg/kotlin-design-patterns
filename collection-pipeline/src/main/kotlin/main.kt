@@ -1,9 +1,9 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val cars = CarFactory.createCars()
-    log.info(cars.getModelsAfter2000().toString())
-    log.info(cars.getGroupingOfCarsByCategory().toString())
-    log.info(listOf(Person(cars)).getSedanCarsOwnedSortedByDate().toString())
+    logger.info { cars.getModelsAfter2000() }
+    logger.info { cars.getGroupingOfCarsByCategory() }
+    logger.info { listOf(Person(cars)).getSedanCarsOwnedSortedByDate() }
 }

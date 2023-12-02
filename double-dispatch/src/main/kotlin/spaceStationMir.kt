@@ -1,39 +1,42 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 open class SpaceStationMir(left: Int, top: Int, right: Int, bottom: Int) : GameObject(left, top, right, bottom) {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun collision(gameObject: GameObject) {
-        gameObject.collisionResolve(this)
-    }
-
+    private val logger = KotlinLogging.logger {}
+    override fun collision(gameObject: GameObject) = gameObject.collisionResolve(this)
     override fun collisionResolve(asteroid: FlamingAsteroid) {
-        val simpleName = this::class.simpleName
-        log.info("${Constants.HITS} {} is damaged! {} is set on fire!", asteroid::class.simpleName, simpleName, simpleName, simpleName)
+        logger.info {
+            val simpleName = this::class.simpleName
+            "${Constants.hits(asteroid::class.simpleName, simpleName)} $simpleName is damaged! $simpleName is set on fire!"
+        }
         damaged = true
         onFire = true
     }
 
     override fun collisionResolve(meteoroid: Meteoroid) {
-        val simpleName = this::class.simpleName
-        log.info("${Constants.HITS} {} is damaged!", meteoroid::class.simpleName, simpleName, simpleName)
+        logger.info {
+            val simpleName = this::class.simpleName
+            "${Constants.hits(meteoroid::class.simpleName, simpleName)} $simpleName is damaged!"
+        }
         damaged = true
     }
 
     override fun collisionResolve(mir: SpaceStationMir) {
-        val simpleName = this::class.simpleName
-        log.info("${Constants.HITS} {} is damaged!", mir::class.simpleName, simpleName, simpleName)
+        logger.info {
+            val simpleName = this::class.simpleName
+            "${Constants.hits(mir::class.simpleName, simpleName)} $simpleName is damaged!"
+        }
         damaged = true
     }
 
     override fun collisionResolve(iss: SpaceStationIss) {
-        val simpleName = this::class.simpleName
-        log.info("${Constants.HITS} {} is damaged!", iss::class.simpleName, simpleName, simpleName)
+        logger.info {
+            val simpleName = this::class.simpleName
+            "${Constants.hits(iss::class.simpleName, simpleName)} $simpleName is damaged!"
+        }
         damaged = true
     }
 }
 
 class SpaceStationIss(left: Int, top: Int, right: Int, bottom: Int) : SpaceStationMir(left, top, right, bottom) {
-    override fun collision(gameObject: GameObject) {
-        gameObject.collisionResolve(this)
-    }
+    override fun collision(gameObject: GameObject) = gameObject.collisionResolve(this)
 }

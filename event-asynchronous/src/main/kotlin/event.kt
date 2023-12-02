@@ -1,5 +1,5 @@
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.*
-import org.slf4j.LoggerFactory
 
 interface IEvent {
     fun start()
@@ -12,7 +12,7 @@ class Event(
     private val eventTime: Int,
     val synchronous: Boolean
 ) : IEvent {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private var job: Job? = null
     private var isComplete = false
     private var eventListener: JobCompleteListener? = null
@@ -29,7 +29,7 @@ class Event(
         job?.cancel()
     }
 
-    override fun status() = log.info("[{}] is{} done.", eventId, if (isComplete) "" else " not")
+    override fun status() = logger.info { "[$eventId] is${if (isComplete) "" else " not"} done." }
     fun addListener(listener: JobCompleteListener) {
         eventListener = listener
     }

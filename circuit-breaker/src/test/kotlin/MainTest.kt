@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -8,7 +8,7 @@ private const val FAILURE_THRESHOLD = 1
 private const val RETRY_PERIOD = 2
 
 class MainTest {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private lateinit var monitoringService: MonitoringService
     private lateinit var delayedServiceCircuitBreaker: CircuitBreaker
     private lateinit var quickServiceCircuitBreaker: CircuitBreaker
@@ -33,7 +33,7 @@ class MainTest {
     fun `failure HALF_OPEN state transition`() {
         assertEquals("Delayed service is down", monitoringService.delayedServiceResponse())
         assertEquals("OPEN", delayedServiceCircuitBreaker.state.name)
-        log.info("Waiting 2s for delayed service to become responsive")
+        logger.info { "Waiting 2s for delayed service to become responsive" }
         Thread.sleep(2000)
         assertEquals("HALF_OPEN", delayedServiceCircuitBreaker.state.name)
     }
@@ -42,7 +42,7 @@ class MainTest {
     fun `recovery CLOSED state transition`() {
         assertEquals("Delayed service is down", monitoringService.delayedServiceResponse())
         assertEquals("OPEN", delayedServiceCircuitBreaker.state.name)
-        log.info("Waiting 4s for delayed service to become responsive")
+        logger.info { "Waiting 4s for delayed service to become responsive" }
         Thread.sleep(4000)
         assertEquals("HALF_OPEN", delayedServiceCircuitBreaker.state.name)
         assertEquals("Delayed service is working", monitoringService.delayedServiceResponse())

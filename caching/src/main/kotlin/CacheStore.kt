@@ -1,15 +1,15 @@
 import database.DbManager
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class CacheStore(private val dbManager: DbManager) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val cache = LruCache(3)
     fun readThrough(userId: String): UserAccount? {
         if (userId in cache) {
-            log.info("# Cache Hit!")
+            logger.info { "# Cache Hit!" }
             return cache[userId]
         }
-        log.info("# Cache Miss!")
+        logger.info { "# Cache Miss!" }
         return dbManager.readFromDb(userId)?.also { cache[userId] = it }
     }
 
@@ -28,13 +28,13 @@ class CacheStore(private val dbManager: DbManager) {
 
     fun readThroughWithWriteBackPolicy(userId: String): UserAccount? {
         if (userId in cache) {
-            log.info("# Cache Hit!")
+            logger.info { "# Cache Hit!" }
             return cache[userId]
         }
-        log.info("# Cache Miss!")
+        logger.info { "# Cache Miss!" }
         val userAccount = dbManager.readFromDb(userId)
         if (cache.full) {
-            log.info("# Cache is FULL! Writing LRU data to DB...")
+            logger.info { "# Cache is FULL! Writing LRU data to DB..." }
             dbManager.upsertDb(cache.lruData)
         }
         return userAccount.also { if (it != null) cache[userId] = it }
@@ -42,7 +42,7 @@ class CacheStore(private val dbManager: DbManager) {
 
     fun writeBehind(userAccount: UserAccount) {
         if (cache.full && userAccount.userId !in cache) {
-            log.info("# Cache is FULL! Writing LRU data to DB...")
+            logger.info { "# Cache is FULL! Writing LRU data to DB..." }
             dbManager.upsertDb(cache.lruData)
         }
         cache[userAccount.userId] = userAccount
@@ -50,7 +50,7 @@ class CacheStore(private val dbManager: DbManager) {
 
     fun clearCache() = cache.clear()
     fun flushCache() {
-        log.info("# flushCache...")
+        logger.info { "# flushCache..." }
         cache.cacheDataInListForm.forEach(dbManager::updateDb)
     }
 

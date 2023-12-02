@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 abstract class Task {
     fun executeWith(callback: () -> Unit) {
@@ -10,6 +10,6 @@ abstract class Task {
 }
 
 object SimpleTask : Task() {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun execute() = log.info("Perform some important activity and after call the callback method.")
+    private val logger = KotlinLogging.logger {}
+    override fun execute() = logger.info { "Perform some important activity and after call the callback method." }
 }

@@ -1,10 +1,10 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 sealed class Tobacco {
-    private val log = LoggerFactory.getLogger(javaClass)
-    fun smoke(wizard: Wizard) = log.info("{} smoking {}", wizard::class.simpleName, this::class.simpleName)
+    private val logger = KotlinLogging.logger {}
+    fun smoke(wizard: Wizard) = logger.info { "${wizard::class.simpleName} smoking ${this::class.simpleName}" }
 }
 
-object OldTobyTobacco : Tobacco()
-object RivendellTobacco : Tobacco()
-object SecondBreakfastTobacco : Tobacco()
+data object OldTobyTobacco : Tobacco()
+data object RivendellTobacco : Tobacco()
+data object SecondBreakfastTobacco : Tobacco()

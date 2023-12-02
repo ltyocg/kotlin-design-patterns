@@ -1,7 +1,7 @@
 package component
 
 import GameObject
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.awt.event.KeyEvent
 
 interface InputComponent {
@@ -9,36 +9,33 @@ interface InputComponent {
 }
 
 class DemoInputComponent : InputComponent {
-    private companion object {
-        private val log = LoggerFactory.getLogger(DemoInputComponent::class.java)
-    }
-
+    private val logger = KotlinLogging.logger {}
     override fun update(gameObject: GameObject, e: Int) {
         gameObject.updateVelocity(2)
-        log.info("{} has moved right.", gameObject.name)
+        logger.info { "${gameObject.name} has moved right." }
     }
 }
 
 class PlayerInputComponent : InputComponent {
-    private companion object {
-        private val log = LoggerFactory.getLogger(PlayerInputComponent::class.java)
-        private const val WALK_ACCELERATION = 1
-    }
-
+    private val logger = KotlinLogging.logger {}
     override fun update(gameObject: GameObject, e: Int) = when (e) {
         KeyEvent.KEY_LOCATION_LEFT -> {
             gameObject.updateVelocity(-WALK_ACCELERATION)
-            log.info("{} has moved left.", gameObject.name)
+            logger.info { "${gameObject.name} has moved left." }
         }
 
         KeyEvent.KEY_LOCATION_RIGHT -> {
             gameObject.updateVelocity(WALK_ACCELERATION)
-            log.info("{} has moved right.", gameObject.name)
+            logger.info { "${gameObject.name} has moved right." }
         }
 
         else -> {
-            log.info("{}'s velocity is unchanged due to the invalid input", gameObject.name)
+            logger.info { "${gameObject.name}'s velocity is unchanged due to the invalid input" }
             gameObject.updateVelocity(0)
         }
+    }
+
+    private companion object {
+        private const val WALK_ACCELERATION = 1
     }
 }

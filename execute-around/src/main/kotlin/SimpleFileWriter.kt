@@ -1,15 +1,15 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.FileWriter
 
 class SimpleFileWriter(filename: String, action: FileWriterAction) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
 
     init {
-        log.info("Opening the file")
+        logger.info { "Opening the file" }
         FileWriter(filename).use {
-            log.info("Executing the action")
+            logger.info { "Executing the action" }
             action.writeFile(it)
-            log.info("Closing the file")
+            logger.info { "Closing the file" }
         }
     }
 }

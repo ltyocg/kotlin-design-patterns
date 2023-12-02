@@ -1,9 +1,9 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
 
 class Inventory(private val inventorySize: Int) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val _items = ArrayList<Item>(inventorySize)
     private val lock = ReentrantLock()
 
@@ -11,7 +11,7 @@ class Inventory(private val inventorySize: Int) {
         if (_items.size < inventorySize) lock.withLock {
             if (_items.size < inventorySize) {
                 _items.add(item)
-                log.info("{}: items.size={}, inventorySize={}", Thread.currentThread(), _items.size, inventorySize)
+                logger.info { "${Thread.currentThread()}: items.size=${_items.size}, inventorySize=$inventorySize" }
                 return true
             }
         }

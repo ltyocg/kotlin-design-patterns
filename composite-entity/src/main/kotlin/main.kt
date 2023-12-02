@@ -1,12 +1,12 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     with(CompositeEntity) {
         init()
         setData("No Danger", "Green Light")
-        getData().forEach(log::info)
+        getData().forEach { logger.info { it } }
         setData("Danger", "Red Light")
-        getData().forEach(log::info)
+        getData().forEach { logger.info { it } }
     }
 }

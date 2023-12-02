@@ -1,13 +1,13 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 abstract class Target {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     var size: Size = Size.NORMAL
         private set
     var visibility: Visibility = Visibility.VISIBLE
         private set
 
-    fun printStatus() = log.info("{}, [size={}] [visibility={}]", this, size, visibility)
+    fun printStatus() = logger.info { "$this, [size=$size] [visibility=$visibility]" }
     fun changeSize() {
         size = if (size == Size.NORMAL) Size.SMALL else Size.NORMAL
     }
@@ -17,6 +17,4 @@ abstract class Target {
     }
 }
 
-object Goblin : Target() {
-    override fun toString(): String = "Goblin"
-}
+data object Goblin : Target()

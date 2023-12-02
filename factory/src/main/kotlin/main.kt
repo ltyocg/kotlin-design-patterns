@@ -1,8 +1,8 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
-    log.info("The alchemist begins his work.")
-    log.info(CoinFactory.getCoin(CoinType.COPPER).description)
-    log.info(CoinFactory.getCoin(CoinType.GOLD).description)
+    logger.info { "The alchemist begins his work." }
+    logger.info { CoinFactory.getCoin(CoinType.COPPER).description }
+    logger.info { CoinFactory.getCoin(CoinType.GOLD).description }
 }

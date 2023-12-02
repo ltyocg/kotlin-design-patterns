@@ -1,18 +1,17 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
-
+private val logger = KotlinLogging.logger {}
 fun main() {
-    log.info("A simple looking troll approaches.")
+    logger.info { "A simple looking troll approaches." }
     val troll = SimpleTroll().also {
         it.attack()
         it.fleeBattle()
-        log.info("Simple troll power: {}.\n", it.attackPower)
+        logger.info { "Simple troll power: ${it.attackPower}.\n" }
     }
-    log.info("A troll with huge club surprises you.")
+    logger.info { "A troll with huge club surprises you." }
     ClubbedTroll(troll).also {
         it.attack()
         it.fleeBattle()
-        log.info("Clubbed troll power: {}.\n", it.attackPower)
+        logger.info { "Clubbed troll power: ${it.attackPower}.\n" }
     }
 }

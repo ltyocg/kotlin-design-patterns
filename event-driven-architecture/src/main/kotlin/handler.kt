@@ -1,15 +1,15 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 interface Handler<E : Event> {
     fun onEvent(event: E)
 }
 
 class UserCreatedEventHandler : Handler<UserCreatedEvent> {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun onEvent(event: UserCreatedEvent) = log.info("User '{}' has been Created!", event.user.username)
+    private val logger = KotlinLogging.logger {}
+    override fun onEvent(event: UserCreatedEvent) = logger.info { "User '${event.user.username}' has been Created!" }
 }
 
 class UserUpdatedEventHandler : Handler<UserUpdatedEvent> {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun onEvent(event: UserUpdatedEvent) = log.info("User '{}' has been Updated!", event.user.username)
+    private val logger = KotlinLogging.logger {}
+    override fun onEvent(event: UserUpdatedEvent) = logger.info { "User '${event.user.username}' has been Updated!" }
 }

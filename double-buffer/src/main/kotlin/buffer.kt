@@ -15,9 +15,7 @@ class FrameBuffer : Buffer {
         pixels[x, y] = Pixel.BLACK
     }
 
-    override fun clearAll() {
-        pixels.fill(Pixel.WHITE)
-    }
+    override fun clearAll() = pixels.fill(Pixel.WHITE)
 
     private operator fun Array<Pixel>.set(x: Int, y: Int, pixel: Pixel) {
         pixels[x + WIDTH * y] = pixel

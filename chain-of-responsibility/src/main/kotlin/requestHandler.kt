@@ -1,12 +1,12 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 abstract class RequestHandler(private val next: RequestHandler?) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     open fun handleRequest(req: Request) {
         next?.handleRequest(req)
     }
 
-    protected fun printHandling(req: Request) = log.info("{} handling request \"{}\"", this, req)
+    protected fun printHandling(req: Request) = logger.info { "$this handling request \"$req\"" }
     abstract override fun toString(): String
 }
 

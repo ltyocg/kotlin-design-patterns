@@ -1,10 +1,10 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.awt.event.KeyEvent
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
-    log.info("Player Update:")
+    logger.info { "Player Update:" }
     GameObject.createPlayer().update(KeyEvent.KEY_LOCATION_LEFT)
-    log.info("NPC Update:")
+    logger.info { "NPC Update:" }
     GameObject.createNpc().demoUpdate()
 }

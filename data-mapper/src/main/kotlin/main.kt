@@ -1,16 +1,15 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 private const val STUDENT_STRING = "main(), student : "
-private val log = LoggerFactory.getLogger("main")
-
+private val logger = KotlinLogging.logger {}
 fun main() {
     val mapper = StudentDataMapperImpl()
     var student = Student(1, "Adam", 'A')
     mapper.insert(student)
-    log.debug("{}{}, is inserted", STUDENT_STRING, student)
-    log.debug("{}{}, is searched", STUDENT_STRING, mapper.find(student.studentId))
+    logger.debug { "$STUDENT_STRING$student, is inserted" }
+    logger.debug { "$STUDENT_STRING${mapper.find(student.studentId)}, is searched" }
     student = Student(student.studentId, "AdamUpdated", 'A')
-    log.debug("{}{}, is updated", STUDENT_STRING, student)
-    log.debug("{}{}, is going to be deleted", STUDENT_STRING, student)
+    logger.debug { "$STUDENT_STRING$student, is updated" }
+    logger.debug { "$STUDENT_STRING$student, is going to be deleted" }
     mapper.delete(student)
 }

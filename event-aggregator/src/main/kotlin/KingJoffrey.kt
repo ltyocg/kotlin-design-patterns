@@ -1,6 +1,6 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class KingJoffrey : EventObserver {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun onEvent(e: Event?) = log.info("Received event from the King's Hand: {}", e)
+    private val logger = KotlinLogging.logger {}
+    override fun onEvent(e: Event?) = logger.info { "Received event from the King's Hand: $e" }
 }

@@ -1,21 +1,21 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     with(EventManager()) {
         val asyncEventId = createAsync(60)
-        log.info("Async Event [{}] has been created.", asyncEventId)
+        logger.info { "Async Event [$asyncEventId] has been created." }
         start(asyncEventId)
-        log.info("Async Event [{}] has been started.", asyncEventId)
+        logger.info { "Async Event [$asyncEventId] has been started." }
         val syncEventId = create(60)
-        log.info("Sync Event [{}] has been created.", syncEventId)
+        logger.info { "Sync Event [$syncEventId] has been created." }
         start(syncEventId)
-        log.info("Sync Event [{}] has been started.", syncEventId)
+        logger.info { "Sync Event [$syncEventId] has been started." }
         status(asyncEventId)
         status(syncEventId)
         cancel(asyncEventId)
-        log.info("Async Event [{}] has been stopped.", asyncEventId)
+        logger.info { "Async Event [$asyncEventId] has been stopped." }
         cancel(syncEventId)
-        log.info("Sync Event [{}] has been stopped.", syncEventId)
+        logger.info { "Sync Event [$syncEventId] has been stopped." }
     }
 }

@@ -1,6 +1,6 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 val text = """
     |It was many and many a year ago,
     |In a kingdom by the sea,
@@ -18,9 +18,9 @@ val text = """
 
 fun main() {
     val queriesOr = arrayOf("many", "Annabel")
-    log.info("the result of expanded(or) query[{}] is {}", queriesOr, Finders.expandedFinder(*queriesOr).find(text))
+    logger.info { "the result of expanded(or) query[$queriesOr] is ${Finders.expandedFinder(*queriesOr).find(text)}" }
     val queriesAnd = arrayOf("Annabel", "my")
-    log.info("the result of specialized(and) query[{}] is {}", queriesAnd, Finders.specializedFinder(*queriesAnd).find(text))
-    log.info("the result of advanced query is {}", Finders.advancedFinder("it was", "kingdom", "sea").find(text))
-    log.info("the result of filtered query is {}", Finders.filteredFinder(" was ", "many", "child").find(text))
+    logger.info { "the result of specialized(and) query[$queriesAnd] is ${Finders.specializedFinder(*queriesAnd).find(text)}" }
+    logger.info { "the result of advanced query is ${Finders.advancedFinder("it was", "kingdom", "sea").find(text)}" }
+    logger.info { "the result of filtered query is ${Finders.filteredFinder(" was ", "many", "child").find(text)}" }
 }

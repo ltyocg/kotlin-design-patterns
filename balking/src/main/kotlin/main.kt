@@ -1,8 +1,7 @@
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.runBlocking
 
-suspend fun main() = withContext(Dispatchers.Default) {
+suspend fun main() = runBlocking {
     val washingMachine = WashingMachine()
     repeat(3) {
         launch { washingMachine.wash() }

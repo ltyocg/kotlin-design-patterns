@@ -1,15 +1,15 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 sealed interface VideoStreamingService {
     fun doProcessing()
 }
 
-object NetflixService : VideoStreamingService {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun doProcessing() = log.info("NetflixService is now processing")
+data object NetflixService : VideoStreamingService {
+    private val logger = KotlinLogging.logger {}
+    override fun doProcessing() = logger.info { "NetflixService is now processing" }
 }
 
-object YouTubeService : VideoStreamingService {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun doProcessing() = log.info("YouTubeService is now processing")
+data object YouTubeService : VideoStreamingService {
+    private val logger = KotlinLogging.logger {}
+    override fun doProcessing() = logger.info { "YouTubeService is now processing" }
 }

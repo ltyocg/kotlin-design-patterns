@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
-fun main() = SimpleTask.executeWith { log.info("I'm done now.") }
+private val logger = KotlinLogging.logger {}
+fun main() = SimpleTask.executeWith { logger.info { "I'm done now." } }

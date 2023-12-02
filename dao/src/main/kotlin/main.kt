@@ -1,11 +1,10 @@
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.h2.jdbcx.JdbcDataSource
-import org.slf4j.LoggerFactory
 import javax.sql.DataSource
 
 const val DB_URL = "jdbc:h2:~/dao"
 private const val ALL_CUSTOMERS = "customerDao.all: "
-private val log = LoggerFactory.getLogger("main")
-
+private val logger = KotlinLogging.logger {}
 fun main() {
     performOperationsUsing(InMemoryCustomerDao())
     val dataSource = JdbcDataSource().apply { setURL(DB_URL) }
@@ -20,19 +19,19 @@ private fun performOperationsUsing(customerDao: CustomerDao) {
         Customer(2, "Bob", "Bobson"),
         Customer(3, "Carl", "Carlson")
     ).forEach(customerDao::add)
-    log.info(ALL_CUSTOMERS)
-    customerDao.all.map(Any::toString).forEach(log::info)
-    log.info("customerDao.getById(2): {}", customerDao.getById(2))
+    logger.info { ALL_CUSTOMERS }
+    customerDao.all.forEach { logger.info { it } }
+    logger.info { "customerDao.getById(2): ${customerDao.getById(2)}" }
     val customer = Customer(4, "Dan", "Danson")
     customerDao.add(customer)
-    log.info(ALL_CUSTOMERS + customerDao.all)
+    logger.info { ALL_CUSTOMERS + customerDao.all }
     customer.firstName = "Daniel"
     customer.lastName = "Danielson"
     customerDao.update(customer)
-    log.info(ALL_CUSTOMERS)
-    customerDao.all.map(Any::toString).forEach(log::info)
+    logger.info { ALL_CUSTOMERS }
+    customerDao.all.forEach { logger.info { it } }
     customerDao.delete(customer)
-    log.info(ALL_CUSTOMERS + customerDao.all)
+    logger.info { ALL_CUSTOMERS + customerDao.all }
 }
 
 private fun executeSql(dataSource: DataSource, sql: String) {

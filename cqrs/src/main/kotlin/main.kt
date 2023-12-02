@@ -1,6 +1,6 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     HibernateUtil.init()
     with(CommandService()) {
@@ -16,11 +16,11 @@ fun main() {
         authorNameUpdated(AppConstants.E_EVANS, "Eric J. Evans")
     }
     with(QueryService()) {
-        log.info("Author username : {}", getAuthorByUsername("username"))
-        log.info("Author evans : {}", getAuthorByUsername(AppConstants.E_EVANS))
-        log.info("jBloch number of books : {}", getAuthorBooksCount(AppConstants.J_BLOCH))
-        log.info("Number of authors : {}", authorsCount)
-        log.info("DDD book : {}", getBook("Domain-Driven Design"))
-        log.info("jBloch books : {}", getAuthorBooks(AppConstants.J_BLOCH))
+        logger.info { "Author username : ${getAuthorByUsername("username")}" }
+        logger.info { "Author evans : ${getAuthorByUsername(AppConstants.E_EVANS)}" }
+        logger.info { "jBloch number of books : ${getAuthorBooksCount(AppConstants.J_BLOCH)}" }
+        logger.info { "Number of authors : $authorsCount" }
+        logger.info { "DDD book : ${getBook("Domain-Driven Design")}" }
+        logger.info { "jBloch books : ${getAuthorBooks(AppConstants.J_BLOCH)}" }
     }
 }

@@ -1,14 +1,14 @@
 import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = KotlinLogging.logger {}
+private val logger = KotlinLogging.logger {}
 fun main() {
-    log.info { "The knight receives an enchanted sword." }
+    logger.info { "The knight receives an enchanted sword." }
     with(Sword(SoulEatingEnchantment)) {
         wield()
         swing()
         unwield()
     }
-    log.info { "The valkyrie receives an enchanted hammer." }
+    logger.info { "The valkyrie receives an enchanted hammer." }
     with(Hammer(FlyingEnchantment)) {
         wield()
         swing()

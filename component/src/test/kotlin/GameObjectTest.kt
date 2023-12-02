@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.awt.event.KeyEvent
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -7,10 +7,7 @@ import kotlin.test.assertEquals
 class GameObjectTest {
     private lateinit var playerTest: GameObject
     private lateinit var npcTest: GameObject
-
-    private companion object {
-        private val log = LoggerFactory.getLogger(GameObjectTest::class.java)
-    }
+    private val logger = KotlinLogging.logger {}
 
     @BeforeTest
     fun initEach() {
@@ -20,14 +17,14 @@ class GameObjectTest {
 
     @Test
     fun `object`() {
-        log.info("objectTest:")
+        logger.info { "objectTest:" }
         assertEquals("player", playerTest.name)
         assertEquals("npc", npcTest.name)
     }
 
     @Test
     fun `event input`() {
-        log.info("eventInputTest:")
+        logger.info { "eventInputTest:" }
         playerTest.update(KeyEvent.KEY_LOCATION_LEFT)
         assertEquals(-1, playerTest.velocity)
         assertEquals(-1, playerTest.coordinate)
@@ -35,8 +32,8 @@ class GameObjectTest {
         playerTest.update(KeyEvent.KEY_LOCATION_RIGHT)
         assertEquals(1, playerTest.velocity)
         assertEquals(0, playerTest.coordinate)
-        log.info(playerTest.coordinate.toString())
-        log.info(playerTest.velocity.toString())
+        logger.info(playerTest.coordinate.toString())
+        logger.info(playerTest.velocity.toString())
         val p2 = GameObject.createPlayer()
         p2.update(KeyEvent.KEY_LOCATION_LEFT)
         p2.update(KeyEvent.KEY_LOCATION_UNKNOWN)
@@ -45,7 +42,7 @@ class GameObjectTest {
 
     @Test
     fun `npc demo`() {
-        log.info("npcDemoTest:")
+        logger.info { "npcDemoTest:" }
         npcTest.demoUpdate()
         assertEquals(2, npcTest.velocity)
         assertEquals(2, npcTest.coordinate)

@@ -1,14 +1,14 @@
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.slf4j.LoggerFactory
 import java.util.concurrent.Executors
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val numbers = listOf(1L, 3L, 4L, 7L, 8L)
-    log.info("Numbers to be squared and get sum --> {}", numbers)
-    log.info("Sum of all squared numbers --> {}", fanOutFanIn(numbers.map(::SquareNumberRequest), Consumer(0L)))
+    logger.info { "Numbers to be squared and get sum --> $numbers" }
+    logger.info { "Sum of all squared numbers --> ${fanOutFanIn(numbers.map(::SquareNumberRequest), Consumer(0L))}" }
 }
 
 fun fanOutFanIn(requests: List<SquareNumberRequest>, consumer: Consumer): Long {

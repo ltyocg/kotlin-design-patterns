@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 interface Troll {
     fun attack()
@@ -7,10 +7,10 @@ interface Troll {
 }
 
 class ClubbedTroll(private val decorated: Troll) : Troll {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override fun attack() {
         decorated.attack()
-        log.info("The troll swings at you with a club!")
+        logger.info { "The troll swings at you with a club!" }
     }
 
     override val attackPower: Int
@@ -20,10 +20,10 @@ class ClubbedTroll(private val decorated: Troll) : Troll {
 }
 
 class SimpleTroll : Troll {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun attack() = log.info("The troll tries to grab you!")
+    private val logger = KotlinLogging.logger {}
+    override fun attack() = logger.info { "The troll tries to grab you!" }
     override val attackPower: Int
         get() = 10
 
-    override fun fleeBattle() = log.info("The troll shrieks in horror and runs away!")
+    override fun fleeBattle() = logger.info { "The troll shrieks in horror and runs away!" }
 }

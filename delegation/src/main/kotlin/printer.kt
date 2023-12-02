@@ -1,22 +1,22 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 interface Printer {
     fun print(message: String)
 }
 
 class CanonPrinter : Printer {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun print(message: String) = log.info("Canon Printer : {}", message)
+    private val logger = KotlinLogging.logger {}
+    override fun print(message: String) = logger.info { "Canon Printer : $message" }
 }
 
 class EpsonPrinter : Printer {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun print(message: String) = log.info("Epson Printer : {}", message)
+    private val logger = KotlinLogging.logger {}
+    override fun print(message: String) = logger.info { "Epson Printer : $message" }
 }
 
 class HpPrinter : Printer {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun print(message: String) = log.info("HP Printer : {}", message)
+    private val logger = KotlinLogging.logger {}
+    override fun print(message: String) = logger.info { "HP Printer : $message" }
 }
 
 class PrinterController(private val printer: Printer) : Printer {

@@ -1,13 +1,13 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.File
 import java.util.*
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     SimpleFileWriter("testfile.txt") {
         it.write("Gandalf was here")
     }
     Scanner(File("testfile.txt")).use {
-        it.useDelimiter(System.getProperty("line.separator")).forEach(log::info)
+        it.useDelimiter(System.getProperty("line.separator")).forEach { logger.info { it } }
     }
 }

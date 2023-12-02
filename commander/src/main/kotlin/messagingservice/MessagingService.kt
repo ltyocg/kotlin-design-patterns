@@ -2,11 +2,10 @@ package messagingservice
 
 import Service
 import generateId
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class MessagingService(vararg exc: Exception) : Service<MessagingService.MessageRequest>(MessagingDatabase, *exc) {
-    private val log = LoggerFactory.getLogger(javaClass)
-
+    private val logger = KotlinLogging.logger {}
     override fun receiveRequest(vararg parameters: Any): String? = updateDb(
         MessageRequest(
             generateId(), when (parameters[0] as Int) {
@@ -21,7 +20,7 @@ class MessagingService(vararg exc: Exception) : Service<MessagingService.Message
         val req = parameters[0]
         if (database.get(req.reqId) == null) {
             database.add(req)
-            log.info(req.msg.message)
+            logger.info { req.msg.message }
             return req.reqId
         }
         return null

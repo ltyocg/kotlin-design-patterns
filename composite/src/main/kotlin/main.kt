@@ -1,12 +1,12 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 
 fun main() {
     with(Messenger) {
-        log.info("Message from the orcs: ")
+        logger.info { "Message from the orcs: " }
         messageFromOrcs().print()
-        log.info("Message from the elves: ")
+        logger.info { "Message from the elves: " }
         messageFromElves().print()
     }
 }
