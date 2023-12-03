@@ -1,7 +1,7 @@
 package domain
 
 import Lockable
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 abstract class Creature(
     val name: String,
@@ -9,7 +9,7 @@ abstract class Creature(
     var health: Int,
     val damage: Int
 ) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     val instruments: MutableSet<Lockable> = mutableSetOf()
     fun acquire(lockable: Lockable): Boolean = if (lockable.lock(this)) {
         instruments.add(lockable)
@@ -18,7 +18,7 @@ abstract class Creature(
 
     @Synchronized
     fun kill() {
-        log.info("{} {} has been slayed!", type, name)
+        logger.info { "$type $name has been slayed!" }
         instruments.forEach { it.unlock(this) }
         instruments.clear()
     }

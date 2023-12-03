@@ -1,10 +1,10 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class HolderThreadSafe {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     val heavy by lazy { Heavy() }
 
     init {
-        log.info("HolderThreadSafe created")
+        logger.info { "HolderThreadSafe created" }
     }
 }

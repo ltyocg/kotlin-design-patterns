@@ -1,11 +1,11 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class Heavy {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
 
     init {
-        log.info("Creating Heavy ...")
+        logger.info { "Creating Heavy ..." }
         Thread.sleep(1000)
-        log.info("... Heavy created")
+        logger.info { "... Heavy created" }
     }
 }

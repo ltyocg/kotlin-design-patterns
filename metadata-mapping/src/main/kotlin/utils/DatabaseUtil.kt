@@ -1,13 +1,13 @@
 package utils
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.h2.jdbcx.JdbcDataSource
-import org.slf4j.LoggerFactory
 import java.sql.SQLException
 
 object DatabaseUtil {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     fun init() {
-        log.info("create h2 database")
+        logger.info { "create h2 database" }
         val source = JdbcDataSource().apply { setURL("jdbc:h2:mem:metamapping") }
         try {
             source.connection.createStatement().use {
@@ -23,7 +23,7 @@ object DatabaseUtil {
                 )
             }
         } catch (e: SQLException) {
-            log.error("unable to create h2 data source", e)
+            logger.error(e) { "unable to create h2 data source" }
         }
     }
 }

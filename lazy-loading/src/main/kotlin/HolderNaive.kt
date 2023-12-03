@@ -1,10 +1,10 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class HolderNaive {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     val heavy by lazy(LazyThreadSafetyMode.NONE) { Heavy() }
 
     init {
-        log.info("HolderNaive created")
+        logger.info { "HolderNaive created" }
     }
 }

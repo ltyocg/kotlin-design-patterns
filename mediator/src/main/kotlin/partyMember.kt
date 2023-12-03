@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 interface PartyMember {
     fun joinedParty(party: Party)
@@ -7,20 +7,18 @@ interface PartyMember {
 }
 
 abstract class PartyMemberBase : PartyMember {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     protected var party: Party? = null
     override fun joinedParty(party: Party) {
-        log.info("{} joins the party", this)
+        logger.info { "$this joins the party" }
         this.party = party
     }
 
-    override fun partyAction(action: Action) {
-        log.info("{} {}", this, action.description)
-    }
+    override fun partyAction(action: Action) = logger.info { "$this ${action.description}" }
 
     override fun act(action: Action) {
         if (party != null) {
-            log.info("{} {}", this, action)
+            logger.info { "$this $action" }
             party!!.act(this, action)
         }
     }

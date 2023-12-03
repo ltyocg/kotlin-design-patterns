@@ -2,13 +2,13 @@ import domain.Elf
 import domain.Feind
 import domain.Human
 import domain.Orc
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 private const val WORKERS = 2
 private const val MULTIPLICATION_FACTOR = 3
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val sword = SwordOfAragorn()
     val creatures = buildList {
@@ -27,9 +27,9 @@ fun main() {
     }
     try {
         if (!service.awaitTermination(3, TimeUnit.SECONDS))
-            log.info("The master of the sword is now {}.", sword.locker!!.name)
+            logger.info { "The master of the sword is now ${sword.locker!!.name}." }
     } catch (e: InterruptedException) {
-        log.error(e.localizedMessage)
+        logger.error { e.localizedMessage }
         Thread.currentThread().interrupt()
     } finally {
         service.shutdown()

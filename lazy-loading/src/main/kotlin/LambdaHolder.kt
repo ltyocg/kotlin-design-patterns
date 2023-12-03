@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class LambdaHolder {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private var supplier: () -> Heavy = {
         val heavyInstance = Heavy()
         supplier = { heavyInstance }
@@ -11,6 +11,6 @@ class LambdaHolder {
         get() = supplier()
 
     init {
-        log.info("Java8Holder created")
+        logger.info { "Java8Holder created" }
     }
 }

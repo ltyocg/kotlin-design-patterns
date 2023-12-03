@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 data class Worker(
     val id: Long,
@@ -6,7 +6,7 @@ data class Worker(
     val taskSet: TaskSet,
     val taskHandler: TaskHandler
 ) : () -> Unit {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override fun invoke() {
         while (!Thread.interrupted()) try {
             if (workCenter.leader != null && workCenter.leader != this) {
@@ -26,10 +26,10 @@ data class Worker(
                 workCenter.notifyAll()
             }
             taskHandler.handleTask(task)
-            log.info("The Worker with the ID {} completed the task", id)
+            logger.info { "The Worker with the ID $id completed the task" }
             workCenter.addWorker(this)
         } catch (e: InterruptedException) {
-            log.warn("Worker interrupted")
+            logger.warn { "Worker interrupted" }
             Thread.currentThread().interrupt()
             return
         }

@@ -1,8 +1,8 @@
 import domain.Creature
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class SwordOfAragorn : Lockable {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private var _locker: Creature? = null
     private val synchronizer: Any = Any()
     override val isLocked: Boolean
@@ -10,7 +10,7 @@ class SwordOfAragorn : Lockable {
 
     override fun lock(creature: Creature): Boolean {
         synchronized(synchronizer) {
-            log.info("{} is now trying to acquire {}!", creature.name, name)
+            logger.info { "${creature.name} is now trying to acquire $name!" }
             if (!isLocked) {
                 _locker = creature
                 return true
@@ -22,7 +22,7 @@ class SwordOfAragorn : Lockable {
     override fun unlock(creature: Creature) = synchronized(synchronizer) {
         if (locker?.name == creature.name) {
             _locker = null
-            log.info("{} is now free!", name)
+            logger.info { "$name is now free!" }
         }
         if (locker != null) throw LockingException("You cannot unlock an object you are not the owner of.")
     }

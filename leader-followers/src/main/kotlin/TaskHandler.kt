@@ -1,10 +1,10 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class TaskHandler {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     fun handleTask(task: Task) {
         Thread.sleep(task.time.toLong())
-        log.info("It takes {} milliseconds to finish the task", task.time)
+        logger.info { "It takes ${task.time} milliseconds to finish the task" }
         task.setFinished()
     }
 }

@@ -1,19 +1,19 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.*
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val star = Star(StarType.SUN, 10000000, 500000)
-    log.info(star.toString())
+    logger.info { star }
     val states = Stack<StarMemento>().apply {
         repeat(4) {
             add(star.memento)
             star.timePasses()
-            log.info(star.toString())
+            logger.info { star }
         }
     }
     while (states.isNotEmpty()) {
         star.memento = states.pop()
-        log.info(star.toString())
+        logger.info { star }
     }
 }

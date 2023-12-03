@@ -1,16 +1,16 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import utils.DatabaseUtil
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     DatabaseUtil.init()
     val userService = UserService()
     generateSampleUsers().forEach {
-        log.info("Add user{}at{}.", it, userService.createUser(it))
+        logger.info { "Add user${it}at${userService.createUser(it)}." }
     }
-    log.info(userService.listUser().toString())
+    logger.info { userService.listUser() }
     val user = userService.getUser(1)
-    log.info(user.toString())
+    logger.info { user }
     user!!.password = "new123"
     userService.updateUser(1, user)
     userService.deleteUser(2)

@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 @Permission
 class Guard {
-    private val log = LoggerFactory.getLogger(javaClass)
-    fun enter() = log.info("You can enter")
+    private val logger = KotlinLogging.logger {}
+    fun enter() = logger.info { "You can enter" }
 }

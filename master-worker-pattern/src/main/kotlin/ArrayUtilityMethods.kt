@@ -1,16 +1,16 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.security.SecureRandom
 
 object ArrayUtilityMethods {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val RANDOM = SecureRandom()
     fun createRandomIntMatrix(rows: Int, columns: Int): Array<IntArray> =
         Array(rows) { IntArray(columns) { RANDOM.nextInt(10) } }
 
     fun printMatrix(matrix: Array<IntArray>) =
         matrix.forEach { ints ->
-            ints.forEach { log.info("{} ", it) }
-            log.info("")
+            ints.forEach { logger.info { "$it " } }
+            logger.info {}
         }
 
     fun matricesSame(m1: Array<IntArray>, m2: Array<IntArray>): Boolean {

@@ -1,8 +1,8 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
-    log.info("heavy={}", HolderNaive().heavy)
-    log.info("another={}", HolderThreadSafe().heavy)
-    log.info("next={}", LambdaHolder().heavy)
+    logger.info { "heavy=${HolderNaive().heavy}" }
+    logger.info { "another=${HolderThreadSafe().heavy}" }
+    logger.info { "next=${LambdaHolder().heavy}" }
 }

@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import system.ArrayTransposeMasterWorker
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val mw = ArrayTransposeMasterWorker()
     val inputMatrix = ArrayUtilityMethods.createRandomIntMatrix(10, 20)
@@ -9,5 +9,5 @@ fun main() {
     if (result != null) {
         ArrayUtilityMethods.printMatrix(inputMatrix)
         ArrayUtilityMethods.printMatrix(result.data)
-    } else log.info("Please enter non-zero input")
+    } else logger.info { "Please enter non-zero input" }
 }

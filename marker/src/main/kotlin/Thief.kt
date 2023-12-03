@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class Thief {
-    private val log = LoggerFactory.getLogger(javaClass)
-    internal fun steal() = log.info("Steal valuable items")
-    internal fun doNothing() = log.info("Pretend nothing happened and just leave")
+    private val logger = KotlinLogging.logger {}
+    internal fun steal() = logger.info { "Steal valuable items" }
+    internal fun doNothing() = logger.info { "Pretend nothing happened and just leave" }
 }
