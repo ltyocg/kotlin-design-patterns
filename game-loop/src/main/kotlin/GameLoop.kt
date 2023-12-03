@@ -1,9 +1,9 @@
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.*
-import org.slf4j.LoggerFactory
 import java.security.SecureRandom
 
 abstract class GameLoop {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
 
     @Volatile
     internal var status = GameStatus.STOPPED
@@ -22,6 +22,6 @@ abstract class GameLoop {
         get() = status == GameStatus.RUNNING
 
     protected suspend fun processInput() = delay(SecureRandom().nextInt(200) + 50L)
-    protected fun render() = log.info("Current bullet position: {}", controller.bulletPosition)
+    protected fun render() = logger.info { "Current bullet position: ${controller.bulletPosition}" }
     protected abstract suspend fun processGameLoop()
 }

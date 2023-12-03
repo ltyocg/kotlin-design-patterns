@@ -1,6 +1,6 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val finder = PersonFinder().apply {
         db = PersonDbSimulator().apply {
@@ -11,5 +11,5 @@ fun main() {
             insert(Person(5, "Michael", 40599078))
         }
     }
-    arrayOf(2, 4, 5, 2).forEach { log.info(finder.getPerson(it).toString()) }
+    arrayOf(2, 4, 5, 2).forEach { logger.info { finder.getPerson(it) } }
 }

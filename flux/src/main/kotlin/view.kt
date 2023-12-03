@@ -1,6 +1,6 @@
 import action.Content
 import action.MenuItem
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 interface View {
     fun storeChanged(store: Store)
@@ -8,26 +8,25 @@ interface View {
 }
 
 class ContentView : View {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private var content = Content.PRODUCTS
     override fun storeChanged(store: Store) {
         content = (store as ContentStore).content
         render()
     }
 
-    override fun render() = log.info(content.toString())
+    override fun render() = logger.info { content }
 }
 
 class MenuView : View {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private var selected = MenuItem.HOME
     override fun storeChanged(store: Store) {
         selected = (store as MenuStore).selected
     }
 
-    override fun render() = MenuItem.values().forEach {
-        if (selected == it) log.info("* {}", it)
-        else log.info(it.toString())
+    override fun render() = MenuItem.entries.forEach {
+        logger.info { "${if (selected == it) "* " else ""}$it" }
     }
 
     fun itemClicked(item: MenuItem) = Dispatcher.menuItemSelected(item)

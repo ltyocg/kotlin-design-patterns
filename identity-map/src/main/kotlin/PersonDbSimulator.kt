@@ -1,17 +1,17 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class PersonDbSimulator {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val personList = mutableListOf<Person>()
     fun find(personNationalId: Int): Person {
         val elem = firstOrNull(personNationalId) ?: idNotFound(personNationalId)
-        log.info(elem.toString())
+        logger.info { elem }
         return elem
     }
 
     fun insert(person: Person) {
         val elem = firstOrNull(person.personNationalId)
-        if (elem != null) log.info("Record already exists.")
+        if (elem != null) logger.info { "Record already exists." }
         else personList.add(person)
     }
 
@@ -21,13 +21,13 @@ class PersonDbSimulator {
             name = person.name
             phoneNum = person.phoneNum
         }
-        log.info("Record updated successfully")
+        logger.info { "Record updated successfully" }
     }
 
     fun delete(id: Int) {
         val elem = firstOrNull(id) ?: idNotFound(id)
         personList.remove(elem)
-        log.info("Record deleted successfully.")
+        logger.info { "Record deleted successfully." }
     }
 
     val size: Int

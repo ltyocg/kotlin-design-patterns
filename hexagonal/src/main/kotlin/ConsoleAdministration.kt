@@ -1,13 +1,13 @@
 import domain.LotteryAdministration
 import domain.LotteryService
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.beans.factory.getBean
 import org.springframework.context.support.StaticApplicationContext
 import org.springframework.context.support.beans
 import java.util.*
 
 object ConsoleAdministration {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val lotteryContext = StaticApplicationContext().apply {
         beans {
             bean<MongoTicketRepository>()
@@ -22,7 +22,7 @@ object ConsoleAdministration {
     fun main(args: Array<String>) {
         MongoConnectionPropertiesLoader.load()
         SampleData.submitTickets(lotteryContext.getBean(), 20)
-        val consoleAdministration = ConsoleAdministrationSrvImpl(lotteryContext.getBean(), log)
+        val consoleAdministration = ConsoleAdministrationSrvImpl(lotteryContext.getBean(), logger)
         Scanner(System.`in`).use {
             var exit = false
             while (!exit) {
@@ -32,23 +32,23 @@ object ConsoleAdministration {
                     "2" -> consoleAdministration.performLottery()
                     "3" -> consoleAdministration.resetLottery()
                     "4" -> exit = true
-                    else -> log.info("Unknown command: {}", cmd)
+                    else -> logger.info { "Unknown command: $cmd" }
                 }
             }
         }
     }
 
     private fun printMainMenu() {
-        log.info("")
-        log.info("### Lottery Administration Console ###")
-        log.info("(1) Show all submitted tickets")
-        log.info("(2) Perform lottery draw")
-        log.info("(3) Reset lottery ticket database")
-        log.info("(4) Exit")
+        logger.info {}
+        logger.info { "### Lottery Administration Console ###" }
+        logger.info { "(1) Show all submitted tickets" }
+        logger.info { "(2) Perform lottery draw" }
+        logger.info { "(3) Reset lottery ticket database" }
+        logger.info { "(4) Exit" }
     }
 
     private fun readString(scanner: Scanner): String? {
-        log.info("> ")
+        logger.info { "> " }
         return scanner.next()
     }
 }

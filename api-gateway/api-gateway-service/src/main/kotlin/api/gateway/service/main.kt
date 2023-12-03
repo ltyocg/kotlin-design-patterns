@@ -9,7 +9,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun main() {
-    embeddedServer(Netty, 50004, "0.0.0.0") {
+    embeddedServer(Netty, 50004) {
         install(ContentNegotiation) {
             json()
         }

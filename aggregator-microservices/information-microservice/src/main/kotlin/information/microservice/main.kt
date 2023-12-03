@@ -7,7 +7,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun main() {
-    embeddedServer(Netty, 51515, "0.0.0.0") {
+    embeddedServer(Netty, 51515) {
         routing {
             get("/information") {
                 call.respondText("The Product Title.")

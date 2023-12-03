@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class AlchemistShop {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val _topShelf: List<Potion>
     private val _bottomShelf: List<Potion>
 
@@ -32,9 +32,9 @@ class AlchemistShop {
         get() = _bottomShelf.toList()
 
     fun drinkPotions() {
-        log.info("Drinking top shelf potions")
+        logger.info { "Drinking top shelf potions" }
         _topShelf.forEach(Potion::drink)
-        log.info("Drinking bottom shelf potions")
+        logger.info { "Drinking bottom shelf potions" }
         _bottomShelf.forEach(Potion::drink)
     }
 }

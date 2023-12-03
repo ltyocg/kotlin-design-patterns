@@ -1,20 +1,20 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 sealed interface View {
     fun display()
 }
 
-object ArcherView : View {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun display() = log.info("Displaying archers")
+data object ArcherView : View {
+    private val logger = KotlinLogging.logger {}
+    override fun display() = logger.info { "Displaying archers" }
 }
 
-object CatapultView : View {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun display() = log.info("Displaying catapults")
+data object CatapultView : View {
+    private val logger = KotlinLogging.logger {}
+    override fun display() = logger.info { "Displaying catapults" }
 }
 
-object ErrorView : View {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun display() = log.error("Error 500")
+data object ErrorView : View {
+    private val logger = KotlinLogging.logger {}
+    override fun display() = logger.error { "Error 500" }
 }

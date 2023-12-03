@@ -20,11 +20,14 @@ class UserTableModule(private val dataSource: DataSource) {
 
     fun registerUser(user: User): Int {
         dataSource.connection.use { connection ->
-            connection.prepareStatement("insert into USERS (username, password) values (?,?)").use { it ->
+            connection.prepareStatement("insert into USERS (username, password) values (?,?)").use {
                 it.setString(1, user.username)
                 it.setString(2, user.password)
-                return it.executeUpdate()
-                    .also { log.info("Register successfully!") }
+                return try {
+                    it.executeUpdate()
+                } finally {
+                    log.info("Register successfully!")
+                }
             }
         }
     }

@@ -100,6 +100,7 @@ include(
     "object-mother",
     "object-pool",
     "observer",
+    "page-controller",
     "page-object:sample-application",
     "page-object:test-automation",
     "parameter-object",

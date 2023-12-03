@@ -1,15 +1,18 @@
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.channels.Channel
-import org.slf4j.LoggerFactory
 
 class GuardedQueue {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val sourceList = Channel<Int>(Channel.Factory.BUFFERED)
-    suspend fun get(): Int = sourceList.receive()
-        .also { log.info("getting") }
+    suspend fun get(): Int = try {
+        sourceList.receive()
+    } finally {
+        logger.info { "getting" }
+    }
 
     suspend fun put(e: Int) {
-        log.info("putting")
+        logger.info { "putting" }
         sourceList.send(e)
-        log.info("notifying")
+        logger.info { "notifying" }
     }
 }

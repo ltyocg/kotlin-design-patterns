@@ -1,8 +1,8 @@
 package layers
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class CakeView(private val cakeBakingService: CakeBakingService) {
-    private val log = LoggerFactory.getLogger(javaClass)
-    fun render() = cakeBakingService.getAllCakes().forEach { log.info(it.toString()) }
+    private val logger = KotlinLogging.logger {}
+    fun render() = cakeBakingService.getAllCakes().forEach { logger.info { it } }
 }

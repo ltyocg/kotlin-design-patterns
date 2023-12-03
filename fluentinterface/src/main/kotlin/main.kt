@@ -1,6 +1,6 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 private val negatives = { it: Int -> it < 0 }
 private val positives = { it: Int -> it > 0 }
 private val transformToString = { it: Int -> "String[$it]" }
@@ -17,7 +17,7 @@ fun main() {
         .prettyPrint("The last two positive values are: ")
     integerList
         .firstOrNull { it % 2 == 0 }
-        ?.let { log.info("The first even number is: {}", it) }
+        ?.let { logger.info { "The first even number is: $it" } }
     integerList
         .filter(negatives)
         .map(transformToString)
@@ -33,9 +33,9 @@ fun main() {
         .filter(negatives)
         .take(2)
         .lastOrNull()
-        ?.let { log.info("Last amongst first two negatives: {}", it) }
+        ?.let { logger.info { "Last amongst first two negatives: $it" } }
 }
 
 private fun Iterable<*>.prettyPrint(prefix: String) {
-    log.info(joinToString(prefix = prefix, postfix = "."))
+    logger.info { joinToString(prefix = prefix, postfix = ".") }
 }

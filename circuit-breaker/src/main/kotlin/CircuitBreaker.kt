@@ -20,10 +20,12 @@ class CircuitBreaker(
                     failureCount = failureThreshold
                     lastFailureTime = System.nanoTime()
                 }
+
                 State.HALF_OPEN -> {
                     failureCount = failureThreshold
                     lastFailureTime = System.nanoTime() - retryTimePeriod
                 }
+
                 State.CLOSED -> failureCount = 0
             }
         }

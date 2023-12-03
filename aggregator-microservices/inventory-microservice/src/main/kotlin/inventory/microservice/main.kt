@@ -7,7 +7,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun main() {
-    embeddedServer(Netty, 51516, "0.0.0.0") {
+    embeddedServer(Netty, 51516) {
         routing {
             get("/inventories") {
                 call.respondText("5")

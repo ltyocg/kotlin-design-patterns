@@ -1,7 +1,7 @@
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.delay
-import org.slf4j.LoggerFactory
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 suspend fun main() {
     FrameBasedGameLoop().runAround("frame-based")
     VariableStepGameLoop().runAround("variable-step")
@@ -9,9 +9,9 @@ suspend fun main() {
 }
 
 private suspend fun GameLoop.runAround(name: String) {
-    log.info("Start $name game loop:")
+    logger.info { "Start $name game loop:" }
     run()
     delay(2000L)
     stop()
-    log.info("Stop $name game loop.")
+    logger.info { "Stop $name game loop." }
 }

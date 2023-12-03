@@ -1,7 +1,7 @@
 import com.mongodb.MongoClient
 import domain.PlayerDetails
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.bson.Document
-import org.slf4j.LoggerFactory
 
 interface LotteryEventLog {
     fun ticketSubmitted(details: PlayerDetails)
@@ -62,24 +62,19 @@ class MongoEventLog(dbName: String, eventsCollectionName: String) : LotteryEvent
 }
 
 class StdOutEventLog : LotteryEventLog {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun ticketSubmitted(details: PlayerDetails) {
-        log.info("Lottery ticket for {} was submitted. Bank account {} was charged for 3 credits.", details.email, details.bankAccount)
-    }
+    private val logger = KotlinLogging.logger {}
+    override fun ticketSubmitted(details: PlayerDetails) =
+        logger.info { "Lottery ticket for ${details.email} was submitted. Bank account ${details.bankAccount} was charged for 3 credits." }
 
-    override fun ticketSubmitError(details: PlayerDetails) {
-        log.error("Lottery ticket for {} could not be submitted because the credit transfer of 3 credits failed.", details.email)
-    }
+    override fun ticketSubmitError(details: PlayerDetails) =
+        logger.error { "Lottery ticket for ${details.email} could not be submitted because the credit transfer of 3 credits failed." }
 
-    override fun ticketDidNotWin(details: PlayerDetails) {
-        log.info("Lottery ticket for {} was checked and unfortunately did not win this time.", details.email)
-    }
+    override fun ticketDidNotWin(details: PlayerDetails) =
+        logger.info { "Lottery ticket for ${details.email} was checked and unfortunately did not win this time." }
 
-    override fun ticketWon(details: PlayerDetails, prizeAmount: Int) {
-        log.info("Lottery ticket for {} has won! The bank account {} was deposited with {} credits.", details.email, details.bankAccount, prizeAmount)
-    }
+    override fun ticketWon(details: PlayerDetails, prizeAmount: Int) =
+        logger.info { "Lottery ticket for ${details.email} has won! The bank account ${details.bankAccount} was deposited with $prizeAmount credits." }
 
-    override fun prizeError(details: PlayerDetails, prizeAmount: Int) {
-        log.error("Lottery ticket for {} has won! Unfortunately the bank credit transfer of {} failed.", details.email, prizeAmount)
-    }
+    override fun prizeError(details: PlayerDetails, prizeAmount: Int) =
+        logger.error { "Lottery ticket for ${details.email} has won! Unfortunately the bank credit transfer of $prizeAmount failed." }
 }

@@ -9,7 +9,7 @@ import io.ktor.server.routing.*
 
 private val logger = KotlinLogging.logger {}
 fun main() {
-    embeddedServer(Netty, 50006, "0.0.0.0") {
+    embeddedServer(Netty, 50006) {
         routing {
             get("/price") {
                 logger.info { "Successfully found price info" }

@@ -1,19 +1,19 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class IdentityMap {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     val personMap = mutableMapOf<Int, Person>()
     fun addPerson(person: Person) =
-        if (personMap.containsKey(person.personNationalId)) log.info("Key already in Map")
+        if (personMap.containsKey(person.personNationalId)) logger.info { "Key already in Map" }
         else personMap[person.personNationalId] = person
 
     fun getPerson(id: Int): Person? {
         val person = personMap[id]
         return if (person == null) {
-            log.info("ID not in Map.")
+            logger.info { "ID not in Map." }
             null
         } else {
-            log.info(person.toString())
+            logger.info { person }
             person
         }
     }
