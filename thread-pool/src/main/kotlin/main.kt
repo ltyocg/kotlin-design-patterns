@@ -1,9 +1,9 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.concurrent.Executors
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
-    log.info("Program started")
+    logger.info { "Program started" }
     val executor = Executors.newFixedThreadPool(3)
     listOf(
         PotatoPeelingTask(3),
@@ -24,5 +24,5 @@ fun main() {
     ).map { Runnable { Worker(it)() } }.forEach(executor::execute)
     executor.shutdown()
     while (!executor.isTerminated) Thread.yield()
-    log.info("Program finished")
+    logger.info { "Program finished" }
 }

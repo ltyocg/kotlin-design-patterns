@@ -1,22 +1,22 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class ArmsDealer(
     private val context: MutableMap<String, MutableList<Weapon>>?,
     private val weaponDatabase: WeaponDatabase
 ) : IUnitOfWork<Weapon> {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override fun registerNew(entity: Weapon) {
-        log.info("Registering {} for insert in context.", entity.name)
+        logger.info { "Registering ${entity.name} for insert in context." }
         register(entity, UnitActions.INSERT.actionValue)
     }
 
     override fun registerModified(entity: Weapon) {
-        log.info("Registering {} for modify in context.", entity.name)
+        logger.info { "Registering ${entity.name} for modify in context." }
         register(entity, UnitActions.MODIFY.actionValue)
     }
 
     override fun registerDeleted(entity: Weapon) {
-        log.info("Registering {} for delete in context.", entity.name)
+        logger.info { "Registering ${entity.name} for delete in context." }
         register(entity, UnitActions.DELETE.actionValue)
     }
 
@@ -26,25 +26,25 @@ class ArmsDealer(
 
     override fun commit() {
         if (context.isNullOrEmpty()) return
-        log.info("Commit started")
+        logger.info { "Commit started" }
         if (context.containsKey(UnitActions.INSERT.actionValue)) {
             for (weapon in context[UnitActions.INSERT.actionValue]!!) {
-                log.info("Inserting a new weapon {} to sales rack.", weapon.name)
+                logger.info { "Inserting a new weapon ${weapon.name} to sales rack." }
                 weaponDatabase.insert(weapon)
             }
         }
         if (context.containsKey(UnitActions.MODIFY.actionValue)) {
             for (weapon in context[UnitActions.MODIFY.actionValue]!!) {
-                log.info("Scheduling {} for modification work.", weapon.name)
+                logger.info { "Scheduling ${weapon.name} for modification work." }
                 weaponDatabase.modify(weapon)
             }
         }
         if (context.containsKey(UnitActions.DELETE.actionValue)) {
             for (weapon in context[UnitActions.DELETE.actionValue]!!) {
-                log.info("Scrapping {}.", weapon.name)
+                logger.info { "Scrapping ${weapon.name}." }
                 weaponDatabase.delete(weapon)
             }
         }
-        log.info("Commit finished.")
+        logger.info { "Commit finished." }
     }
 }

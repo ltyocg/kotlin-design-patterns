@@ -2,39 +2,36 @@ import com.gargoylesoftware.htmlunit.WebClient
 import com.gargoylesoftware.htmlunit.html.HtmlPage
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.IOException
 
 class LoginPage(webClient: WebClient) : Page(webClient) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private lateinit var page: HtmlPage
-    fun navigateToPage(): LoginPage {
+    fun navigateToPage(): LoginPage = apply {
         try {
             page = webClient.getPage("file:${AUT_PATH}login.html")
         } catch (e: IOException) {
-            log.error("An error occured on navigateToPage.", e)
+            logger.error(e) { "An error occured on navigateToPage." }
         }
-        return this
     }
 
     override val isAt: Boolean
         get() = "Login" == page.titleText
 
-    fun enterUsername(username: String?): LoginPage {
+    fun enterUsername(username: String?): LoginPage = apply {
         (page.getElementById("username") as HtmlTextInput).text = username
-        return this
     }
 
-    fun enterPassword(password: String?): LoginPage {
+    fun enterPassword(password: String?): LoginPage = apply {
         (page.getElementById("password") as HtmlPasswordInput).text = password
-        return this
     }
 
     fun login(): AlbumListPage {
         try {
-            page.getElementById("loginButton").click()
+            page.getElementById("loginButton").click<com.gargoylesoftware.htmlunit.Page>()
         } catch (e: IOException) {
-            log.error("An error occured on login.", e)
+            logger.error(e) { "An error occured on login." }
         }
         return AlbumListPage(webClient)
     }

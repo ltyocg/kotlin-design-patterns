@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.concurrent.locks.Lock
 import kotlin.concurrent.withLock
 
@@ -7,10 +7,10 @@ class Writer(
     private val writeLock: Lock,
     private val writingTime: Long = 250L
 ) : () -> Unit {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override fun invoke() = writeLock.withLock {
-        log.info("{} begin", name)
+        logger.info { "$name begin" }
         Thread.sleep(writingTime)
-        log.info("{} finished after writing {}ms", name, writingTime)
+        logger.info { "$name finished after writing ${writingTime}ms" }
     }
 }

@@ -3,13 +3,9 @@ import java.math.BigInteger
 class QueryService {
     private val sessionFactory = HibernateUtil.sessionFactory
     fun getAuthorByUsername(username: String?): Author = sessionFactory.openSession().use { session ->
-        session.createNativeQuery("SELECT a.username as \"username\", a.name as \"name\", a.email as \"email\" FROM Author a where a.username=:username")
+        session.createNativeQuery("SELECT a.username as \"username\", a.name as \"name\", a.email as \"email\" FROM Author a where a.username=:username", Author::class.java)
             .setParameter(AppConstants.USER_NAME, username)
-            .singleResult.let {
-                @Suppress("UNCHECKED_CAST")
-                it as Array<Any?>
-                Author(it[1] as String?, it[2] as String?, it[0] as String?)
-            }
+            .singleResult as Author
     }
 
     fun getBook(title: String?): Book? = sessionFactory.openSession().use { session ->

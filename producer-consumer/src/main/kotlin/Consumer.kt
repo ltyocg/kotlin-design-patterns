@@ -1,10 +1,10 @@
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.channels.Channel
-import org.slf4j.LoggerFactory
 
 class Consumer(private val name: String, private val queue: Channel<Item>) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     suspend fun consume() {
         val (producer, id) = queue.receive()
-        log.info("Consumer [{}] consume item [{}] produced by [{}]", name, id, producer)
+        logger.info { "Consumer [$name] consume item [$id] produced by [$producer]" }
     }
 }

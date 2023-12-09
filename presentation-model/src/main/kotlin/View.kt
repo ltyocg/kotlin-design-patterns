@@ -1,11 +1,11 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.awt.TextField
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.*
 
 class View {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     val model = PresentationModel(PresentationModel.albumDataSet())
     val txtTitle = TextField()
     val txtArtist = TextField()
@@ -13,7 +13,7 @@ class View {
     val txtComposer = TextField()
 
     fun saveToPMod() {
-        log.info("Save data to PresentationModel")
+        logger.info { "Save data to PresentationModel" }
         model.apply {
             artist = txtArtist.text
             title = txtTitle.text
@@ -23,7 +23,7 @@ class View {
     }
 
     fun loadFromPMod() {
-        log.info("Load data from PresentationModel")
+        logger.info { "Load data from PresentationModel" }
         txtArtist.text = model.artist
         txtTitle.text = model.title
         chkClassical.isSelected = model.isClassical

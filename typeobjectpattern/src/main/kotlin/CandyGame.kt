@@ -1,8 +1,7 @@
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class CandyGame(num: Int, private val pool: CellPool) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     var cells = Array(num) { i ->
         (0 until num).asSequence()
             .map { pool.newCell }
@@ -18,19 +17,19 @@ class CandyGame(num: Int, private val pool: CellPool) {
     var totalPoints = 0
 
     fun printGameStatus() {
-        log.info("")
-        fun Logger.infoCenter(msg: String, minLength: Int = 20, postfix: String = "") {
-            if (msg.length < minLength) {
-                val totalSpaces = minLength - msg.length
-                fun numOfSpaces(num: Int): String = " ".repeat(num)
-                info("{}{}{}{}", numOfSpaces(totalSpaces / 2), msg, numOfSpaces(totalSpaces - totalSpaces / 2), postfix)
-            } else info("{}{}", msg, postfix)
-        }
+        logger.info {}
         for (cell in cells) {
-            for (j in cells.indices) log.infoCenter(cell[j].candy.name, postfix = "|")
-            log.info("")
+            for (j in cells.indices) {
+                val msg = cell[j].candy.name
+                if (msg.length < 20) {
+                    val totalSpaces = 20 - msg.length
+                    fun numOfSpaces(num: Int): String = " ".repeat(num)
+                    logger.info { "${numOfSpaces(totalSpaces / 2)}${msg}${numOfSpaces(totalSpaces - totalSpaces / 2)}${"|"}" }
+                } else logger.info { "${msg}${"|"}" }
+            }
+            logger.info {}
         }
-        log.info("")
+        logger.info {}
     }
 
     fun adjacentCells(y: Int, x: Int): List<Cell> {
@@ -63,7 +62,7 @@ class CandyGame(num: Int, private val pool: CellPool) {
     }
 
     fun handleChange(points: Int) {
-        log.info("+{} points!", points)
+        logger.info { "+$points points!" }
         totalPoints += points
         printGameStatus()
     }

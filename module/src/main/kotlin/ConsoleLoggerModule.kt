@@ -1,30 +1,29 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.PrintStream
 
 object ConsoleLoggerModule {
-    private val log = LoggerFactory.getLogger(javaClass)
-    private var output: PrintStream? = null
-    private var error: PrintStream? = null
+    private val logger = KotlinLogging.logger {}
+    private lateinit var output: PrintStream
+    private lateinit var error: PrintStream
 
-    fun prepare(): ConsoleLoggerModule {
-        log.debug("ConsoleLoggerModule::prepare()")
+    fun prepare(): ConsoleLoggerModule = apply {
+        logger.debug { "ConsoleLoggerModule::prepare()" }
         output = PrintStream(System.out)
         error = PrintStream(System.err)
-        return this
     }
 
     fun unprepare() {
-        output?.let {
-            it.flush()
-            it.close()
+        with(output) {
+            flush()
+            close()
         }
-        error?.let {
-            it.flush()
-            it.close()
+        with(error) {
+            flush()
+            close()
         }
-        log.debug("ConsoleLoggerModule::unprepare()")
+        logger.debug { "ConsoleLoggerModule::unprepare()" }
     }
 
-    fun printString(value: String?) = output!!.println(value)
-    fun printErrorString(value: String?) = error!!.println(value)
+    fun printString(value: String?) = output.println(value)
+    fun printErrorString(value: String?) = error.println(value)
 }

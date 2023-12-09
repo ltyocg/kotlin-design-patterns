@@ -1,15 +1,11 @@
 package choreography
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val service = serviceDiscovery().findAny()
-    log.info(
-        "orders: goodOrder is {}, badOrder is {}",
-        service.execute(newSaga("good_order")).result,
-        service.execute(newSaga("bad_order")).result
-    )
+    logger.info { "orders: goodOrder is ${service.execute(newSaga("good_order")).result}, badOrder is ${service.execute(newSaga("bad_order")).result}" }
 }
 
 private fun newSaga(value: Any?): Saga = Saga()

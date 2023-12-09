@@ -10,7 +10,7 @@ fun main() {
         bookAddedToAuthor("Domain-Driven Design", 60.08, AppConstants.E_EVANS)
         bookAddedToAuthor("Effective Java", 40.54, AppConstants.J_BLOCH)
         bookAddedToAuthor("Java Puzzlers", 39.99, AppConstants.J_BLOCH)
-        bookAddedToAuthor("Java Concurrency in Practice", 29.40, AppConstants.J_BLOCH)
+        bookAddedToAuthor("Java Concurrency in Practice", 29.4, AppConstants.J_BLOCH)
         bookAddedToAuthor("Patterns of Enterprise Application Architecture", 54.01, AppConstants.M_FOWLER)
         bookAddedToAuthor("Domain Specific Languages", 48.89, AppConstants.M_FOWLER)
         authorNameUpdated(AppConstants.E_EVANS, "Eric J. Evans")

@@ -1,25 +1,25 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
-    log.info("Printing out eagerly initialized multiton contents")
-    log.info("KHAMUL={}", Nazgul.getInstance(NazgulName.KHAMUL))
-    log.info("MURAZOR={}", Nazgul.getInstance(NazgulName.MURAZOR))
-    log.info("DWAR={}", Nazgul.getInstance(NazgulName.DWAR))
-    log.info("JI_INDUR={}", Nazgul.getInstance(NazgulName.JI_INDUR))
-    log.info("AKHORAHIL={}", Nazgul.getInstance(NazgulName.AKHORAHIL))
-    log.info("HOARMURATH={}", Nazgul.getInstance(NazgulName.HOARMURATH))
-    log.info("ADUNAPHEL={}", Nazgul.getInstance(NazgulName.ADUNAPHEL))
-    log.info("REN={}", Nazgul.getInstance(NazgulName.REN))
-    log.info("UVATHA={}", Nazgul.getInstance(NazgulName.UVATHA))
-    log.info("Printing out enum-based multiton contents")
-    log.info("KHAMUL={}", NazgulEnum.KHAMUL)
-    log.info("MURAZOR={}", NazgulEnum.MURAZOR)
-    log.info("DWAR={}", NazgulEnum.DWAR)
-    log.info("JI_INDUR={}", NazgulEnum.JI_INDUR)
-    log.info("AKHORAHIL={}", NazgulEnum.AKHORAHIL)
-    log.info("HOARMURATH={}", NazgulEnum.HOARMURATH)
-    log.info("ADUNAPHEL={}", NazgulEnum.ADUNAPHEL)
-    log.info("REN={}", NazgulEnum.REN)
-    log.info("UVATHA={}", NazgulEnum.UVATHA)
+    logger.info { "Printing out eagerly initialized multiton contents" }
+    logger.info { "KHAMUL=${Nazgul.getInstance(NazgulName.KHAMUL)}" }
+    logger.info { "MURAZOR=${Nazgul.getInstance(NazgulName.MURAZOR)}" }
+    logger.info { "DWAR=${Nazgul.getInstance(NazgulName.DWAR)}" }
+    logger.info { "JI_INDUR=${Nazgul.getInstance(NazgulName.JI_INDUR)}" }
+    logger.info { "AKHORAHIL=${Nazgul.getInstance(NazgulName.AKHORAHIL)}" }
+    logger.info { "HOARMURATH=${Nazgul.getInstance(NazgulName.HOARMURATH)}" }
+    logger.info { "ADUNAPHEL=${Nazgul.getInstance(NazgulName.ADUNAPHEL)}" }
+    logger.info { "REN=${Nazgul.getInstance(NazgulName.REN)}" }
+    logger.info { "UVATHA=${Nazgul.getInstance(NazgulName.UVATHA)}" }
+    logger.info { "Printing out enum-based multiton contents" }
+    logger.info { "KHAMUL=${NazgulEnum.KHAMUL}" }
+    logger.info { "MURAZOR=${NazgulEnum.MURAZOR}" }
+    logger.info { "DWAR=${NazgulEnum.DWAR}" }
+    logger.info { "JI_INDUR=${NazgulEnum.JI_INDUR}" }
+    logger.info { "AKHORAHIL=${NazgulEnum.AKHORAHIL}" }
+    logger.info { "HOARMURATH=${NazgulEnum.HOARMURATH}" }
+    logger.info { "ADUNAPHEL=${NazgulEnum.ADUNAPHEL}" }
+    logger.info { "REN=${NazgulEnum.REN}" }
+    logger.info { "UVATHA=${NazgulEnum.UVATHA}" }
 }

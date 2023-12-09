@@ -1,6 +1,6 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     HeroFactoryImpl(
         ElfMage("cooking"),
@@ -15,7 +15,7 @@ fun main() {
 }
 
 private fun HeroFactoryImpl.log() {
-    log.info(createMage().toString())
-    log.info(createWarlord().toString())
-    log.info(createBeast().toString())
+    logger.info { createMage() }
+    logger.info { createWarlord() }
+    logger.info { createBeast() }
 }

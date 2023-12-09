@@ -1,12 +1,12 @@
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.hibernate.SessionFactory
 import org.hibernate.cfg.Configuration
-import org.slf4j.LoggerFactory
 import spell.Spell
 import spellbook.Spellbook
 import wizard.Wizard
 
 object HibernateUtil {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
 
     @Volatile
     private lateinit var sessionFactory: SessionFactory
@@ -25,7 +25,7 @@ object HibernateUtil {
                 .setProperty("hibernate.hbm2ddl.auto", "create-drop")
                 .buildSessionFactory()
         } catch (ex: Throwable) {
-            log.error("Initial SessionFactory creation failed.", ex)
+            logger.error(ex) { "Initial SessionFactory creation failed." }
             throw ExceptionInInitializerError(ex)
         }
         return sessionFactory

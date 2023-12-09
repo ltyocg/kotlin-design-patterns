@@ -1,12 +1,12 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 sealed interface ReceiptViewModel {
     fun show()
 }
 
 class DownForMaintenance : ReceiptViewModel {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun show() = log.info("Down for maintenance")
+    private val logger = KotlinLogging.logger {}
+    override fun show() = logger.info { "Down for maintenance" }
 }
 
 class InsufficientFunds(
@@ -14,21 +14,21 @@ class InsufficientFunds(
     private val amount: Double,
     private val itemName: String?
 ) : ReceiptViewModel {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun show() = log.info("Insufficient funds: {} of user: {} for buying item: {}", amount, userName, itemName)
+    private val logger = KotlinLogging.logger {}
+    override fun show() = logger.info { "Insufficient funds: $amount of user: $userName for buying item: $itemName" }
 }
 
 class InvalidUser(private val userName: String?) : ReceiptViewModel {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun show() = log.info("Invalid user: {}", userName)
+    private val logger = KotlinLogging.logger {}
+    override fun show() = logger.info { "Invalid user: $userName" }
 }
 
 class OutOfStock(private val userName: String, private val itemName: String?) : ReceiptViewModel {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun show() = log.info("Out of stock: {} for user = {} to buy", itemName, userName)
+    private val logger = KotlinLogging.logger {}
+    override fun show() = logger.info { "Out of stock: $itemName for user = $userName to buy" }
 }
 
 class ReceiptDto(val price: Double) : ReceiptViewModel {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun show() = log.info("Receipt: {} paid", price)
+    private val logger = KotlinLogging.logger {}
+    override fun show() = logger.info { "Receipt: $price paid" }
 }

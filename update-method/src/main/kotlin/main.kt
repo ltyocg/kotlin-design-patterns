@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 private const val GAME_RUNNING_TIME = 2000L
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     try {
         with(World()) {
@@ -13,6 +13,6 @@ fun main() {
             stop()
         }
     } catch (e: InterruptedException) {
-        log.error(e.localizedMessage)
+        logger.error { e.localizedMessage }
     }
 }

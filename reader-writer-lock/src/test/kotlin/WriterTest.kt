@@ -1,13 +1,13 @@
 import com.ltyocg.commons.assertListAppender
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.mockito.kotlin.spy
-import org.slf4j.LoggerFactory
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.test.Test
 import kotlin.test.assertContains
 
 class WriterTest {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
 
     @Test
     fun write() {
@@ -21,7 +21,7 @@ class WriterTest {
             try {
                 awaitTermination(10, TimeUnit.SECONDS)
             } catch (e: InterruptedException) {
-                log.error("Error waiting for ExecutorService shutdown", e)
+                logger.error(e) { "Error waiting for ExecutorService shutdown" }
             }
             arrayOf(
                 "Writer 1 begin",

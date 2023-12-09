@@ -1,19 +1,18 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 object OldSource {
-    private val log = LoggerFactory.getLogger(javaClass)
-    private const val VERSION = "1.0"
+    private val logger = KotlinLogging.logger {}
     fun accumulateSum(vararg nums: Int): Int {
-        log.info("Source module {}", VERSION)
-        var sum = 0
-        for (num in nums) sum += num
-        return sum
+        info()
+        return nums.sum()
     }
 
     fun accumulateMul(vararg nums: Int): Int {
-        log.info("Source module {}", VERSION)
+        info()
         var sum = 1
         for (num in nums) sum *= num
         return sum
     }
+
+    private fun info() = logger.info { "Source module 1.0" }
 }

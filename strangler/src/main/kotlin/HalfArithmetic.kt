@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class HalfArithmetic(
     private val newSource: HalfSource,
@@ -8,19 +8,19 @@ class HalfArithmetic(
         private const val VERSION = "1.5"
     }
 
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     fun sum(vararg nums: Int): Int {
-        log.info("Arithmetic sum {}", VERSION)
+        logger.info { "Arithmetic sum $VERSION" }
         return newSource.accumulateSum(*nums)
     }
 
     fun mul(vararg nums: Int): Int {
-        log.info("Arithmetic mul {}", VERSION)
+        logger.info { "Arithmetic mul $VERSION" }
         return oldSource.accumulateMul(*nums)
     }
 
     fun ifHasZero(vararg nums: Int): Boolean {
-        log.info("Arithmetic check zero {}", VERSION)
+        logger.info { "Arithmetic check zero $VERSION" }
         return !newSource.ifNonZero(*nums)
     }
 }

@@ -1,23 +1,23 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class NewArithmetic(private val source: NewSource) {
-    companion object {
+    private companion object {
         private const val VERSION = "2.0"
     }
 
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     fun sum(vararg nums: Int): Int {
-        log.info("Arithmetic sum {}", VERSION)
+        logger.info { "Arithmetic sum $VERSION" }
         return source.accumulateSum(*nums)
     }
 
     fun mul(vararg nums: Int): Int {
-        log.info("Arithmetic mul {}", VERSION)
+        logger.info { "Arithmetic mul $VERSION" }
         return source.accumulateMul(*nums)
     }
 
     fun ifHasZero(vararg nums: Int): Boolean {
-        log.info("Arithmetic check zero {}", VERSION)
+        logger.info { "Arithmetic check zero $VERSION" }
         return !source.ifNonZero(*nums)
     }
 }

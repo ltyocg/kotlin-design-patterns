@@ -1,9 +1,9 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ParameterObjectTest {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
 
     @Test
     fun `default sortBy`() {
@@ -12,7 +12,7 @@ class ParameterObjectTest {
             ParameterObject("sneakers", sortOrder = SortOrder.DESC).sortBy,
             "Default SortBy is not set."
         )
-        log.info("SortBy Default parameter value is set during object creation as no value is passed.")
+        logger.info { "SortBy Default parameter value is set during object creation as no value is passed." }
     }
 
     @Test
@@ -22,6 +22,6 @@ class ParameterObjectTest {
             ParameterObject("sneakers", "brand").sortOrder,
             "Default SortOrder is not set."
         )
-        log.info("SortOrder Default parameter value is set during object creation as no value is passed.")
+        logger.info { "SortOrder Default parameter value is set during object creation as no value is passed." }
     }
 }

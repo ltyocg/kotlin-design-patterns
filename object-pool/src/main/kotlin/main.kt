@@ -1,26 +1,24 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val pool = OliphauntPool()
-    log.info(pool.toString())
+    logger.info { pool }
+    fun checkedOutLog(arg: Any?) = logger.info { "Checked out $arg" }
+    fun checkedInLog(arg: Any?) = logger.info { "Checked in $arg" }
     val oliphaunt1 = pool.checkOut()
-    val checkedOut = "Checked out {}"
-    log.info(checkedOut, oliphaunt1)
-    log.info(pool.toString())
+    checkedOutLog(oliphaunt1)
+    logger.info { pool }
     val oliphaunt2 = pool.checkOut()
-    log.info(checkedOut, oliphaunt2)
-    val oliphaunt3 = pool.checkOut()
-    log.info(checkedOut, oliphaunt3)
-    log.info(pool.toString())
-    log.info("Checking in {}", oliphaunt1)
+    checkedOutLog(oliphaunt2)
+    checkedOutLog(pool.checkOut())
+    logger.info { pool }
+    checkedInLog(oliphaunt1)
     pool.checkIn(oliphaunt1)
-    log.info("Checking in {}", oliphaunt2)
+    checkedInLog(oliphaunt2)
     pool.checkIn(oliphaunt2)
-    log.info(pool.toString())
-    val oliphaunt4 = pool.checkOut()
-    log.info(checkedOut, oliphaunt4)
-    val oliphaunt5 = pool.checkOut()
-    log.info(checkedOut, oliphaunt5)
-    log.info(pool.toString())
+    logger.info { pool }
+    checkedOutLog(pool.checkOut())
+    checkedOutLog(pool.checkOut())
+    logger.info { pool }
 }

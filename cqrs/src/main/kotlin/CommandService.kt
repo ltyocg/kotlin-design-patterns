@@ -32,16 +32,15 @@ class CommandService {
         merge(getBookByTitle(title).also { it.price = price })
     }
 
-    private fun Session.getAuthorByUsername(username: String?): Author {
-        val query = createSelectionQuery("from Author where username=:username")
-        query.setParameter("username", username)
-        return query.uniqueResult() as Author? ?: throw NullPointerException("Author $username doesn't exist!")
-    }
+    private fun Session.getAuthorByUsername(username: String?): Author =
+        createSelectionQuery("from Author where username=:username", Author::class.java).apply {
+            setParameter("username", username)
+        }.uniqueResult() ?: throw NullPointerException("Author $username doesn't exist!")
 
     private fun Session.getBookByTitle(title: String?): Book =
-        createSelectionQuery("from Book where title=:title").apply {
+        createSelectionQuery("from Book where title=:title", Book::class.java).apply {
             setParameter("title", title)
-        }.uniqueResult() as Book? ?: throw NullPointerException("Author $title doesn't exist!")
+        }.uniqueResult() ?: throw NullPointerException("Author $title doesn't exist!")
 
     private inline fun transaction(block: Session.() -> Unit) = sessionFactory.openSession().use {
         val transaction = it.beginTransaction()

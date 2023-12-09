@@ -1,20 +1,18 @@
 package orchestration
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class SagaOrchestrator(private val saga: Saga, private val sd: ServiceDiscoveryService) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val state = CurrentState()
     fun <K> execute(value: K): Saga.Result {
         state.cleanUp()
-        log.info(" The new saga is about to start")
+        logger.info { " The new saga is about to start" }
         var result = Saga.Result.FINISHED
         var tempVal = value
         while (true) {
             var next = state.current()
             val ch = saga[next]
-
-            @Suppress("UNCHECKED_CAST")
             val srv = sd.find(ch.name) as OrchestrationChapter<K>?
             if (srv == null) {
                 state.directionToBack()
@@ -29,7 +27,7 @@ class SagaOrchestrator(private val saga: Saga, private val sd: ServiceDiscoveryS
                 } else state.directionToBack()
             } else {
                 val rlRes = srv.rollback(tempVal)
-                if (rlRes.isSuccess) tempVal = rlRes.value as K
+                if (rlRes.isSuccess) tempVal = rlRes.value
                 else result = Saga.Result.CRASHED
                 next = state.back()
             }

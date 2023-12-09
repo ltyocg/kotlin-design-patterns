@@ -1,21 +1,21 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 interface WizardTower {
     fun enter(wizard: Wizard)
 }
 
 object IvoryTower : WizardTower {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun enter(wizard: Wizard) = log.info("{} enters the tower.", wizard)
+    private val logger = KotlinLogging.logger {}
+    override fun enter(wizard: Wizard) = logger.info { "$wizard enters the tower." }
 }
 
 class WizardTowerProxy(private val tower: WizardTower) : WizardTower {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private var numWizards = 0
     override fun enter(wizard: Wizard) {
         if (numWizards < 3) {
             tower.enter(wizard)
             numWizards++
-        } else log.info("{} is not allowed to enter!", wizard)
+        } else logger.info { "$wizard is not allowed to enter!" }
     }
 }

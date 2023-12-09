@@ -1,12 +1,12 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class ServiceCache {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val serviceCache = mutableMapOf<String, Service>()
     fun getService(serviceName: String): Service? {
         if (serviceCache.containsKey(serviceName)) {
             val cachedService = serviceCache[serviceName]!!
-            log.info("(cache call) Fetched service {}({}) from cache... !", cachedService.name, cachedService.id)
+            logger.info { "(cache call) Fetched service ${cachedService.name}(${cachedService.id}) from cache... !" }
             return cachedService
         }
         return null

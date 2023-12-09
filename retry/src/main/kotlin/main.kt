@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlin.reflect.full.isSuperclassOf
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 private const val NOT_FOUND = "not found"
 private lateinit var op: BusinessOperation<String>
 fun main() {
@@ -14,7 +14,7 @@ fun main() {
 private fun noErrors() {
     op = FindCustomer("123")
     op.perform()
-    log.info("Sometimes the operation executes with no errors.")
+    logger.info { "Sometimes the operation executes with no errors." }
 }
 
 private fun errorNoRetry() {
@@ -22,7 +22,7 @@ private fun errorNoRetry() {
     try {
         op.perform()
     } catch (e: CustomerNotFoundException) {
-        log.info("Yet the operation will throw an error every once in a while.")
+        logger.info { "Yet the operation will throw an error every once in a while." }
     }
 }
 
@@ -34,11 +34,7 @@ private fun errorWithRetry() {
         { CustomerNotFoundException::class.isSuperclassOf(it::class) }
     )
     op = retry
-    log.info(
-        "However, retrying the operation while ignoring a recoverable error will eventually yield the result {} after a number of attempts {}",
-        op.perform(),
-        retry.attempts()
-    )
+    logger.info { "However, retrying the operation while ignoring a recoverable error will eventually yield the result ${op.perform()} after a number of attempts ${retry.attempts()}" }
 }
 
 private fun errorWithRetryExponentialBackoff() {
@@ -49,9 +45,5 @@ private fun errorWithRetryExponentialBackoff() {
         { CustomerNotFoundException::class.isSuperclassOf(it::class) }
     )
     op = retry
-    log.info(
-        "However, retrying the operation while ignoring a recoverable error will eventually yield the result {} after a number of attempts {}",
-        op.perform(),
-        retry.attempts()
-    )
+    logger.info { "However, retrying the operation while ignoring a recoverable error will eventually yield the result ${op.perform()} after a number of attempts ${retry.attempts()}" }
 }

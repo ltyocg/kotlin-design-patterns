@@ -1,17 +1,17 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class Consumer(private val name: String, private val queue: MqSubscribePoint) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     fun consume() {
         while (true) try {
             val msg = queue.take()
             if (Message.POISON_PILL == msg) {
-                log.info("Consumer {} receive request to terminate.", name)
+                logger.info { "Consumer $name receive request to terminate." }
                 break
             }
-            log.info("Message [{}] from [{}] received by [{}]", msg.body, msg.getHeader(Message.Headers.SENDER), name)
+            logger.info { "Message [${msg.body}] from [${msg.getHeader(Message.Headers.SENDER)}] received by [$name]" }
         } catch (e: InterruptedException) {
-            log.error("Exception caught.", e)
+            logger.error(e) { "Exception caught." }
             return
         }
     }

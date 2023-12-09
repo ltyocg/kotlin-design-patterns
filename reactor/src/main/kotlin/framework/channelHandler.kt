@@ -1,6 +1,6 @@
 package framework
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.nio.ByteBuffer
 import java.nio.channels.SelectionKey
 
@@ -14,15 +14,17 @@ class LoggingHandler : ChannelHandler {
             doLogging(readObject)
             sendReply(channel, key)
         }
+
         is NioDatagramChannel.DatagramPacket -> {
             doLogging(readObject.data)
             sendReply(channel, readObject, key)
         }
+
         else -> error("Unknown data received")
     }
 
     private companion object {
-        private val log = LoggerFactory.getLogger(LoggingHandler::class.java)
+        private val logger = KotlinLogging.logger {}
         private val ack = "Data logged successfully".toByteArray()
         private fun sendReply(channel: AbstractNioChannel, incomingPacket: NioDatagramChannel.DatagramPacket, key: SelectionKey) =
             channel.write(NioDatagramChannel.DatagramPacket(ByteBuffer.wrap(ack)).apply {
@@ -30,6 +32,6 @@ class LoggingHandler : ChannelHandler {
             }, key)
 
         private fun sendReply(channel: AbstractNioChannel, key: SelectionKey) = channel.write(ByteBuffer.wrap(ack), key)
-        private fun doLogging(data: ByteBuffer) = log.info(String(data.array(), 0, data.limit()))
+        private fun doLogging(data: ByteBuffer) = logger.info { String(data.array(), 0, data.limit()) }
     }
 }

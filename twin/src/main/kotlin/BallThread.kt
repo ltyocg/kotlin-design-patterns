@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class BallThread : Thread() {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     lateinit var twin: BallItem
 
     @Volatile
@@ -25,12 +25,12 @@ class BallThread : Thread() {
 
     fun suspendMe() {
         isSuspended = true
-        log.info("Begin to suspend BallThread")
+        logger.info { "Begin to suspend BallThread" }
     }
 
     fun resumeMe() {
         isSuspended = false
-        log.info("Begin to resume BallThread")
+        logger.info { "Begin to resume BallThread" }
     }
 
     fun stopMe() {

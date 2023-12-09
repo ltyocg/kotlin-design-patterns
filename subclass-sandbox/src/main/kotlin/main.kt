@@ -1,9 +1,9 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
-    log.info("Use superpower: sky launch")
+    logger.info { "Use superpower: sky launch" }
     SkyLaunch().activate()
-    log.info("Use superpower: ground dive")
+    logger.info { "Use superpower: ground dive" }
     GroundDive().activate()
 }

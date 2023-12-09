@@ -1,6 +1,6 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     CharacterStepBuilder.newBuilder()
         .name("Amberjill")
@@ -8,7 +8,7 @@ fun main() {
         .withWeapon("Sword")
         .noAbilities()
         .build()
-        .run { log.info(toString()) }
+        .let { logger.info { it } }
     CharacterStepBuilder.newBuilder()
         .name("Riobard")
         .wizardClass("Sorcerer")
@@ -17,11 +17,11 @@ fun main() {
         .withAbility("Teleport")
         .noMoreAbilities()
         .build()
-        .run { log.info(toString()) }
+        .let { logger.info { it } }
     CharacterStepBuilder.newBuilder()
         .name("Desmond")
         .fighterClass("Rogue")
         .noWeapon()
         .build()
-        .run { log.info(toString()) }
+        .let { logger.info { it } }
 }

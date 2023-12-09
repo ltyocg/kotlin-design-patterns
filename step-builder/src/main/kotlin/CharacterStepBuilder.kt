@@ -36,38 +36,14 @@ object CharacterStepBuilder {
         private var weapon: String? = null
         private var spell: String? = null
         private val abilities = mutableListOf<String>()
-        override fun name(name: String?): ClassStep {
-            this.name = name
-            return this
-        }
-
-        override fun fighterClass(fighterClass: String?): WeaponStep {
-            this.fighterClass = fighterClass
-            return this
-        }
-
-        override fun wizardClass(wizardClass: String?): SpellStep {
-            this.wizardClass = wizardClass
-            return this
-        }
-
-        override fun withWeapon(weapon: String?): AbilityStep {
-            this.weapon = weapon
-            return this
-        }
-
+        override fun name(name: String?): ClassStep = apply { this.name = name }
+        override fun fighterClass(fighterClass: String?): WeaponStep = apply { this.fighterClass = fighterClass }
+        override fun wizardClass(wizardClass: String?): SpellStep = apply { this.wizardClass = wizardClass }
+        override fun withWeapon(weapon: String?): AbilityStep = apply { this.weapon = weapon }
         override fun noWeapon(): BuildStep = this
-        override fun withSpell(spell: String?): AbilityStep {
-            this.spell = spell
-            return this
-        }
-
+        override fun withSpell(spell: String?): AbilityStep = apply { this.spell = spell }
         override fun noSpell(): BuildStep = this
-        override fun withAbility(ability: String): AbilityStep {
-            abilities.add(ability)
-            return this
-        }
-
+        override fun withAbility(ability: String): AbilityStep = apply { abilities.add(ability) }
         override fun noMoreAbilities(): BuildStep = this
         override fun noAbilities(): BuildStep = this
         override fun build(): Character {

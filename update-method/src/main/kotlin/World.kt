@@ -1,9 +1,9 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.security.SecureRandom
 import kotlin.concurrent.thread
 
 class World {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     var entities = mutableListOf<Entity>()
 
     @Volatile
@@ -17,26 +17,24 @@ class World {
         }
     }
 
-    private fun processInput() {
-        try {
-            Thread.sleep((SecureRandom().nextInt(200) + 50).toLong())
-        } catch (e: InterruptedException) {
-            log.error(e.message)
-            Thread.currentThread().interrupt()
-        }
+    private fun processInput() = try {
+        Thread.sleep((SecureRandom().nextInt(200) + 50).toLong())
+    } catch (e: InterruptedException) {
+        logger.error { e.message }
+        Thread.currentThread().interrupt()
     }
 
     private fun update() = entities.forEach(Entity::update)
     private fun render() {}
 
     fun run() {
-        log.info("Start game.")
+        logger.info { "Start game." }
         isRunning = true
         thread { gameLoop() }
     }
 
     fun stop() {
-        log.info("Stop game.")
+        logger.info { "Stop game." }
         isRunning = false
     }
 

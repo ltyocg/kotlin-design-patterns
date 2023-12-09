@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
@@ -7,10 +7,7 @@ import java.sql.SQLException
 import javax.sql.DataSource
 
 class CountryDao(country: Country, private val dataSource: DataSource) {
-    private companion object {
-        private val log = LoggerFactory.getLogger(CountryDao::class.java)
-    }
-
+    private val logger = KotlinLogging.logger {}
     private var country: Country
 
     init {
@@ -34,7 +31,7 @@ class CountryDao(country: Country, private val dataSource: DataSource) {
                 }
             }
         } catch (e: SQLException) {
-            log.info("Exception thrown {}", e.message)
+            logger.info { "Exception thrown ${e.message}" }
         }
         return -1
     }
@@ -48,14 +45,14 @@ class CountryDao(country: Country, private val dataSource: DataSource) {
                         if (it.next()) {
                             val countryBlob = it.getBlob("country")
                             country = ObjectInputStream(ByteArrayInputStream(countryBlob.getBytes(1, countryBlob.length().toInt()))).readObject() as Country
-                            log.info("Country: {}", country)
+                            logger.info { "Country: $country" }
                         }
                         return it.getInt("id")
                     }
                 }
             }
         } catch (e: SQLException) {
-            log.info("Exception thrown {}", e.message)
+            logger.info { "Exception thrown ${e.message}" }
         }
         return -1
     }

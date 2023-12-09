@@ -1,24 +1,32 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.security.SecureRandom
 import kotlin.system.measureTimeMillis
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val rand = SecureRandom()
     val bubbles1 = buildMap {
         repeat(10000) {
             val b = Bubble(rand.nextInt(300), rand.nextInt(300), it, rand.nextInt(2) + 1)
             put(it, b)
-            log.info("Bubble {} with radius {} added at ({},{})", it, b.radius, b.coordinateX, b.coordinateY)
+            logger.info { "Bubble $it with radius ${b.radius} added at (${b.coordinateX},${b.coordinateY})" }
         }
     }.toMutableMap()
     val bubbles2 = bubbles1.toMutableMap()
-    log.info("Without spatial partition takes {}ms", measureTimeMillis {
-        noSpatialPartition(20, bubbles1)
-    })
-    log.info("With spatial partition takes {}ms", measureTimeMillis {
-        withSpatialPartition(300, 300, 20, bubbles2)
-    })
+    logger.info {
+        "Without spatial partition takes ${
+            measureTimeMillis {
+                noSpatialPartition(20, bubbles1)
+            }
+        }ms"
+    }
+    logger.info {
+        "With spatial partition takes ${
+            measureTimeMillis {
+                withSpatialPartition(300, 300, 20, bubbles2)
+            }
+        }ms"
+    }
 }
 
 private fun noSpatialPartition(numOfMovements: Int, bubbles: MutableMap<Int, Bubble>) {
@@ -30,7 +38,7 @@ private fun noSpatialPartition(numOfMovements: Int, bubbles: MutableMap<Int, Bub
             bubbles.replace(i, bubble)
             bubble.handleCollision(bubblesToCheck, bubbles)
         }
-    bubbles.keys.forEach { log.info("Bubble {} not popped", it) }
+    bubbles.keys.forEach { logger.info { "Bubble $it not popped" } }
 }
 
 private fun withSpatialPartition(height: Int, width: Int, numOfMovements: Int, bubbles: MutableMap<Int, Bubble>) {
@@ -44,5 +52,5 @@ private fun withSpatialPartition(height: Int, width: Int, numOfMovements: Int, b
             SpatialPartitionBubbles(bubbles, quadTree).handleCollisionsUsingQt(bubble)
         }
     }
-    bubbles.keys.forEach { log.info("Bubble {} not popped", it) }
+    bubbles.keys.forEach { logger.info { "Bubble $it not popped" } }
 }

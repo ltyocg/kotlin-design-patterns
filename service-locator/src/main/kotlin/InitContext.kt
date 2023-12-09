@@ -1,16 +1,18 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 object InitContext {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     fun lookup(serviceName: String): Any? = when (serviceName) {
         "jndi/serviceA" -> {
-            log.info("Looking up service A and creating new service for A")
+            logger.info { "Looking up service A and creating new service for A" }
             ServiceImpl("jndi/serviceA")
         }
+
         "jndi/serviceB" -> {
-            log.info("Looking up service B and creating new service for B")
+            logger.info { "Looking up service B and creating new service for B" }
             ServiceImpl("jndi/serviceB")
         }
+
         else -> null
     }
 }

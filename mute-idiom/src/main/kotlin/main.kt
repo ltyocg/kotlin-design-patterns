@@ -1,8 +1,8 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     useOfLoggedMute()
     useOfMute()
@@ -25,5 +25,5 @@ private fun acquireResource(): Resource = object : Resource {
     override fun close() = throw IOException("Error in closing resource: $this")
 }
 
-private fun utilizeResource(resource: Resource) = log.info("Utilizing acquired resource: {}", resource)
+private fun utilizeResource(resource: Resource) = logger.info { "Utilizing acquired resource: $resource" }
 private fun closeResource(resource: Resource) = Mute.loggedMute(resource::close)

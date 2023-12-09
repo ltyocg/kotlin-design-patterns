@@ -1,17 +1,17 @@
 package orchestration
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 abstract class Service<K> : OrchestrationChapter<K> {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     abstract override val name: String
     override fun process(value: K): ChapterResult<K> {
-        log.info("The chapter '{}' has been started. The data {} has been stored or calculated successfully", name, value)
+        logger.info { "The chapter '$name' has been started. The data $value has been stored or calculated successfully" }
         return ChapterResult.success(value)
     }
 
     override fun rollback(value: K): ChapterResult<K> {
-        log.info("The Rollback for a chapter '{}' has been started. The data {} has been rollbacked successfully", name, value)
+        logger.info { "The Rollback for a chapter '$name' has been started. The data $value has been rollbacked successfully" }
         return ChapterResult.success(value)
     }
 }
@@ -21,14 +21,14 @@ class FlyBookingService : Service<String>() {
 }
 
 class HotelBookingService : Service<String>() {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override val name = "booking a Hotel"
     override fun rollback(value: String): ChapterResult<String> {
         if (value == "crashed_order") {
-            log.info("The Rollback for a chapter '{}' has been started. The data {} has been failed.The saga has been crashed.", name, value)
+            logger.info { "The Rollback for a chapter '$name' has been started. The data $value has been failed.The saga has been crashed." }
             return ChapterResult.failure(value)
         }
-        log.info("The Rollback for a chapter '{}' has been started. The data {} has been rollbacked successfully", name, value)
+        logger.info { "The Rollback for a chapter '$name' has been started. The data $value has been rollbacked successfully" }
         return super.rollback(value)
     }
 }
@@ -38,11 +38,11 @@ class OrderService : Service<String>() {
 }
 
 class WithdrawMoneyService : Service<String>() {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override val name = "withdrawing Money"
     override fun process(value: String): ChapterResult<String> {
         if (value == "bad_order" || value == "crashed_order") {
-            log.info("The chapter '{}' has been started. But the exception has been raised.The rollback is about to start", name)
+            logger.info { "The chapter '$name' has been started. But the exception has been raised.The rollback is about to start" }
             return ChapterResult.failure(value)
         }
         return super.process(value)

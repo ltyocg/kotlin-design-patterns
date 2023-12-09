@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 sealed interface State {
     fun onEnterState()
@@ -6,13 +6,13 @@ sealed interface State {
 }
 
 class AngryState(private val mammoth: Mammoth) : State {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun observe() = log.info("{} is furious!", mammoth)
-    override fun onEnterState() = log.info("{} gets angry!", mammoth)
+    private val logger = KotlinLogging.logger {}
+    override fun observe() = logger.info { "$mammoth is furious!" }
+    override fun onEnterState() = logger.info { "$mammoth gets angry!" }
 }
 
 class PeacefulState(private val mammoth: Mammoth) : State {
-    private val log = LoggerFactory.getLogger(javaClass)
-    override fun observe() = log.info("{} is calm and peaceful.", mammoth)
-    override fun onEnterState() = log.info("{} calms down.", mammoth)
+    private val logger = KotlinLogging.logger {}
+    override fun observe() = logger.info { "$mammoth is calm and peaceful." }
+    override fun onEnterState() = logger.info { "$mammoth calms down." }
 }

@@ -1,7 +1,7 @@
 package generic
 
 import WeatherType
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.concurrent.CopyOnWriteArrayList
 
 abstract class Observable<S : Observable<S, O, A>, O : Observer<S, O, A>, A> {
@@ -21,12 +21,12 @@ abstract class Observable<S : Observable<S, O, A>, O : Observer<S, O, A>, A> {
 }
 
 class GWeather : Observable<GWeather, Race, WeatherType>() {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private var currentWeather = WeatherType.SUNNY
     fun timePasses() {
-        val enumValues = WeatherType.values()
+        val enumValues = WeatherType.entries
         currentWeather = enumValues[(currentWeather.ordinal + 1) % enumValues.size]
-        log.info("The weather changed to {}.", currentWeather)
+        logger.info { "The weather changed to $currentWeather." }
         notifyObservers(currentWeather)
     }
 }

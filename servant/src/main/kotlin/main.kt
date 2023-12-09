@@ -1,6 +1,6 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     scenario(Servant("Jenkins"), 1)
     scenario(Servant("Travis"), 0)
@@ -12,6 +12,8 @@ fun scenario(servant: Servant, compliment: Int) {
     guests.forEach(servant::giveWine)
     servant.giveCompliments(guests[compliment])
     guests.forEach(Royalty::changeMood)
-    if (servant.checkIfYouWillBeHanged(guests)) log.info("{} will live another day", servant.name)
-    else log.info("Poor {}. His days are numbered", servant.name)
+    logger.info {
+        if (servant.checkIfYouWillBeHanged(guests)) "${servant.name} will live another day"
+        else "Poor ${servant.name}. His days are numbered"
+    }
 }

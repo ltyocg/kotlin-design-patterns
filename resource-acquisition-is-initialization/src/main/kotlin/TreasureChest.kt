@@ -1,12 +1,12 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.Closeable
 
 class TreasureChest : Closeable {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
 
     init {
-        log.info("Treasure chest opens.")
+        logger.info { "Treasure chest opens." }
     }
 
-    override fun close() = log.info("Treasure chest closes.")
+    override fun close() = logger.info { "Treasure chest closes." }
 }

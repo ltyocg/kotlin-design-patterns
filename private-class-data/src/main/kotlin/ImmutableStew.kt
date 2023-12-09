@@ -1,8 +1,8 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 open class ImmutableStew(numPotatoes: Int, numCarrots: Int, numMeat: Int, numPeppers: Int) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     protected val data = StewData(numPotatoes, numCarrots, numMeat, numPeppers)
     open fun mix() =
-        log.info("Mixing the immutable stew we find: {} potatoes, {} carrots, {} meat and {} peppers", data.numPotatoes, data.numCarrots, data.numMeat, data.numPeppers)
+        logger.info { "Mixing the immutable stew we find: ${data.numPotatoes} potatoes, ${data.numCarrots} carrots, ${data.numMeat} meat and ${data.numPeppers} peppers" }
 }

@@ -1,6 +1,6 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val givenTime = 50
     val toWin = 500
@@ -12,18 +12,18 @@ fun main() {
     while (pointsWon < toWin && end - start < givenTime) {
         round++
         val cg = CandyGame(numOfRows, CellPool(numOfRows * numOfRows + 5))
-        log.info(if (round > 1) "Refreshing.." else "Starting game..")
+        logger.info { if (round > 1) "Refreshing.." else "Starting game.." }
         cg.printGameStatus()
         cg.round((System.currentTimeMillis() - start).toInt(), givenTime)
         pointsWon += cg.totalPoints
         end = System.currentTimeMillis()
     }
-    log.info("Game Over")
+    logger.info { "Game Over" }
     if (pointsWon >= toWin) {
-        log.info(pointsWon.toString())
-        log.info("You win!!")
+        logger.info { pointsWon }
+        logger.info { "You win!!" }
     } else {
-        log.info(pointsWon.toString())
-        log.info("Sorry, you lose!")
+        logger.info { pointsWon }
+        logger.info { "Sorry, you lose!" }
     }
 }

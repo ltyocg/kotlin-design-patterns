@@ -1,10 +1,10 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 object MaintenanceLock {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     var lock = true
         set(lock) {
             field = lock
-            log.info("Maintenance lock is set to: {}", lock)
+            logger.info { "Maintenance lock is set to: $lock" }
         }
 }

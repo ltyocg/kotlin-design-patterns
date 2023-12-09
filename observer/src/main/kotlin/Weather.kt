@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class Weather {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private var currentWeather = WeatherType.SUNNY
     private val observers = mutableListOf<WeatherObserver>()
     fun addObserver(obs: WeatherObserver) {
@@ -13,9 +13,9 @@ class Weather {
     }
 
     fun timePasses() {
-        val enumValues = WeatherType.values()
+        val enumValues = WeatherType.entries
         currentWeather = enumValues[(currentWeather.ordinal + 1) % enumValues.size]
-        log.info("The weather changed to {}.", currentWeather)
+        logger.info { "The weather changed to $currentWeather." }
         observers.forEach { it.update(currentWeather) }
     }
 }

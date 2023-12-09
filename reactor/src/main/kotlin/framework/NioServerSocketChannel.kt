@@ -1,6 +1,6 @@
 package framework
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.IOException
 import java.net.InetAddress
 import java.net.InetSocketAddress
@@ -10,7 +10,7 @@ import java.nio.channels.ServerSocketChannel
 import java.nio.channels.SocketChannel
 
 class NioServerSocketChannel(private val port: Int, handler: ChannelHandler) : AbstractNioChannel(handler, ServerSocketChannel.open()) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override val interestedOps = SelectionKey.OP_ACCEPT
     override val javaChannel = super.javaChannel as ServerSocketChannel
     override fun read(key: SelectionKey): ByteBuffer {
@@ -24,7 +24,7 @@ class NioServerSocketChannel(private val port: Int, handler: ChannelHandler) : A
     override fun bind() {
         javaChannel.socket().bind(InetSocketAddress(InetAddress.getLocalHost(), port))
         javaChannel.configureBlocking(false)
-        log.info("Bound TCP socket at port: {}", port)
+        logger.info { "Bound TCP socket at port: $port" }
     }
 
     override fun doWrite(pendingWrite: Any, key: SelectionKey) {

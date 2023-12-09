@@ -1,17 +1,17 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class ServiceExecutor(private val msgQueue: MessageQueue) : () -> Unit {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override fun invoke() = try {
         while (!Thread.currentThread().isInterrupted) {
             val msg = msgQueue.retrieveMsg()
-            log.info(
+            logger.info {
                 if (msg != null) "$msg is served."
                 else "Service Executor: Waiting for Messages to serve .. "
-            )
+            }
             Thread.sleep(1000)
         }
     } catch (e: Exception) {
-        log.error(e.message)
+        logger.error { e.message }
     }
 }

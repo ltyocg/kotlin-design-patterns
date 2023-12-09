@@ -1,19 +1,18 @@
 import com.gargoylesoftware.htmlunit.WebClient
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor
 import com.gargoylesoftware.htmlunit.html.HtmlPage
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.IOException
 
 class AlbumListPage(webClient: WebClient) : Page(webClient) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private lateinit var page: HtmlPage
-    fun navigateToPage(): AlbumListPage {
+    fun navigateToPage(): AlbumListPage = apply {
         try {
             page = webClient.getPage("file:${AUT_PATH}album-list.html")
         } catch (e: IOException) {
-            log.error("An error occured on navigateToPage.", e)
+            logger.error(e) { "An error occured on navigateToPage." }
         }
-        return this
     }
 
     override val isAt: Boolean
@@ -28,7 +27,7 @@ class AlbumListPage(webClient: WebClient) : Page(webClient) {
                     it.click<com.gargoylesoftware.htmlunit.Page>()
                     return AlbumPage(webClient)
                 } catch (e: IOException) {
-                    log.error("An error occured on selectAlbum", e)
+                    logger.error(e) { "An error occured on selectAlbum" }
                 }
             }
         throw IllegalArgumentException("No links with the album title: $albumTitle")

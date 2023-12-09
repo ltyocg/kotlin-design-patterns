@@ -5,4 +5,6 @@ open class RainbowFish(
     val age: Int,
     val lengthMeters: Int,
     val weightTons: Int
-) : Serializable
+) : Serializable {
+    override fun toString(): String = "name=$name age=$age length=$lengthMeters weight=$weightTons"
+}

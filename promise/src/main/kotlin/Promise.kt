@@ -23,7 +23,7 @@ class Promise<T> : PromiseSupport<T?>() {
         fulfillmentAction?.invoke()
     }
 
-    fun fulfillInAsync(executor: Executor, task: () -> T): Promise<T> {
+    fun fulfillInAsync(executor: Executor, task: () -> T): Promise<T> = apply {
         executor.execute {
             try {
                 fulfill(task())
@@ -31,7 +31,6 @@ class Promise<T> : PromiseSupport<T?>() {
                 fulfillExceptionally(e)
             }
         }
-        return this
     }
 
     fun thenAccept(action: (T?) -> Unit): Promise<Unit> {
@@ -40,9 +39,8 @@ class Promise<T> : PromiseSupport<T?>() {
         return dest
     }
 
-    fun onError(exceptionHandler: (Throwable?) -> Unit): Promise<T> {
+    fun onError(exceptionHandler: (Throwable?) -> Unit): Promise<T> = apply {
         this.exceptionHandler = exceptionHandler
-        return this
     }
 
     fun <V> thenApply(func: (T?) -> V): Promise<V> {

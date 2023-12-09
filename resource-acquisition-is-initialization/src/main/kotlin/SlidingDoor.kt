@@ -1,11 +1,11 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class SlidingDoor : AutoCloseable {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
 
     init {
-        log.info("Sliding door opens.")
+        logger.info { "Sliding door opens." }
     }
 
-    override fun close() = log.info("Sliding door closes.")
+    override fun close() = logger.info { "Sliding door closes." }
 }

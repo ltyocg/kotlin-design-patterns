@@ -1,6 +1,6 @@
 package app
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.IOException
 import java.io.PrintWriter
 import java.net.*
@@ -8,13 +8,13 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 object AppClient {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val service = Executors.newFixedThreadPool(4)
 
     @JvmStatic
     fun main(args: Array<String>) = start()
     fun start() {
-        log.info("Starting logging clients")
+        logger.info { "Starting logging clients" }
         with(service) {
             execute(TcpLoggingClient("Client 1", 16666))
             execute(TcpLoggingClient("Client 2", 16667))
@@ -30,16 +30,16 @@ object AppClient {
             try {
                 service.awaitTermination(1000, TimeUnit.SECONDS)
             } catch (e: InterruptedException) {
-                log.error("exception awaiting termination", e)
+                logger.error(e) { "exception awaiting termination" }
             }
         }
-        log.info("Logging clients stopped")
+        logger.info { "Logging clients stopped" }
     }
 
     fun artificialDelayOf(millis: Long) = try {
         Thread.sleep(millis)
     } catch (e: InterruptedException) {
-        log.error("sleep interrupted", e)
+        logger.error(e) { "sleep interrupted" }
     }
 
     private class TcpLoggingClient(private val clientName: String, private val serverPort: Int) : () -> Unit {
@@ -52,13 +52,12 @@ object AppClient {
                         writer.flush()
                         val data = ByteArray(1024)
                         val read = socket.getInputStream().read(data, 0, data.size)
-                        if (read == 0) log.info("Read zero bytes")
-                        else log.info(String(data, 0, read))
+                        logger.info { if (read == 0) "Read zero bytes" else String(data, 0, read) }
                         artificialDelayOf(100)
                     }
                 }
             } catch (e: IOException) {
-                log.error("error sending requests", e)
+                logger.error(e) { "error sending requests" }
                 throw RuntimeException(e)
             }
         }
@@ -75,13 +74,12 @@ object AppClient {
                     val data = ByteArray(1024)
                     val reply = DatagramPacket(data, data.size)
                     socket.receive(reply)
-                    if (reply.length == 0) log.info("Read zero bytes")
-                    else log.info(String(reply.data, 0, reply.length))
+                    logger.info { if (reply.length == 0) "Read zero bytes" else String(reply.data, 0, reply.length) }
                     artificialDelayOf(100)
                 }
             }
         } catch (e: IOException) {
-            log.error("error sending packets", e)
+            logger.error("error sending packets", e)
         }
     }
 }

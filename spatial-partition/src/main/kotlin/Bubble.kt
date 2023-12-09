@@ -1,8 +1,8 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.security.SecureRandom
 
 class Bubble(x: Int, y: Int, id: Int, val radius: Int) : Point<Bubble>(x, y, id) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override fun move() {
         coordinateX += RANDOM.nextInt(3) - 1
         coordinateY += RANDOM.nextInt(3) - 1
@@ -26,7 +26,7 @@ class Bubble(x: Int, y: Int, id: Int, val radius: Int) : Point<Bubble>(x, y, id)
     }
 
     fun pop(allBubbles: MutableMap<Int, Bubble>) {
-        log.info("Bubble {} popped at ({},{})!", id, coordinateX, coordinateY)
+        logger.info { "Bubble $id popped at ($coordinateX,$coordinateY)!" }
         allBubbles.remove(id)
     }
 

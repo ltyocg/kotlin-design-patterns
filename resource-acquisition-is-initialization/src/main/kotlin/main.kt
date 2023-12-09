@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
-    SlidingDoor().use { log.info("Walking in.") }
-    TreasureChest().use { log.info("Looting contents.") }
+    SlidingDoor().use { logger.info { "Walking in." } }
+    TreasureChest().use { logger.info { "Looting contents." } }
 }

@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class Bank(accountNum: Int, baseAmount: Int) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     val accounts = IntArray(accountNum) { baseAmount }
 
     @Synchronized
@@ -9,7 +9,7 @@ class Bank(accountNum: Int, baseAmount: Int) {
         if (accounts[accountA] >= amount) {
             accounts[accountB] += amount
             accounts[accountA] -= amount
-            if (log.isDebugEnabled) log.debug("Transferred from account : {} to account : {} , amount : {} . balance : {}", accountA, accountB, amount, balance)
+            logger.debug { "Transferred from account : $accountA to account : $accountB , amount : $amount . balance : $balance" }
         }
     }
 

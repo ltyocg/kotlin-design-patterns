@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import spell.Spell
 import spell.SpellDao
 import spellbook.Spellbook
@@ -7,7 +7,7 @@ import wizard.Wizard
 import wizard.WizardDao
 
 private const val BOOK_OF_IDORES = "Book of Idores"
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     initData()
     queryData()
@@ -112,14 +112,14 @@ private fun initData() {
 
 private fun queryData() {
     val service = MagicService(WizardDao(), SpellbookDao(), SpellDao())
-    log.info("Enumerating all wizards")
-    service.findAllWizards().map(Wizard::name).forEach(log::info)
-    log.info("Enumerating all spellbooks")
-    service.findAllSpellbooks().map(Spellbook::name).forEach(log::info)
-    log.info("Enumerating all spells")
-    service.findAllSpells().map(Spell::name).forEach(log::info)
-    log.info("Find wizards with spellbook 'Book of Idores'")
-    service.findWizardsWithSpellbook(BOOK_OF_IDORES).forEach { w -> log.info("{} has 'Book of Idores'", w.name) }
-    log.info("Find wizards with spell 'Fireball'")
-    service.findWizardsWithSpell("Fireball").forEach { w -> log.info("{} has 'Fireball'", w.name) }
+    logger.info { "Enumerating all wizards" }
+    service.findAllWizards().map(Wizard::name).forEach { logger.info { it } }
+    logger.info { "Enumerating all spellbooks" }
+    service.findAllSpellbooks().map(Spellbook::name).forEach { logger.info { it } }
+    logger.info { "Enumerating all spells" }
+    service.findAllSpells().map(Spell::name).forEach { logger.info { it } }
+    logger.info { "Find wizards with spellbook 'Book of Idores'" }
+    service.findWizardsWithSpellbook(BOOK_OF_IDORES).forEach { logger.info { "${it.name} has 'Book of Idores'" } }
+    logger.info { "Find wizards with spell 'Fireball'" }
+    service.findWizardsWithSpell("Fireball").forEach { logger.info { "${it.name} has 'Fireball'" } }
 }

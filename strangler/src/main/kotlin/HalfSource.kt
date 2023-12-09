@@ -1,15 +1,16 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 object HalfSource {
-    private val log = LoggerFactory.getLogger(javaClass)
-    private const val VERSION = "1.5"
+    private val logger = KotlinLogging.logger {}
     fun accumulateSum(vararg nums: Int): Int {
-        log.info("Source module {}", VERSION)
+        info()
         return nums.sum()
     }
 
     fun ifNonZero(vararg nums: Int): Boolean {
-        log.info("Source module {}", VERSION)
+        info()
         return nums.all { it != 0 }
     }
+
+    private fun info() = logger.info { "Source module 1.5" }
 }

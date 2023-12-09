@@ -1,9 +1,9 @@
 package choreography
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 abstract class Service(private val sd: ServiceDiscoveryService) : ChoreographyChapter {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override fun execute(saga: Saga): Saga {
         var nextSaga = saga
         val nextVal: Any?
@@ -29,7 +29,7 @@ abstract class Service(private val sd: ServiceDiscoveryService) : ChoreographyCh
 
     override fun process(saga: Saga): Saga {
         val inValue = saga.currentValue
-        log.info("The chapter '{}' has been started. The data {} has been stored or calculated successfully", name, inValue)
+        logger.info { "The chapter '$name' has been started. The data $inValue has been stored or calculated successfully" }
         saga.setCurrentStatus(Saga.ChapterResult.SUCCESS)
         saga.currentValue = inValue
         return saga
@@ -37,7 +37,7 @@ abstract class Service(private val sd: ServiceDiscoveryService) : ChoreographyCh
 
     override fun rollback(saga: Saga): Saga {
         val inValue = saga.currentValue
-        log.info("The Rollback for a chapter '{}' has been started. The data {} has been rollbacked successfully", name, inValue)
+        logger.info { "The Rollback for a chapter '$name' has been started. The data $inValue has been rollbacked successfully" }
         saga.setCurrentStatus(Saga.ChapterResult.ROLLBACK)
         saga.currentValue = inValue
         return saga
@@ -46,7 +46,7 @@ abstract class Service(private val sd: ServiceDiscoveryService) : ChoreographyCh
     private fun isSagaFinished(saga: Saga): Boolean {
         if (saga.isPresent) return false
         saga.finished = true
-        log.info(" the saga has been finished with {} status", saga.result)
+        logger.info { " the saga has been finished with ${saga.result} status" }
         return true
     }
 }
@@ -64,12 +64,12 @@ class OrderService(service: ServiceDiscoveryService) : Service(service) {
 }
 
 class WithdrawMoneyService(service: ServiceDiscoveryService) : Service(service) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override val name = "withdrawing Money"
     override fun process(saga: Saga): Saga {
         val inValue = saga.currentValue
         if (inValue == "bad_order") {
-            log.info("The chapter '{}' has been started. But the exception has been raised.The rollback is about to start", name)
+            logger.info { "The chapter '$name' has been started. But the exception has been raised.The rollback is about to start" }
             saga.setCurrentStatus(Saga.ChapterResult.ROLLBACK)
             return saga
         }

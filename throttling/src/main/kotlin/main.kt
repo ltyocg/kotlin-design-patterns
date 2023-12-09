@@ -1,8 +1,8 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val callsCount = CallsCount()
     val executorService = Executors.newFixedThreadPool(2)
@@ -23,7 +23,7 @@ private fun makeServiceCalls(barCustomer: BarCustomer, callsCount: CallsCount) {
         try {
             Thread.sleep(100)
         } catch (e: InterruptedException) {
-            log.error("Thread interrupted: {}", e.localizedMessage)
+            logger.error { "Thread interrupted: ${e.localizedMessage}" }
         }
     }
 }

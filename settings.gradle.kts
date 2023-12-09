@@ -88,6 +88,7 @@ include(
     "memento",
     "metadata-mapping",
     "model-view-controller",
+    "model-view-intent",
     "model-view-presenter",
     "model-view-viewmodel",
     "module",

@@ -1,15 +1,15 @@
 import generic.GHobbits
 import generic.GOrcs
 import generic.GWeather
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val weather = Weather()
     weather.addObserver(Orcs())
     weather.addObserver(Hobbits())
     repeat(4) { weather.timePasses() }
-    log.info("--Running generic version--")
+    logger.info { "--Running generic version--" }
     val genericWeather = GWeather()
     genericWeather.addObserver(GOrcs())
     genericWeather.addObserver(GHobbits())

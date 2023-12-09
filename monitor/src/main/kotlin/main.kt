@@ -1,11 +1,11 @@
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.slf4j.LoggerFactory
 import java.util.*
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 suspend fun main() {
     val bank = Bank(4, 1000)
     withContext(Dispatchers.Default) {
@@ -17,10 +17,10 @@ suspend fun main() {
 
 suspend fun runner(bank: Bank) {
     delay((Math.random() * 1000).toLong())
-    log.info("Start transferring...")
+    logger.info { "Start transferring..." }
     val random = Random()
     repeat(1000000) {
         bank.transfer(random.nextInt(4), random.nextInt(4), (Math.random() * 1000).toInt())
     }
-    log.info("Finished transferring.")
+    logger.info { "Finished transferring." }
 }

@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 fun node(name: String, left: Node, right: Node) = NodeImpl(name, left, right)
 sealed interface Node {
@@ -14,10 +14,10 @@ class NodeImpl(
     override val left: Node,
     override val right: Node
 ) : Node {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override val treeSize = 1 + left.treeSize + right.treeSize
     override fun walk() {
-        log.info(name)
+        logger.info { name }
         if (left.treeSize > 0) left.walk()
         if (right.treeSize > 0) right.walk()
     }

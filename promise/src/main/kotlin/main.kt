@@ -1,9 +1,9 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 
 private const val DEFAULT_URL = "https://raw.githubusercontent.com/ltyocg/kotlin-design-patterns/master/README.adoc"
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 private val executor = Executors.newFixedThreadPool(2)
 private val stopLatch = CountDownLatch(2)
 fun main() {
@@ -20,7 +20,7 @@ private fun calculateLineCount() {
     download(DEFAULT_URL)
         .thenApply { Utility.countLines(it!!) }
         .thenAccept {
-            log.info("Line count is: {}", it)
+            logger.info { "Line count is: $it" }
             taskCompleted()
         }
 }
@@ -30,7 +30,7 @@ private fun calculateLowestFrequencyChar() {
         .thenApply { Utility.characterFrequency(it!!) }
         .thenApply { Utility.lowestFrequencyChar(it!!) }
         .thenAccept {
-            log.info("Char with lowest frequency is: {}", it)
+            logger.info { "Char with lowest frequency is: $it" }
             taskCompleted()
         }
 }

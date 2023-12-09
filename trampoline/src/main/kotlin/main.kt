@@ -1,9 +1,9 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
-    log.info("Start calculating war casualties")
-    log.info("The number of orcs perished in the war: {}", loop(10, 1).result())
+    logger.info { "Start calculating war casualties" }
+    logger.info { "The number of orcs perished in the war: ${loop(10, 1).result()}" }
 }
 
 fun loop(times: Int, prod: Int): Trampoline<Int> =

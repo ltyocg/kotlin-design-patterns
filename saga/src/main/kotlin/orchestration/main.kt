@@ -1,16 +1,11 @@
 package orchestration
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val sagaOrchestrator = SagaOrchestrator(newSaga(), serviceDiscovery())
-    log.info(
-        "orders: goodOrder is {}, badOrder is {},crashedOrder is {}",
-        sagaOrchestrator.execute("good_order"),
-        sagaOrchestrator.execute("bad_order"),
-        sagaOrchestrator.execute("crashed_order")
-    )
+    logger.info { "orders: goodOrder is ${sagaOrchestrator.execute("good_order")}, badOrder is ${sagaOrchestrator.execute("bad_order")},crashedOrder is ${sagaOrchestrator.execute("crashed_order")}" }
 }
 
 private fun newSaga(): Saga = Saga()

@@ -1,10 +1,10 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
 open class PromiseSupport<T> : Future<T> {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val lock = Object()
 
     @Volatile
@@ -42,7 +42,7 @@ open class PromiseSupport<T> : Future<T> {
             while (state == State.RUNNING) try {
                 lock.wait(unit.toMillis(timeout))
             } catch (e: InterruptedException) {
-                log.warn("Interrupted!", e)
+                logger.warn(e) { "Interrupted!" }
                 Thread.currentThread().interrupt()
             }
         }

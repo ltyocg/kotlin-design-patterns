@@ -1,8 +1,7 @@
 class Validator<T>(private val obj: T) {
     private val exceptions = mutableListOf<Throwable>()
-    fun validate(validation: Validation<T>, message: String?): Validator<T> {
+    fun validate(validation: Validation<T>, message: String?): Validator<T> = apply {
         if (!validation(obj)) exceptions.add(IllegalStateException(message))
-        return this
     }
 
     fun <U> validate(projection: Projection<T, U>, validation: Validation<U>, message: String?): Validator<T> =

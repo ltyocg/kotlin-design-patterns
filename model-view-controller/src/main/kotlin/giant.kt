@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class GiantController(
     private val giant: GiantModel,
@@ -11,8 +11,8 @@ class GiantController(
 }
 
 class GiantView {
-    private val log = LoggerFactory.getLogger(javaClass)
-    fun displayGiant(giant: GiantModel) = log.info(giant.toString())
+    private val logger = KotlinLogging.logger {}
+    fun displayGiant(giant: GiantModel) = logger.info { giant }
 }
 
 data class GiantModel internal constructor(

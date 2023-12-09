@@ -1,7 +1,7 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class Server(val host: String, val port: Int, val id: Int) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     fun serve(request: Request) =
-        log.info("Server ID {} associated to host : {} and port {}. Processed request with value {}", id, host, port, request.value)
+        logger.info { "Server ID $id associated to host : $host and port $port. Processed request with value ${request.value}" }
 }

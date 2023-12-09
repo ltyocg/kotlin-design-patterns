@@ -1,8 +1,8 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val params = ParameterObject("sneakers", "brand")
-    log.info(params.toString())
-    log.info(SearchService().search(params))
+    logger.info { params }
+    logger.info { SearchService().search(params) }
 }

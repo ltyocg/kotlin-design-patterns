@@ -1,8 +1,8 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import javax.sql.DataSource
 
 class UserTableModule(private val dataSource: DataSource) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     fun login(username: String?, password: String?): Int {
         dataSource.connection.use { connection ->
             connection.prepareStatement("select count(*) from USERS where username=? and password=?").use { preparedStatement ->
@@ -12,7 +12,7 @@ class UserTableModule(private val dataSource: DataSource) {
                 preparedStatement.executeQuery().use {
                     while (it.next()) result = it.getInt(1)
                 }
-                log.info(if (result == 1) "Login successfully!" else "Fail to login!")
+                logger.info { if (result == 1) "Login successfully!" else "Fail to login!" }
                 return result
             }
         }
@@ -26,7 +26,7 @@ class UserTableModule(private val dataSource: DataSource) {
                 return try {
                     it.executeUpdate()
                 } finally {
-                    log.info("Register successfully!")
+                    logger.info { "Register successfully!" }
                 }
             }
         }

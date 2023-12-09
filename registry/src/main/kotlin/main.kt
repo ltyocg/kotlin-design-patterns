@@ -1,9 +1,9 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     CustomerRegistry.addCustomer(Customer("1", "John"))
     CustomerRegistry.addCustomer(Customer("2", "Julia"))
-    log.info("John {}", CustomerRegistry.getCustomer("1"))
-    log.info("Julia {}", CustomerRegistry.getCustomer("2"))
+    logger.info { "John ${CustomerRegistry.getCustomer("1")}" }
+    logger.info { "Julia ${CustomerRegistry.getCustomer("2")}" }
 }

@@ -1,8 +1,8 @@
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.h2.jdbcx.JdbcDataSource
-import org.slf4j.LoggerFactory
 import javax.sql.DataSource
 
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
     val dataSource = createDataSource()
     deleteSchema(dataSource)
@@ -27,7 +27,7 @@ fun main() {
 fun createDataSource(): DataSource = JdbcDataSource().apply { setUrl("jdbc:h2:~/test") }
 fun deleteSchema(dataSource: DataSource) = dataSource.execute(RoomSchemaSql.DELETE_SCHEMA_SQL)
 fun createSchema(dataSource: DataSource) = dataSource.execute(RoomSchemaSql.CREATE_SCHEMA_SQL)
-private fun HotelDao.getRoomStatus() = all.map(Room::toString).forEach(log::info)
+private fun HotelDao.getRoomStatus() = all.forEach { logger.info { it } }
 private fun DataSource.execute(sql: String) {
     connection.use { c -> c.createStatement().use { it.execute(sql) } }
 }

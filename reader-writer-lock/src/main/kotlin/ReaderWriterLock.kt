@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.Lock
@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReadWriteLock
 
 @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
 class ReaderWriterLock : ReadWriteLock {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val readerMutex = Any()
     private var currentReaderCount = 0
     private val globalMutex = mutableSetOf<Any>()
@@ -28,7 +28,7 @@ class ReaderWriterLock : ReadWriteLock {
                 while (doesWriterOwnThisLock()) try {
                     (globalMutex as Object).wait()
                 } catch (e: InterruptedException) {
-                    log.info("InterruptedException while waiting for globalMutex in acquireForReaders", e)
+                    logger.info(e) { "InterruptedException while waiting for globalMutex in acquireForReaders" }
                     Thread.currentThread().interrupt()
                 }
                 globalMutex.add(this)
@@ -56,7 +56,7 @@ class ReaderWriterLock : ReadWriteLock {
                 while (!isLockFree) try {
                     (globalMutex as Object).wait()
                 } catch (e: InterruptedException) {
-                    log.info("InterruptedException while waiting for globalMutex to begin writing", e)
+                    logger.info(e) { "InterruptedException while waiting for globalMutex to begin writing" }
                     Thread.currentThread().interrupt()
                 }
                 globalMutex.add(this)

@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.concurrent.locks.Lock
 import kotlin.concurrent.withLock
 
@@ -7,10 +7,10 @@ class Reader(
     private val readLock: Lock,
     private val readingTime: Long = 250L
 ) : () -> Unit {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override fun invoke() = readLock.withLock {
-        log.info("{} begin", name)
+        logger.info { "$name begin" }
         Thread.sleep(readingTime)
-        log.info("{} finish after reading {}ms", name, readingTime)
+        logger.info { "$name finish after reading ${readingTime}ms" }
     }
 }

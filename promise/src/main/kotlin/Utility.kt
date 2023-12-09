@@ -1,9 +1,9 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.*
 import java.net.URL
 
 object Utility {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     fun characterFrequency(fileLocation: String): Map<Char, Long> = try {
         BufferedReader(FileReader(fileLocation)).use { bufferedReader ->
             bufferedReader.lineSequence()
@@ -31,7 +31,7 @@ object Utility {
     }
 
     fun downloadFile(urlString: String?): String {
-        log.info("Downloading contents from url: {}", urlString)
+        logger.info { "Downloading contents from url: $urlString" }
         val file = File.createTempFile("promise_pattern", null)
         BufferedReader(InputStreamReader(URL(urlString).openStream())).use { bufferedReader ->
             FileWriter(file).use { writer ->
@@ -39,7 +39,7 @@ object Utility {
                     writer.write(it)
                     writer.write("\n")
                 }
-                log.info("File downloaded at: {}", file.absolutePath)
+                logger.info { "File downloaded at: ${file.absolutePath}" }
                 return file.absolutePath
             }
         }

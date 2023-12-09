@@ -1,8 +1,8 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 private const val PRODUCT_COST = 50.0
-private val log = LoggerFactory.getLogger("main")
+private val logger = KotlinLogging.logger {}
 fun main() {
-    log.info("Foreign Tax applied: {}", InvoiceGenerator(PRODUCT_COST, ForeignTaxCalculator()).amountWithTax)
-    log.info("Domestic Tax applied: {}", InvoiceGenerator(PRODUCT_COST, DomesticTaxCalculator()).amountWithTax)
+    logger.info { "Foreign Tax applied: ${InvoiceGenerator(PRODUCT_COST, ForeignTaxCalculator()).amountWithTax}" }
+    logger.info { "Domestic Tax applied: ${InvoiceGenerator(PRODUCT_COST, DomesticTaxCalculator()).amountWithTax}" }
 }

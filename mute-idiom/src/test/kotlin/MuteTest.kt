@@ -1,12 +1,12 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertFailsWith
 
-internal class MuteTest {
-    private val log = LoggerFactory.getLogger(javaClass)
+class MuteTest {
+    private val logger = KotlinLogging.logger {}
     private val message = "should not occur"
 
     @Test
@@ -15,9 +15,7 @@ internal class MuteTest {
 
     @Test
     fun `mute should rethrow unexpected exception as AssertionError`() {
-        assertFailsWith<AssertionError> {
-            Mute.mute { methodThrowingException() }
-        }
+        assertFailsWith<AssertionError> { Mute.mute { methodThrowingException() } }
     }
 
     @Test
@@ -33,6 +31,6 @@ internal class MuteTest {
         assertContains(stream.toString(), message)
     }
 
-    private fun methodNotThrowingAnyException() = log.info("Executed successfully")
+    private fun methodNotThrowingAnyException() = logger.info { "Executed successfully" }
     private fun methodThrowingException(): Nothing = throw Exception(message)
 }

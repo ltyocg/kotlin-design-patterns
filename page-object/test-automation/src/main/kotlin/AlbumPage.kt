@@ -1,65 +1,58 @@
 import com.gargoylesoftware.htmlunit.WebClient
 import com.gargoylesoftware.htmlunit.html.*
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.IOException
 
 class AlbumPage(webClient: WebClient) : Page(webClient) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private lateinit var page: HtmlPage
-    fun navigateToPage(): AlbumPage {
+    fun navigateToPage(): AlbumPage = apply {
         try {
             page = webClient.getPage("file:${AUT_PATH}album-page.html")
         } catch (e: IOException) {
-            log.error("An error occured on navigateToPage.", e)
+            logger.error(e) { "An error occured on navigateToPage." }
         }
-        return this
     }
 
     override val isAt: Boolean
         get() = "Album Page" == page.titleText
 
-    fun changeAlbumTitle(albumTitle: String?): AlbumPage {
+    fun changeAlbumTitle(albumTitle: String?): AlbumPage = apply {
         (page.getElementById("albumTitle") as HtmlTextInput).text = albumTitle
-        return this
     }
 
-    fun changeArtist(artist: String?): AlbumPage {
+    fun changeArtist(artist: String?): AlbumPage = apply {
         (page.getElementById("albumArtist") as HtmlTextInput).text = artist
-        return this
     }
 
-    fun changeAlbumYear(year: Int): AlbumPage {
+    fun changeAlbumYear(year: Int): AlbumPage = apply {
         val albumYearSelectOption = page.getElementById("albumYear") as HtmlSelect
         albumYearSelectOption.setSelectedAttribute<com.gargoylesoftware.htmlunit.Page>(albumYearSelectOption.getOptionByValue(year.toString()), true)
-        return this
     }
 
-    fun changeAlbumRating(albumRating: String?): AlbumPage {
+    fun changeAlbumRating(albumRating: String?): AlbumPage = apply {
         val albumRatingInputTextField: HtmlTextInput = page.getElementById("albumRating") as HtmlTextInput
-        albumRatingInputTextField.setText(albumRating)
-        return this
+        albumRatingInputTextField.text = albumRating
     }
 
-    fun changeNumberOfSongs(numberOfSongs: Int): AlbumPage {
+    fun changeNumberOfSongs(numberOfSongs: Int): AlbumPage = apply {
         (page.getElementById("numberOfSongs") as HtmlNumberInput).text = numberOfSongs.toString()
-        return this
     }
 
     fun cancelChanges(): AlbumListPage {
         try {
-            (page.getElementById("cancelButton") as HtmlSubmitInput).click()
+            (page.getElementById("cancelButton") as HtmlSubmitInput).click<com.gargoylesoftware.htmlunit.Page>()
         } catch (e: IOException) {
-            log.error("An error occured on cancelChanges.", e)
+            logger.error(e) { "An error occured on cancelChanges." }
         }
         return AlbumListPage(webClient)
     }
 
-    fun saveChanges(): AlbumPage {
+    fun saveChanges(): AlbumPage = apply {
         try {
-            (page.getElementById("saveButton") as HtmlSubmitInput).click()
+            (page.getElementById("saveButton") as HtmlSubmitInput).click<com.gargoylesoftware.htmlunit.Page>()
         } catch (e: IOException) {
-            log.error("An error occured on saveChanges.", e)
+            logger.error(e) { "An error occured on saveChanges." }
         }
-        return this
     }
 }

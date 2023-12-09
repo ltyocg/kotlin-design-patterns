@@ -1,6 +1,6 @@
 package framework
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.SocketAddress
@@ -9,7 +9,7 @@ import java.nio.channels.DatagramChannel
 import java.nio.channels.SelectionKey
 
 class NioDatagramChannel(private val port: Int, handler: ChannelHandler) : AbstractNioChannel(handler, DatagramChannel.open()) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override val interestedOps = SelectionKey.OP_READ
     override fun read(key: SelectionKey): DatagramPacket {
         val buffer = ByteBuffer.allocate(1024).apply { flip() }
@@ -22,7 +22,7 @@ class NioDatagramChannel(private val port: Int, handler: ChannelHandler) : Abstr
     override fun bind() {
         javaChannel.socket().bind(InetSocketAddress(InetAddress.getLocalHost(), port))
         javaChannel.configureBlocking(false)
-        log.info("Bound UDP socket at port: {}", port)
+        logger.info { "Bound UDP socket at port: $port" }
     }
 
     override fun doWrite(pendingWrite: Any, key: SelectionKey) {

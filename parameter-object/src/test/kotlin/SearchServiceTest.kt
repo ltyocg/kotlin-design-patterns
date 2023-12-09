@@ -1,10 +1,10 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class SearchServiceTest {
-    private val log = LoggerFactory.getLogger(SearchServiceTest::class.java)
+    private val logger = KotlinLogging.logger {}
     private lateinit var parameterObject: ParameterObject
     private lateinit var searchService: SearchService
 
@@ -21,13 +21,13 @@ class SearchServiceTest {
             searchService.search("sneakers", SortOrder.ASC),
             "Default Parameter values do not not match."
         )
-        log.info("SortBy Default parameter value matches.")
+        logger.info { "SortBy Default parameter value matches." }
         assertEquals(
             searchService.search(parameterObject),
             searchService.search("sneakers", "price"),
             "Default Parameter values do not not match."
         )
-        log.info("SortOrder Default parameter value matches.")
-        log.info("testDefaultParametersMatch executed successfully without errors.")
+        logger.info { "SortOrder Default parameter value matches." }
+        logger.info { "testDefaultParametersMatch executed successfully without errors." }
     }
 }

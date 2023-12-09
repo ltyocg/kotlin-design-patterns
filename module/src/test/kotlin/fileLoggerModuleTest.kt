@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.File
 import java.io.IOException
 import kotlin.test.Test
@@ -11,7 +11,7 @@ private const val MESSAGE = "MESSAGE"
 private const val ERROR = "ERROR"
 
 class FileLoggerModuleTest {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
 
     @Test
     fun `file message`() = FileLoggerModule.execute {
@@ -43,9 +43,9 @@ class FileLoggerModuleTest {
 
     private fun readFirstLine(file: String): String? = try {
         File(file).useLines { it.firstOrNull() }
-            .also { log.info("ModuleTest::readFirstLine() : firstLine : {}", it) }
+            .also { logger.info { "ModuleTest::readFirstLine() : firstLine : $it" } }
     } catch (e: IOException) {
-        log.error("ModuleTest::readFirstLine()", e)
+        logger.error(e) { "ModuleTest::readFirstLine()" }
         null
     }
 }

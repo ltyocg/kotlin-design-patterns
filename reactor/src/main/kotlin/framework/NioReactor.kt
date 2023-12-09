@@ -1,6 +1,6 @@
 package framework
 
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.IOException
 import java.nio.channels.SelectionKey
 import java.nio.channels.Selector
@@ -10,16 +10,16 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 class NioReactor(private val dispatcher: Dispatcher) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val selector = Selector.open()
     private val pendingCommands = ConcurrentLinkedQueue<() -> Unit>()
     private val reactorMain = Executors.newSingleThreadExecutor()
     fun start() = reactorMain.execute {
         try {
-            log.info("Reactor started, waiting for events...")
+            logger.info { "Reactor started, waiting for events..." }
             eventLoop()
         } catch (e: IOException) {
-            log.error("exception in event loop", e)
+            logger.error(e) { "exception in event loop" }
         }
     }
 
@@ -28,13 +28,12 @@ class NioReactor(private val dispatcher: Dispatcher) {
         selector.wakeup()
         if (!reactorMain.awaitTermination(4, TimeUnit.SECONDS)) reactorMain.shutdownNow()
         selector.close()
-        log.info("Reactor stopped")
+        logger.info { "Reactor stopped" }
     }
 
-    fun registerChannel(channel: AbstractNioChannel): NioReactor {
+    fun registerChannel(channel: AbstractNioChannel): NioReactor = apply {
         channel.javaChannel.register(selector, channel.interestedOps).attach(channel)
         channel.setReactor(this)
-        return this
     }
 
     private fun eventLoop() {
@@ -74,7 +73,7 @@ class NioReactor(private val dispatcher: Dispatcher) {
         try {
             key.channel().close()
         } catch (e1: IOException) {
-            log.error("error closing channel", e1)
+            logger.error(e1) { "error closing channel" }
         }
     }
 

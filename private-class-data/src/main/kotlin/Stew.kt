@@ -1,4 +1,4 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 class Stew(
     numPotatoes: Int,
@@ -6,12 +6,12 @@ class Stew(
     numMeat: Int,
     numPeppers: Int
 ) : ImmutableStew(numPotatoes, numCarrots, numMeat, numPeppers) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     override fun mix() =
-        log.info("Mixing the stew we find: {} potatoes, {} carrots, {} meat and {} peppers", data.numPotatoes, data.numCarrots, data.numMeat, data.numPeppers)
+        logger.info { "Mixing the stew we find: ${data.numPotatoes} potatoes, ${data.numCarrots} carrots, ${data.numMeat} meat and ${data.numPeppers} peppers" }
 
     fun taste() {
-        log.info("Tasting the stew")
+        logger.info { "Tasting the stew" }
         if (data.numPotatoes > 0) data.numPotatoes--
         if (data.numCarrots > 0) data.numCarrots--
         if (data.numMeat > 0) data.numMeat--

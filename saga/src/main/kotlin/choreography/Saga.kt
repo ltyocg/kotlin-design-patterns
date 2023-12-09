@@ -11,14 +11,10 @@ class Saga {
             if (isForward) SagaResult.FINISHED else SagaResult.ROLLBACKED
         } else SagaResult.PROGRESS
 
-    fun chapter(name: String): Saga {
-        chapters.add(Chapter(name))
-        return this
-    }
+    fun chapter(name: String): Saga = apply { chapters.add(Chapter(name)) }
 
-    fun setInValue(value: Any?): Saga {
+    fun setInValue(value: Any?): Saga = apply {
         if (chapters.isNotEmpty()) chapters[chapters.size - 1].inValue = value
-        return this
     }
 
     var currentValue: Any?

@@ -32,8 +32,8 @@ class GameObjectTest {
         playerTest.update(KeyEvent.KEY_LOCATION_RIGHT)
         assertEquals(1, playerTest.velocity)
         assertEquals(0, playerTest.coordinate)
-        logger.info(playerTest.coordinate.toString())
-        logger.info(playerTest.velocity.toString())
+        logger.info { playerTest.coordinate.toString() }
+        logger.info { playerTest.velocity.toString() }
         val p2 = GameObject.createPlayer()
         p2.update(KeyEvent.KEY_LOCATION_LEFT)
         p2.update(KeyEvent.KEY_LOCATION_UNKNOWN)

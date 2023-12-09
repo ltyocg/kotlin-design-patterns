@@ -1,14 +1,14 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.security.SecureRandom
 
 class LookupShardManager : ShardManager() {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private val lookupMap = mutableMapOf<Int, Int>()
     override fun storeData(data: Data): Int {
         val shardId = allocateShard(data)
         lookupMap[data.key] = shardId
         shardMap[shardId]!!.storeData(data)
-        log.info("{} is stored in Shard {}", data, shardId)
+        logger.info { "$data is stored in Shard $shardId" }
         return shardId
     }
 

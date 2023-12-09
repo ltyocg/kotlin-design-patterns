@@ -1,14 +1,14 @@
-import org.slf4j.LoggerFactory
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.KProperty
 
 class PresentationModel(private val data: DisplayedAlbums) {
-    private val log = LoggerFactory.getLogger(javaClass)
+    private val logger = KotlinLogging.logger {}
     private var selectedAlbumNumber = 1
     private var selectedAlbum = data.albums[0]
     fun setSelectedAlbumNumber(albumNumber: Int) {
-        log.info("Change select number from {} to {}", selectedAlbumNumber, albumNumber)
+        logger.info { "Change select number from $selectedAlbumNumber to $albumNumber" }
         selectedAlbumNumber = albumNumber
         selectedAlbum = data.albums[selectedAlbumNumber - 1]
     }
@@ -19,9 +19,9 @@ class PresentationModel(private val data: DisplayedAlbums) {
     var composer: String?
         get() = if (selectedAlbum.isClassical) selectedAlbum.composer else ""
         set(value) = if (selectedAlbum.isClassical) {
-            log.info("Change album composer from {} to {}", selectedAlbum.composer, value)
+            logger.info { "Change album composer from ${selectedAlbum.composer} to $value" }
             selectedAlbum.composer = value
-        } else log.info("Composer can not be changed")
+        } else logger.info { "Composer can not be changed" }
     val albumList: Array<String>
         get() = data.albums.map { it.title }.toTypedArray()
 
@@ -37,7 +37,7 @@ class PresentationModel(private val data: DisplayedAlbums) {
     private inner class ChangeLog<V>(private val p: KMutableProperty1<Album, V>) : ReadWriteProperty<PresentationModel, V> {
         override fun getValue(thisRef: PresentationModel, property: KProperty<*>): V = p.get(selectedAlbum)
         override fun setValue(thisRef: PresentationModel, property: KProperty<*>, value: V) {
-            log.info("Change album {} from {} to {}", p.name, p.get(selectedAlbum), value)
+            logger.info { "Change album ${p.name} from ${p.get(selectedAlbum)} to $value" }
             p.set(selectedAlbum, value)
         }
     }
