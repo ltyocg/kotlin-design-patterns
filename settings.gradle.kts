@@ -36,6 +36,7 @@ include(
     "context-object",
     "converter",
     "cqrs",
+    "crtp",
     "currying",
     "dao",
     "data-bus",

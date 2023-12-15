@@ -1,12 +1,12 @@
 package store
 
 import MenuStore
+import View
 import action.Content
 import action.ContentAction
 import action.MenuAction
 import action.MenuItem
 import org.mockito.kotlin.*
-import view.View
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

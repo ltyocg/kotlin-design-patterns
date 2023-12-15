@@ -1,9 +1,4 @@
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito
-import org.mockito.kotlin.any
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
@@ -23,8 +18,8 @@ class OptimisticLockTest {
         val initialVersion = 1
         val cardId = 123L
         val card = Card(id = cardId, version = initialVersion, sum = 123f)
-        whenever(cardRepository.findById(ArgumentMatchers.eq(cardId))).thenReturn(card)
-        whenever(cardRepository.getEntityVersionById(Mockito.eq(cardId))).thenReturn(initialVersion + 1)
+        whenever(cardRepository.findById(eq(cardId))).thenReturn(card)
+        whenever(cardRepository.getEntityVersionById(eq(cardId))).thenReturn(initialVersion + 1)
         assertFailsWith<ApplicationException> { cardUpdateService.doUpdate(card, cardId) }
     }
 
@@ -33,8 +28,8 @@ class OptimisticLockTest {
         val initialVersion = 1
         val cardId = 123L
         val card = Card(id = cardId, version = initialVersion, sum = 123f)
-        whenever(cardRepository.findById(ArgumentMatchers.eq(cardId))).thenReturn(card)
-        whenever(cardRepository.getEntityVersionById(Mockito.eq(cardId))).thenReturn(initialVersion)
+        whenever(cardRepository.findById(eq(cardId))).thenReturn(card)
+        whenever(cardRepository.getEntityVersionById(eq(cardId))).thenReturn(initialVersion)
         cardUpdateService.doUpdate(card, cardId)
         verify(cardRepository).update(any())
     }
