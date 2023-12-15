@@ -1,7 +1,13 @@
-import layers.main
+import layers.App
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.context.ApplicationContext
 import kotlin.test.Test
+import kotlin.test.assertNotNull
 
-class MainTest {
+@SpringBootTest(classes = [App::class])
+class MainTest(private val applicationContext: ApplicationContext) {
     @Test
-    fun `should execute main without exception`() = main()
+    fun contextLoads() {
+        assertNotNull(applicationContext)
+    }
 }

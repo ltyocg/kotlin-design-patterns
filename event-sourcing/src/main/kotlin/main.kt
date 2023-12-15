@@ -6,7 +6,7 @@ const val ACCOUNT_OF_DAENERYS = 1
 const val ACCOUNT_OF_JON = 2
 private val logger = KotlinLogging.logger {}
 fun main() {
-    with(DomainEventProcessor()) {
+    with(DomainEventProcessor(JsonFileJournal())) {
         logger.info { "Running the system first time............" }
         reset()
         logger.info { "Creating the accounts............" }
@@ -23,7 +23,7 @@ fun main() {
         AccountAggregate.resetState()
         logger.info { "Recover the system by the events in journal file............" }
     }
-    with(DomainEventProcessor()) {
+    with(DomainEventProcessor(JsonFileJournal())) {
         recover()
         logger.info { "...............Recovered State:............" }
         logger.info { AccountAggregate.getAccount(ACCOUNT_OF_DAENERYS) }

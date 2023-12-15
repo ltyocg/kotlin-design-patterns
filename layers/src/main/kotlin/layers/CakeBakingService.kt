@@ -3,26 +3,16 @@ package layers
 import layers.dao.CakeDao
 import layers.dao.CakeLayerDao
 import layers.dao.CakeToppingDao
-import org.springframework.beans.factory.getBean
-import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-open class CakeBakingService {
-    private val cakeDao: CakeDao
-    private val cakeLayerDao: CakeLayerDao
+class CakeBakingService(
+    private val cakeDao: CakeDao,
+    private val cakeLayerDao: CakeLayerDao,
     private val cakeToppingDao: CakeToppingDao
-
-    init {
-        with(AnnotationConfigApplicationContext(ApplicationConfig::class.java)) {
-            cakeDao = getBean()
-            cakeLayerDao = getBean()
-            cakeToppingDao = getBean()
-        }
-    }
-
+) {
     fun bakeNewCake(cakeInfo: CakeInfo) {
         val matchingToppings = cakeToppingDao.findAll().filter { it.cake == null && it.name == cakeInfo.cakeToppingInfo.name }
         if (matchingToppings.isEmpty()) throw CakeBakingException("Topping ${cakeInfo.cakeToppingInfo.name} is not available")
@@ -57,6 +47,9 @@ open class CakeBakingService {
         .filter { it.cake == null }
         .map { CakeLayerInfo(it.id, it.name, it.calories) }
 
+    fun deleteAllCakes() = cakeDao.deleteAll()
+    fun deleteAllLayers() = cakeLayerDao.deleteAll()
+    fun deleteAllToppings() = cakeToppingDao.deleteAll()
     fun getAllCakes(): List<CakeInfo> = cakeDao.findAll().map { cake ->
         CakeInfo(
             cake.id,

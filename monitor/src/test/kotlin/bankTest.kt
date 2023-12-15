@@ -24,5 +24,12 @@ class BankTest {
     }
 
     @Test
-    fun `balance have to be OK`() = assertEquals(4000, bank.balance)
+    fun `balance have to be OK`() = assertEquals(4000, bank.getBalance())
+
+    @Test
+    fun `return balance when given account number`() {
+        bank.transfer(0, 1, 1000)
+        assertEquals(0, bank.getBalance(0))
+        assertEquals(2000, bank.getBalance(1))
+    }
 }

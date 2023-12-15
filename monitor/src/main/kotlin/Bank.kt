@@ -9,11 +9,20 @@ class Bank(accountNum: Int, baseAmount: Int) {
         if (accounts[accountA] >= amount) {
             accounts[accountB] += amount
             accounts[accountA] -= amount
-            logger.debug { "Transferred from account : $accountA to account : $accountB , amount : $amount . balance : $balance" }
+            logger.debug {
+                "Transferred from account : $accountA to account : $accountB , amount : $amount . bank balance at : ${
+                    getBalance()
+                }, source account balance: ${
+                    getBalance(accountA)
+                }, destination account balance: ${
+                    getBalance(accountB)
+                }"
+            }
         }
     }
 
-    val balance: Int
-        @Synchronized
-        get() = accounts.sum()
+    @Synchronized
+    fun getBalance(accountNumber: Int? = null): Int =
+        if (accountNumber == null) accounts.sum()
+        else accounts[accountNumber]
 }

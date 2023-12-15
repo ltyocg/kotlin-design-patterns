@@ -101,6 +101,7 @@ include(
     "object-mother",
     "object-pool",
     "observer",
+    "optimistic-offline-lock",
     "page-controller",
     "page-object:sample-application",
     "page-object:test-automation",

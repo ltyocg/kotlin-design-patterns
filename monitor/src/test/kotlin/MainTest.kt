@@ -6,5 +6,5 @@ class MainTest {
     fun `should execute main without exception`() = runBlocking { main() }
 
     @Test
-    fun `runner execute without exception`() = runBlocking { runner(Bank(4, 1000)) }
+    fun `runner should execute without exception`() = runBlocking { runner(Bank(4, 1000)) }
 }

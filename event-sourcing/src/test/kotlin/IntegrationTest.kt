@@ -9,7 +9,7 @@ class IntegrationTest {
 
     @BeforeTest
     fun initialize() {
-        eventProcessor = DomainEventProcessor()
+        eventProcessor = DomainEventProcessor(JsonFileJournal())
     }
 
     @Test
@@ -25,7 +25,7 @@ class IntegrationTest {
         val accountOfDaenerysBeforeShotDown = AccountAggregate.getAccount(ACCOUNT_OF_DAENERYS)!!
         val accountOfJonBeforeShotDown = AccountAggregate.getAccount(ACCOUNT_OF_JON)!!
         AccountAggregate.resetState()
-        eventProcessor = DomainEventProcessor()
+        eventProcessor = DomainEventProcessor(JsonFileJournal())
         with(eventProcessor) {
             recover()
             assertEquals(accountOfDaenerysBeforeShotDown.money, AccountAggregate.getAccount(ACCOUNT_OF_DAENERYS)?.money)
