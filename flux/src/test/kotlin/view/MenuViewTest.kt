@@ -2,6 +2,7 @@ package view
 
 import Dispatcher
 import MenuStore
+import MenuView
 import Store
 import action.MenuItem
 import org.mockito.kotlin.*

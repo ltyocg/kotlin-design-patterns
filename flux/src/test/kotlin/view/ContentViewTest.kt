@@ -1,6 +1,7 @@
 package view
 
 import ContentStore
+import ContentView
 import action.Content
 import org.mockito.kotlin.*
 import kotlin.test.Test
