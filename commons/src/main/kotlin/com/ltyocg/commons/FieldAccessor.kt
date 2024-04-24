@@ -3,6 +3,9 @@ package com.ltyocg.commons
 import java.util.*
 import kotlin.reflect.KClass
 
+@PublishedApi
+internal val fieldAccessorMap = WeakHashMap<Any, FieldAccessor<*>>()
+
 class FieldAccessor<T : Any>
 @PublishedApi internal constructor(
     @PublishedApi internal val obj: T,
@@ -21,11 +24,8 @@ class FieldAccessor<T : Any>
     }
 
     companion object {
-        @PublishedApi
-        internal val map = WeakHashMap<Any, FieldAccessor<*>>()
-
         @Suppress("UNCHECKED_CAST")
         inline operator fun <reified T : Any> invoke(obj: T, superKClass: KClass<in T> = T::class): FieldAccessor<T> =
-            map.getOrPut(obj) { FieldAccessor(obj, superKClass) } as FieldAccessor<T>
+            fieldAccessorMap.getOrPut(obj) { FieldAccessor(obj, superKClass) } as FieldAccessor<T>
     }
 }

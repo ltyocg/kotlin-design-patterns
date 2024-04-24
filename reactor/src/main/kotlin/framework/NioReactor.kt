@@ -88,18 +88,14 @@ class NioReactor(private val dispatcher: Dispatcher) {
 
     private fun onChannelWritable(key: SelectionKey) = (key.attachment() as AbstractNioChannel).flush(key)
     fun changeOps(key: SelectionKey, interestedOps: Int) {
+        class ChangeKeyOpsCommand(private val key: SelectionKey, private val interestedOps: Int) : () -> Unit {
+            override fun invoke() {
+                key.interestOps(interestedOps)
+            }
+
+            override fun toString(): String = "Change of ops to: $interestedOps"
+        }
         pendingCommands.add(ChangeKeyOpsCommand(key, interestedOps))
         selector.wakeup()
-    }
-
-    internal class ChangeKeyOpsCommand(
-        private val key: SelectionKey,
-        private val interestedOps: Int
-    ) : () -> Unit {
-        override fun invoke() {
-            key.interestOps(interestedOps)
-        }
-
-        override fun toString(): String = "Change of ops to: $interestedOps"
     }
 }

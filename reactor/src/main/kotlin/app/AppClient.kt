@@ -79,7 +79,7 @@ object AppClient {
                 }
             }
         } catch (e: IOException) {
-            logger.error("error sending packets", e)
+            logger.error(e) { "error sending packets" }
         }
     }
 }

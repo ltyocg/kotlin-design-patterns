@@ -14,7 +14,7 @@ open class CustomerCore : Customer() {
     override fun hasRole(role: Role): Boolean = roles.containsKey(role)
     override fun remRole(role: Role): Boolean = roles.remove(role) != null
     override fun <T : Customer> getRole(role: Role, expectedRole: KClass<T>): T? = roles[role]
-        ?.takeIf { expectedRole.isInstance(it) }
+        ?.takeIf(expectedRole::isInstance)
         ?.let(expectedRole::cast)
 
     override fun toString(): String = "Customer{roles=${roles.keys}}"

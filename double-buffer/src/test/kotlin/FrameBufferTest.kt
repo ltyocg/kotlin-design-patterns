@@ -5,28 +5,22 @@ import kotlin.test.assertEquals
 
 class FrameBufferTest {
     @Test
-    fun `test clearAll`() {
-        assertEquals(Pixel.WHITE, FrameBuffer().apply {
-            accessor["pixels"] = samplePixels()
-            clearAll()
-        }.pixels[0])
-    }
+    fun clearAll() = assertEquals(Pixel.WHITE, FrameBuffer().apply {
+        accessor["pixels"] = samplePixels()
+        clearAll()
+    }.pixels[0])
 
     @Test
-    fun `test clear`() {
-        assertEquals(Pixel.WHITE, FrameBuffer().apply {
-            accessor["pixels"] = samplePixels()
-            clear(0, 0)
-        }.pixels[0])
-    }
+    fun clear() = assertEquals(Pixel.WHITE, FrameBuffer().apply {
+        accessor["pixels"] = samplePixels()
+        clear(0, 0)
+    }.pixels[0])
 
     @Test
-    fun `test draw`() {
-        assertEquals(Pixel.BLACK, FrameBuffer().apply { draw(0, 0) }.pixels[0])
-    }
+    fun draw() = assertEquals(Pixel.BLACK, FrameBuffer().apply { draw(0, 0) }.pixels[0])
 
     @Test
-    fun `test pixels`() {
+    fun pixels() {
         val pixels = samplePixels()
         assertContentEquals(pixels, FrameBuffer().apply { accessor["pixels"] = pixels }.pixels)
     }

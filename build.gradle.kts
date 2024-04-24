@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.9.21"
+    kotlin("jvm") version "1.9.23"
 }
 repositories {
     mavenCentral()
@@ -13,14 +13,14 @@ subprojects {
         mavenCentral()
     }
     dependencies {
-        implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-slf4j", "1.7.3")
-        implementation("ch.qos.logback", "logback-classic", "1.4.11")
-        implementation("io.github.oshai", "kotlin-logging-jvm", "5.1.0")
+        implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-slf4j", "1.8.0")
+        implementation("ch.qos.logback", "logback-classic", "1.5.6")
+        implementation("io.github.oshai", "kotlin-logging-jvm", "6.0.9")
         implementation(kotlin("reflect"))
         testImplementation(kotlin("test"))
-        testImplementation("org.junit.jupiter", "junit-jupiter-params", "5.10.0")
-        testImplementation("org.mockito", "mockito-core", "5.3.1")
-        testImplementation("org.mockito.kotlin", "mockito-kotlin", "5.1.0")
+        testImplementation("org.junit.jupiter", "junit-jupiter-params", "5.10.2")
+        testImplementation("org.mockito", "mockito-core", "5.11.0")
+        testImplementation("org.mockito.kotlin", "mockito-kotlin", "5.3.1")
         testImplementation("org.mockito", "mockito-inline", "5.2.0")
     }
     tasks.test {

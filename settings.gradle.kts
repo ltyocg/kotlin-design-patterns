@@ -73,6 +73,7 @@ include(
     "game-loop",
     "guarded-suspension",
     "half-sync-half-async",
+    "health-check",
     "hexagonal",
     "identity-map",
     "intercepting-filter",
