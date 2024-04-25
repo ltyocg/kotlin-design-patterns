@@ -2,7 +2,7 @@ spring:
   main:
     web-application-type: none
   datasource:
-    url: jdbc:h2:~/databases/cake
+    url: jdbc:h2:mem:databases-cake
     driver-class-name: org.h2.Driver
     username: sa
     password: sa

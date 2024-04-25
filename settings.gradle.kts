@@ -138,6 +138,7 @@ include(
     "service-layer",
     "service-locator",
     "sharding",
+    "single-table-inheritance",
     "spatial-partition",
     "special-case",
     "specification",

@@ -1,5 +1,6 @@
 package repository
 
+import jakarta.persistence.EntityManagerFactory
 import org.apache.commons.dbcp2.BasicDataSource
 import org.h2.Driver
 import org.hibernate.dialect.H2Dialect
@@ -11,7 +12,6 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository
 import org.springframework.orm.jpa.JpaTransactionManager
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean
 import org.springframework.transaction.annotation.EnableTransactionManagement
-import javax.persistence.EntityManagerFactory
 import javax.sql.DataSource
 
 @Configuration
@@ -38,7 +38,7 @@ class AppConfig {
     @Bean(destroyMethod = "close")
     fun dataSource(): BasicDataSource = BasicDataSource().apply {
         driver = Driver()
-        url = "jdbc:h2:~/databases/person"
+        url = "jdbc:h2:mem:databases-person"
         username = "sa"
         password = "sa"
     }

@@ -31,5 +31,5 @@ object Utils {
         )
     }
 
-    fun createDataSource(): DataSource = JdbcDataSource().apply { setURL("jdbc:h2:~/test") }
+    fun createDataSource(): DataSource = JdbcDataSource().apply { setURL("jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1") }
 }

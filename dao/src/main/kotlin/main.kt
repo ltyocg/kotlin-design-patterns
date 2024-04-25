@@ -2,7 +2,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import org.h2.jdbcx.JdbcDataSource
 import javax.sql.DataSource
 
-const val DB_URL = "jdbc:h2:~/dao"
+const val DB_URL = "jdbc:h2:mem:dao;DB_CLOSE_DELAY=-1"
 private const val ALL_CUSTOMERS = "customerDao.all: "
 private val logger = KotlinLogging.logger {}
 fun main() {

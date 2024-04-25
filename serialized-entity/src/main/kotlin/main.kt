@@ -2,7 +2,7 @@ import org.h2.jdbcx.JdbcDataSource
 
 fun main() {
     val dataSource = JdbcDataSource().apply {
-        setURL("jdbc:h2:~/test")
+        setURL("jdbc:h2:mem:testdb")
         execute("DROP TABLE WORLD IF EXISTS")
         execute("CREATE TABLE IF NOT EXISTS WORLD (ID INT PRIMARY KEY, COUNTRY BLOB)")
     }

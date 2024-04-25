@@ -2,7 +2,7 @@ import org.h2.jdbcx.JdbcDataSource
 import javax.sql.DataSource
 
 fun main() {
-    val dataSource = JdbcDataSource().apply { setURL("jdbc:h2:~/test") }
+    val dataSource = JdbcDataSource().apply { setURL("jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1") }
     dataSource.createSchema()
     val user1 = User(1, "123456", "123456")
     val user2 = User(2, "test", "password")

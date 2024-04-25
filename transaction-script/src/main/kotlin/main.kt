@@ -24,7 +24,7 @@ fun main() {
     deleteSchema(dataSource)
 }
 
-fun createDataSource(): DataSource = JdbcDataSource().apply { setUrl("jdbc:h2:~/test") }
+fun createDataSource(): DataSource = JdbcDataSource().apply { setUrl("jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1") }
 fun deleteSchema(dataSource: DataSource) = dataSource.execute(RoomSchemaSql.DELETE_SCHEMA_SQL)
 fun createSchema(dataSource: DataSource) = dataSource.execute(RoomSchemaSql.CREATE_SCHEMA_SQL)
 private fun HotelDao.getRoomStatus() = all.forEach { logger.info { it } }

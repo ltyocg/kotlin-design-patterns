@@ -74,7 +74,7 @@ internal class UserTableModuleTest {
     }
 
     companion object {
-        private const val DB_URL = "jdbc:h2:~/test"
+        private const val DB_URL = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1"
         private fun createDataSource(): DataSource {
             val dataSource = JdbcDataSource()
             dataSource.setURL(DB_URL)
