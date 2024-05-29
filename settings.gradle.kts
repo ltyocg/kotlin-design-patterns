@@ -103,6 +103,7 @@ include(
     "monostate",
     "multiton",
     "mute-idiom",
+    "notification",
     "null-object",
     "object-mother",
     "object-pool",
