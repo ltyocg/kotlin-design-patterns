@@ -74,6 +74,7 @@ include(
     "flyweight",
     "front-controller",
     "game-loop",
+    "gateway",
     "guarded-suspension",
     "half-sync-half-async",
     "health-check",
