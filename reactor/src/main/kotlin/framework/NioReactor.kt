@@ -90,7 +90,7 @@ class NioReactor(private val dispatcher: Dispatcher) {
     fun changeOps(key: SelectionKey, interestedOps: Int) {
         class ChangeKeyOpsCommand(private val key: SelectionKey, private val interestedOps: Int) : () -> Unit {
             override fun invoke() {
-                key.interestOps(interestedOps)
+                this.key.interestOps(this.interestedOps)
             }
 
             override fun toString(): String = "Change of ops to: $interestedOps"

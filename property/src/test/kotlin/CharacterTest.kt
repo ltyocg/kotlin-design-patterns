@@ -4,7 +4,7 @@ class CharacterTest {
     @Test
     fun `prototype stats`() {
         val prototype = Character()
-        Stats.values().forEach {
+        Stats.entries.forEach {
             assertFalse(it in prototype)
             assertNull(prototype[it])
             val expectedValue = it.ordinal
@@ -20,9 +20,9 @@ class CharacterTest {
     @Test
     fun `character stats`() {
         val prototype = Character()
-        Stats.values().forEach { prototype[it] = it.ordinal }
+        Stats.entries.forEach { prototype[it] = it.ordinal }
         val mage = Character(Character.Type.MAGE, prototype)
-        Stats.values().forEach {
+        Stats.entries.forEach {
             assertTrue(it in mage)
             assertEquals(it.ordinal, mage[it])
         }
@@ -35,13 +35,31 @@ class CharacterTest {
             this[Stats.AGILITY] = 2
             this[Stats.INTELLECT] = 3
         }
-        assertEquals("Stats:\n - AGILITY:2\n - ARMOR:1\n - INTELLECT:3\n", prototype.toString())
         assertEquals(
-            "Character type: ROGUE\nStats:\n - AGILITY:2\n - ARMOR:1\n",
+            """
+            |Stats:
+            | - AGILITY:2
+            | - ARMOR:1
+            | - INTELLECT:3
+            |""".trimMargin(),
+            prototype.toString()
+        )
+        assertEquals(
+            """
+            |Character type: ROGUE
+            |Stats:
+            | - AGILITY:2
+            | - ARMOR:1
+            """.trimMargin(),
             Character(Character.Type.ROGUE, prototype).apply { remove(Stats.INTELLECT) }.toString()
         )
         assertEquals(
-            "Player: weak\nStats:\n - AGILITY:2\n - INTELLECT:3\n",
+            """
+            |Player: weak
+            |Stats:
+            | - AGILITY:2
+            | - INTELLECT:3
+            """.trimMargin(),
             Character("weak", prototype).apply { remove(Stats.ARMOR) }.toString()
         )
     }

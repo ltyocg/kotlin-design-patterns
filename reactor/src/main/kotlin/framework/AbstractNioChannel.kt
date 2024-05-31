@@ -27,8 +27,7 @@ abstract class AbstractNioChannel(val handler: ChannelHandler, channel: Selectab
     protected abstract fun doWrite(pendingWrite: Any, key: SelectionKey)
     open fun write(data: Any, key: SelectionKey) {
         (channelToPendingWrites[key.channel()]
-            ?: synchronized(channelToPendingWrites) { channelToPendingWrites[key.channel()] }
-            ?: ConcurrentLinkedQueue<Any>().also { channelToPendingWrites[key.channel()] = it })
+            ?: synchronized(channelToPendingWrites) { channelToPendingWrites.getOrPut(key.channel()) { ConcurrentLinkedQueue() } })
             .add(data)
         reactor.changeOps(key, SelectionKey.OP_WRITE)
     }
