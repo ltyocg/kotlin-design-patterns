@@ -3,4 +3,5 @@ plugins {
 }
 dependencies {
     implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.7.2")
+    implementation("org.springframework", "spring-web", "6.1.8")
 }

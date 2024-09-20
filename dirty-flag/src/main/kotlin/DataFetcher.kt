@@ -3,7 +3,6 @@ import java.io.File
 import java.net.URLDecoder
 import java.nio.charset.Charset
 
-
 class DataFetcher {
     private val logger = KotlinLogging.logger {}
     private val filename = "world.txt"

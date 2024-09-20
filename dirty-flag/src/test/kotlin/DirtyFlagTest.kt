@@ -4,12 +4,8 @@ import kotlin.test.assertTrue
 
 class DirtyFlagTest {
     @Test
-    fun `test is dirty`() {
-        assertFalse(DataFetcher().fetch().isEmpty())
-    }
+    fun `test is dirty`() = assertFalse(DataFetcher().fetch().isEmpty())
 
     @Test
-    fun `test is not dirty`() {
-        assertTrue(DataFetcher().also { it.fetch() }.fetch().isEmpty())
-    }
+    fun `test is not dirty`() = assertTrue(DataFetcher().also { it.fetch() }.fetch().isEmpty())
 }

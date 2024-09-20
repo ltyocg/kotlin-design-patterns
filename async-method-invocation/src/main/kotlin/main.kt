@@ -1,33 +1,40 @@
 import io.github.oshai.kotlinlogging.KotlinLogging
-import kotlinx.coroutines.*
 
 private val logger = KotlinLogging.logger {}
-suspend fun main() = runBlocking {
-    val deferred1 = lazyVal(10, 500)
-    val deferred2 = lazyVal("test", 300)
-    val deferred3 = lazyVal(50L, 700)
-    val deferred4 = lazyVal(20, 400, "Deploying lunar rover")
-    val deferred5 = lazyVal("callback", 600, "Deploying lunar rover")
-    delay(350)
+fun main() {
+    val executor = ThreadAsyncExecutor
+    val asyncResult1 = executor.startProcess(lazyval(10, 500))
+    val asyncResult2 = executor.startProcess(lazyval("test", 300))
+    val asyncResult3 = executor.startProcess(lazyval(50L, 700))
+    val asyncResult4 = executor.startProcess(
+        lazyval(20, 400),
+        callback("Deploying lunar rover")
+    )
+    val asyncResult5 = executor.startProcess(
+        lazyval("callback", 600),
+        callback("Deploying lunar rover")
+    )
+    Thread.sleep(350)
     logger.info { "Mission command is sipping coffee" }
-    val result1 = deferred1.await()
-    val result2 = deferred2.await()
-    val result3 = deferred3.await()
-    deferred4.await()
-    deferred5.await()
+    val result1 = executor.endProcess(asyncResult1)
+    val result2 = executor.endProcess(asyncResult2)
+    val result3 = executor.endProcess(asyncResult3)
+    asyncResult4.await()
+    asyncResult5.await()
     infoLog(result1)
     infoLog(result2)
     infoLog(result3)
 }
 
-private fun <T> CoroutineScope.lazyVal(value: T, delayMillis: Long, callback: String? = null): Deferred<T> = async {
-    delay(delayMillis)
+private fun <T> lazyval(value: T, delayMillis: Long): () -> T = {
+    Thread.sleep(delayMillis)
     infoLog(value)
     value
-}.apply {
-    if (callback != null) invokeOnCompletion {
-        logger.info { "$callback " + if (it == null) "<$value>" else "failed: ${it.localizedMessage}" }
-    }
+}
+
+private fun <T> callback(name: String): AsyncCallback<T> = object : AsyncCallback<T> {
+    override fun onComplete(value: T?) = logger.info { "$name <$value>" }
+    override fun onError(ex: Exception) = logger.info { "$name failed: ${ex.message}" }
 }
 
 private fun infoLog(obj: Any?) = logger.info { "Space rocket <$obj> launched successfully" }

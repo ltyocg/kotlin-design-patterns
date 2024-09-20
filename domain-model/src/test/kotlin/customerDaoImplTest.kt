@@ -27,9 +27,7 @@ class CustomerDaoImplTest {
     }
 
     @AfterTest
-    fun tearDown() {
-        Utils.deleteSchema(dataSource)
-    }
+    fun tearDown() = Utils.deleteSchema(dataSource)
 
     @Test
     fun `should find customer by name`() {
@@ -76,7 +74,6 @@ class CustomerDaoImplTest {
         }
     }
 
-    private fun resultSet(sql: String, block: ResultSet.() -> Unit) {
+    private fun resultSet(sql: String, block: ResultSet.() -> Unit) =
         dataSource.connection.use { it.createStatement().use { statement -> block(statement.executeQuery(sql)) } }
-    }
 }

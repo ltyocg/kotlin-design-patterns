@@ -55,6 +55,7 @@ include(
     "double-buffer",
     "double-checked-locking",
     "double-dispatch",
+    "dynamic-proxy",
     "embedded-value",
     "event-aggregator",
     "event-based-asynchronous",
