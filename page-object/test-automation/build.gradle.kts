@@ -1,3 +1,3 @@
 dependencies {
-    implementation("net.sourceforge.htmlunit", "htmlunit", "2.70.0")
+    implementation("org.htmlunit", "htmlunit", "4.4.0")
 }

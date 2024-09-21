@@ -3,7 +3,7 @@ class CircuitBreaker(
     private val failureThreshold: Int,
     private val retryTimePeriod: Long
 ) {
-    private val futureTime = 1000L * 1000 * 1000 * 1000
+    private val futureTime = 1_000_000_000_000L
     var lastFailureTime: Long = System.nanoTime() + futureTime
     private var lastFailureResponse: String? = null
     var failureCount = 0

@@ -1,4 +1,6 @@
 import io.github.oshai.kotlinlogging.KotlinLogging
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -30,20 +32,20 @@ class MainTest {
     }
 
     @Test
-    fun `failure HALF_OPEN state transition`() {
+    fun `failure HALF_OPEN state transition`() = runBlocking {
         assertEquals("Delayed service is down", monitoringService.delayedServiceResponse())
         assertEquals("OPEN", delayedServiceCircuitBreaker.state.name)
         logger.info { "Waiting 2s for delayed service to become responsive" }
-        Thread.sleep(2000)
+        delay(2000)
         assertEquals("HALF_OPEN", delayedServiceCircuitBreaker.state.name)
     }
 
     @Test
-    fun `recovery CLOSED state transition`() {
+    fun `recovery CLOSED state transition`() = runBlocking {
         assertEquals("Delayed service is down", monitoringService.delayedServiceResponse())
         assertEquals("OPEN", delayedServiceCircuitBreaker.state.name)
         logger.info { "Waiting 4s for delayed service to become responsive" }
-        Thread.sleep(4000)
+        delay(4000)
         assertEquals("HALF_OPEN", delayedServiceCircuitBreaker.state.name)
         assertEquals("Delayed service is working", monitoringService.delayedServiceResponse())
         assertEquals("CLOSED", delayedServiceCircuitBreaker.state.name)

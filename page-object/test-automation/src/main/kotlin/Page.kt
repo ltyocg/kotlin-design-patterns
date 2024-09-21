@@ -1,4 +1,4 @@
-import com.gargoylesoftware.htmlunit.WebClient
+import org.htmlunit.WebClient
 
 abstract class Page(protected val webClient: WebClient) {
     abstract val isAt: Boolean

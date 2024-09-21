@@ -7,6 +7,6 @@ plugins {
 dependencies {
     implementation(project(":commons"))
     implementation("org.springframework.boot", "spring-boot-starter-data-jpa")
-    implementation("com.h2database", "h2", "2.2.224")
+    implementation("com.h2database", "h2", "2.3.232")
     testImplementation("org.springframework.boot", "spring-boot-starter-test")
 }

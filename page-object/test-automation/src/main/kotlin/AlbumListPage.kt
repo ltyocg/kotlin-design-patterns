@@ -1,7 +1,7 @@
-import com.gargoylesoftware.htmlunit.WebClient
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor
-import com.gargoylesoftware.htmlunit.html.HtmlPage
 import io.github.oshai.kotlinlogging.KotlinLogging
+import org.htmlunit.WebClient
+import org.htmlunit.html.HtmlAnchor
+import org.htmlunit.html.HtmlPage
 import java.io.IOException
 
 class AlbumListPage(webClient: WebClient) : Page(webClient) {
@@ -24,7 +24,7 @@ class AlbumListPage(webClient: WebClient) : Page(webClient) {
             .filter { it.textContent == albumTitle }
             .forEach {
                 try {
-                    it.click<com.gargoylesoftware.htmlunit.Page>()
+                    it.click<org.htmlunit.Page>()
                     return AlbumPage(webClient)
                 } catch (e: IOException) {
                     logger.error(e) { "An error occured on selectAlbum" }

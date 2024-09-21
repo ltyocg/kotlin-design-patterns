@@ -138,6 +138,7 @@ include(
     "saga",
     "separated-interface",
     "serialized-entity",
+    "serialized-lob",
     "servant",
     "service-layer",
     "service-locator",

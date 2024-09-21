@@ -1,10 +1,10 @@
 package repository
 
+import jakarta.persistence.criteria.CriteriaBuilder
+import jakarta.persistence.criteria.CriteriaQuery
+import jakarta.persistence.criteria.Predicate
+import jakarta.persistence.criteria.Root
 import org.springframework.data.jpa.domain.Specification
-import javax.persistence.criteria.CriteriaBuilder
-import javax.persistence.criteria.CriteriaQuery
-import javax.persistence.criteria.Predicate
-import javax.persistence.criteria.Root
 
 class PersonSpecifications {
     class AgeBetweenSpec(private val from: Int, private val to: Int) : Specification<Person?> {

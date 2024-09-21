@@ -1,6 +1,6 @@
-import com.gargoylesoftware.htmlunit.WebClient
-import com.gargoylesoftware.htmlunit.html.*
 import io.github.oshai.kotlinlogging.KotlinLogging
+import org.htmlunit.WebClient
+import org.htmlunit.html.*
 import java.io.IOException
 
 class AlbumPage(webClient: WebClient) : Page(webClient) {
@@ -27,7 +27,7 @@ class AlbumPage(webClient: WebClient) : Page(webClient) {
 
     fun changeAlbumYear(year: Int): AlbumPage = apply {
         val albumYearSelectOption = page.getElementById("albumYear") as HtmlSelect
-        albumYearSelectOption.setSelectedAttribute<com.gargoylesoftware.htmlunit.Page>(albumYearSelectOption.getOptionByValue(year.toString()), true)
+        albumYearSelectOption.setSelectedAttribute<org.htmlunit.Page>(albumYearSelectOption.getOptionByValue(year.toString()), true)
     }
 
     fun changeAlbumRating(albumRating: String?): AlbumPage = apply {
@@ -41,7 +41,7 @@ class AlbumPage(webClient: WebClient) : Page(webClient) {
 
     fun cancelChanges(): AlbumListPage {
         try {
-            (page.getElementById("cancelButton") as HtmlSubmitInput).click<com.gargoylesoftware.htmlunit.Page>()
+            (page.getElementById("cancelButton") as HtmlSubmitInput).click<org.htmlunit.Page>()
         } catch (e: IOException) {
             logger.error(e) { "An error occured on cancelChanges." }
         }
@@ -50,7 +50,7 @@ class AlbumPage(webClient: WebClient) : Page(webClient) {
 
     fun saveChanges(): AlbumPage = apply {
         try {
-            (page.getElementById("saveButton") as HtmlSubmitInput).click<com.gargoylesoftware.htmlunit.Page>()
+            (page.getElementById("saveButton") as HtmlSubmitInput).click<org.htmlunit.Page>()
         } catch (e: IOException) {
             logger.error(e) { "An error occured on saveChanges." }
         }

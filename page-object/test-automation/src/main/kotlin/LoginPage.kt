@@ -1,8 +1,8 @@
-import com.gargoylesoftware.htmlunit.WebClient
-import com.gargoylesoftware.htmlunit.html.HtmlPage
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput
 import io.github.oshai.kotlinlogging.KotlinLogging
+import org.htmlunit.WebClient
+import org.htmlunit.html.HtmlPage
+import org.htmlunit.html.HtmlPasswordInput
+import org.htmlunit.html.HtmlTextInput
 import java.io.IOException
 
 class LoginPage(webClient: WebClient) : Page(webClient) {
@@ -29,7 +29,7 @@ class LoginPage(webClient: WebClient) : Page(webClient) {
 
     fun login(): AlbumListPage {
         try {
-            page.getElementById("loginButton").click<com.gargoylesoftware.htmlunit.Page>()
+            page.getElementById("loginButton").click<org.htmlunit.Page>()
         } catch (e: IOException) {
             logger.error(e) { "An error occured on login." }
         }
